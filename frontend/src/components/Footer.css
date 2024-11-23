@@ -1,0 +1,34 @@
+footer {
+    background-color: #aeaeae;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 100px;
+    
+}
+
+.social-media {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.social-media a {
+    display: inline-block;
+}
+
+.social-media img {
+    width: 30px; /* Adjust icon size as needed */
+    height: 30px;
+    filter: invert(100%); /* Make icons white (use if icons are black) */
+    transition: transform 0.3s ease;
+}
+
+.social-media img:hover {
+    transform: scale(1.2); /* Slight zoom effect on hover */
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
