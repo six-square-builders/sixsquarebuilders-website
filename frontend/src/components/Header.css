@@ -1,4 +1,4 @@
-/* Header styles */
+/* Header default styles */
 .header {
     display: flex;
     justify-content: space-between;
@@ -8,22 +8,24 @@
     color: white;
     width: 100%;
     box-sizing: border-box;
-    position: fixed; /* Make header fixed */
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    transition: transform 0.3s ease-in-out, top 0.3s ease-in-out; /* Smooth transition */
     z-index: 10;
-    /* Initially fixed, will transition later */
+    transition: transform 0.3s ease-in-out; /* Smooth show/hide transition */
 }
-  
+
+/* When scrolling down (hide the header) */
 .header.hide {
-    transform: translateY(-100%); /* Hide header when scrolling down */
+    transform: translateY(-100%);
 }
-  
+
+/* When scrolling up (show the header) */
 .header.show {
-    transform: translateY(0); /* Show header when scrolling up */
+    transform: translateY(0);
 }
+
   
 .logo-container {
     display: flex;
