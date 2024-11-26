@@ -1,34 +1,43 @@
-footer {
-    background-color: #aeaeae;
-    color: rgb(0, 0, 0);
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+.footer {
+    background-color: #000;
+    color: white;
     text-align: center;
-    padding: 100px;
-    
+    padding: 20px; /* Adjusted padding */
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .social-media {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .social-media a {
-    display: inline-block;
+    color: white;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.social-media img {
-    width: 30px; /* Adjust icon size as needed */
-    height: 30px;
-    filter: invert(100%); /* Make icons white (use if icons are black) */
-    transition: transform 0.3s ease;
-}
-
-.social-media img:hover {
-    transform: scale(1.2); /* Slight zoom effect on hover */
+.social-media a:hover {
+    transform: scale(1.1);
+    color: #0088a9;
 }
 
 footer p {
     margin: 0;
     font-size: 0.9rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 15px;
+    }
+
+    .social-media {
+        gap: 10px;
+    }
 }

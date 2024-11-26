@@ -1,62 +1,81 @@
-/* Base styles for the header */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+/* Header styles */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 10%;
-    background-color: #000000;
+    padding: 20px 5%;
+    background-color: #000;
     color: white;
-    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed; /* Make header fixed */
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: transform 0.3s ease-in-out, top 0.3s ease-in-out; /* Smooth transition */
+    z-index: 10;
+    /* Initially fixed, will transition later */
 }
-
-li, a {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    color: #edf0f1;
-    text-decoration: none;
-
+  
+.header.hide {
+    transform: translateY(-100%); /* Hide header when scrolling down */
 }
-
-
-/* Logo container with text and logo alignment */
+  
+.header.show {
+    transform: translateY(0); /* Show header when scrolling up */
+}
+  
 .logo-container {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-
+  
 .logo {
-    cursor: pointer;
-    width: 75px;
+    width: 60px;
     height: auto;
+    cursor: pointer;
 }
-
-.nav__links {
-    list-style: none;
-}
-
-.nav__links li {
-    display: inline-block;
-    padding: 0px 20px;
-
-}
-
-.nav__links li a {
-    transition: all 0.3s ease 0s;
-}
-
-.nav__links li a:hover {
-    color: #0088a9;
-}
-
+  
 .company-name {
     display: flex;
     flex-direction: column;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: larger;
-    line-height: 1;
+    font-family: 'Times New Roman', serif;
+    font-size: 1.2rem;
     color: white;
+    line-height: 1.2;
 }
-
+  
+.nav__links {
+    list-style: none;
+    display: flex;
+    gap: 30px; /* Adjusted gap between links */
+    margin: 0;
+    padding: 0;
+}
+  
+.nav__links li a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+  
+.nav__links li a:hover {
+    color: #0088a9;
+}
+  
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+  
+    .nav__links {
+        flex-direction: column;
+        gap: 15px; /* Adjust gap for smaller screens */
+    }
+}

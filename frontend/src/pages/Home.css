@@ -1,0 +1,79 @@
+.home {
+  position: relative;
+  width: 100%;
+}
+
+.hero-section {
+  display: flex; /* Flexbox for side-by-side layout */
+  width: 100%;
+  height: 80vh; /* Full screen height (adjusted to 80% of the viewport) */
+  background-color: #e9e9e9;
+}
+
+.image-container {
+  flex: 1; /* Take up half the width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container img {
+  width: 100%; /* Make sure the image fills the container */
+  height: auto;
+  object-fit: cover; /* Maintain aspect ratio */
+}
+
+.overlay {
+  flex: 1; /* Take up the other half of the width */
+  position: relative;
+  background: rgba(0, 0, 0, 0); /* Dark overlay */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  height: 60%; /* Adjusted to 70% of the parent (hero-section) height */
+}
+
+.overlay h2 {
+  font-size: 3rem;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.about-section, .services-section {
+  padding: 20px;
+  background-color: #fff;
+  color: #333;
+}
+
+.about-section {
+  background-color: #f7f7f7;
+}
+
+#about, #services {
+  padding-top: 100px; /* Ensures space for sticky navigation */
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column; /* Stack the image and overlay on smaller screens */
+  }
+
+  .overlay {
+    height: 60%; /* Adjust overlay height for smaller screens */
+  }
+
+  .overlay h2 {
+    font-size: 2rem;
+  }
+
+  /* Adjust text sizes for smaller screens */
+  .about-section h2, .services-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .about-section p, .services-section p {
+    font-size: 1rem;
+  }
+}

@@ -1,99 +1,111 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-/* Base styles for the header */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px 10%;
-    background-color: #000000;
-    color: white;
-    position: relative;
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* Styling for the logo container */
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+#home, #about, #services, #contact {
+  padding: 50px 20px;
+  text-align: center;
 }
 
-.logo {
-    cursor: pointer;
-    width: 75px;
-    height: auto;
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Styling for the company name */
-.company-name {
-    display: flex;
-    flex-direction: column;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: larger;
-    line-height: 1.2;
-    color: white;
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Transparent black overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Navigation styles */
+.overlay h2 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.about-section, .services-section, .contact-section {
+  background-color: #f7f7f7;
+  color: #333;
+}
+
 .nav__links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    margin: 0;
-    padding: 0;
-}
-
-.nav__links li {
-    display: inline-block;
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
 }
 
 .nav__links li a {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    color: #edf0f1;
-    text-decoration: none;
-    transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: color 0.3s ease;
 }
 
 .nav__links li a:hover {
-    color: #0088a9; /* Highlight color on hover */
+  color: #0088a9;
 }
 
-/* Carousel Styles */
-.carousel {
-    position: relative;
-    width: 100%;
-    height: 500px;
-    overflow: hidden;
+.footer {
+  background-color: #aeaeae;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 100px;
 }
 
-.carousel-list {
-    display: flex;
-    transition: transform 1s ease;
+.social-media {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
-.slide {
-    min-width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
+.social-media a {
+  display: inline-block;
+}
+
+.social-media img {
+  width: 30px;
+  height: 30px;
+  filter: invert(100%);
+  transition: transform 0.3s ease;
+}
+
+.social-media img:hover {
+  transform: scale(1.2);
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .nav__links {
+    flex-direction: column;
     align-items: center;
-    overflow: hidden;
-}
-
-.slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.carousel-gradient {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
-    pointer-events: none;
+  }
+  .hero-section {
+    height: 60vh;
+  }
+  .overlay h2 {
+    font-size: 2rem;
+  }
 }
