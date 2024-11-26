@@ -1,0 +1,79 @@
+/* General styles for the current projects page */
+.projects {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Title styles */
+.projects h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Description paragraph */
+.projects p {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+/* Container for the project items */
+.project-list {
+    display: grid;
+    grid-template-columns: 1fr; /* Stack in 1 column by default */
+    gap: 30px; /* Space between rows */
+    margin-bottom: 40px;
+}
+
+/* Styles for individual project items */
+.project-item {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Project item hover effect */
+.project-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Project item title */
+.project-item h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Project item description */
+.project-item p {
+    font-size: 1rem;
+    color: #777;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* Stack projects vertically on smaller screens */
+    .project-list {
+        grid-template-columns: 1fr 1fr; /* 2 columns on larger screens */
+        gap: 20px; /* Adjust space between rows for mobile */
+    }
+
+    /* Adjust title size for smaller screens */
+    .projects h1 {
+        font-size: 2rem;
+    }
+
+    /* Adjust paragraph size */
+    .projects p {
+        font-size: 1rem;
+    }
+}

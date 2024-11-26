@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import './Header.css';
 import logo from '../assets/logo.png';
 
@@ -32,11 +33,18 @@ const Header = () => {
             </div>
             <nav>
                 <ul className="nav__links">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="/projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/aboutus">About Us</Link></li>
+                    <li><Link to="#services">Services</Link></li>
+                    <li className="projects-dropdown">
+                        <span>Projects</span>
+                        <ul className="dropdown-menu">
+                            <li><Link to="/UpcomingProjects">Upcoming Projects</Link></li>
+                            <li><Link to="/CurrentProjects">Current Projects</Link></li>
+                            <li><Link to="/PastProjects">Past Projects</Link></li>
+                        </ul>
+                    </li>
+                    <li><Link to="#contact">Contact</Link></li>
                 </ul>
             </nav>
         </header>

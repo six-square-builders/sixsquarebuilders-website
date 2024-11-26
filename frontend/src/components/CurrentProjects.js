@@ -1,7 +1,7 @@
 import React from "react";
-import './Projects.css';
+import "./CurrentProjects.css";
 
-const Projects = () => {
+const CurrentProjects = () => {
     return (
         <div className="projects">
             <h1>Our Projects</h1>
@@ -12,7 +12,7 @@ const Projects = () => {
                     <h2>Project 1</h2>
                     <p>Description of Project 1</p>
                 </div>
-                <div className="project-list">
+                <div className="project-item">
                     <h2>Project 2</h2>
                     <p>Description of Project 2</p>
                 </div>
@@ -21,4 +21,4 @@ const Projects = () => {
     );
 };
 
-export default Projects;
+export default CurrentProjects;

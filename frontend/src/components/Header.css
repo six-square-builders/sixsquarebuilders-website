@@ -26,19 +26,18 @@
     transform: translateY(0);
 }
 
-  
 .logo-container {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-  
+
 .logo {
     width: 60px;
     height: auto;
     cursor: pointer;
 }
-  
+
 .company-name {
     display: flex;
     flex-direction: column;
@@ -47,7 +46,7 @@
     color: white;
     line-height: 1.2;
 }
-  
+
 .nav__links {
     list-style: none;
     display: flex;
@@ -55,7 +54,7 @@
     margin: 0;
     padding: 0;
 }
-  
+
 .nav__links li a {
     text-decoration: none;
     color: white;
@@ -64,18 +63,53 @@
     font-size: 1rem;
     transition: color 0.3s ease;
 }
-  
+
 .nav__links li a:hover {
     color: #0088a9;
 }
-  
+
+/* Projects Dropdown Styling */
+.projects-dropdown {
+    position: relative;
+}
+
+.projects-dropdown .dropdown-menu {
+    display: none; /* Hide the dropdown initially */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    list-style-type: none;
+    padding: 10px 0;
+    margin: 0;
+    width: 200px;
+    border-radius: 5px;
+}
+
+.projects-dropdown:hover .dropdown-menu {
+    display: block; /* Show the dropdown when hovering over the "Projects" menu */
+}
+
+.dropdown-menu li {
+    padding: 10px 20px;
+}
+
+.dropdown-menu li a {
+    color: white;
+    font-size: 1rem;
+}
+
+.dropdown-menu li a:hover {
+    color: #0088a9;
+}
+
 @media (max-width: 768px) {
     .header {
         flex-direction: column;
         align-items: flex-start;
         padding: 10px;
     }
-  
+
     .nav__links {
         flex-direction: column;
         gap: 15px; /* Adjust gap for smaller screens */

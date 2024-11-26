@@ -1,0 +1,100 @@
+/* About Us Page Styling */
+
+.about-us-container {
+    padding: 100px 10%;
+    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.about-us-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.about-us-header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #0088a9;
+    margin-bottom: 10px;
+}
+
+.about-us-content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.about-us-introduction,
+.about-us-projects,
+.about-us-mission,
+.about-us-vision {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-us-title, 
+.about-us-project-title,
+.about-us-mission-title,
+.about-us-vision-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #0088a9;
+    margin-bottom: 15px;
+}
+
+.about-us-description,
+.about-us-project-description,
+.about-us-mission-description,
+.about-us-vision-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.about-us-description {
+    text-align: justify;
+}
+
+.about-us-project-description,
+.about-us-mission-description,
+.about-us-vision-description {
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    .about-us-container {
+        padding: 20px;
+    }
+
+    .about-us-header h1 {
+        font-size: 2rem;
+    }
+
+    .about-us-content {
+        gap: 20px;
+    }
+
+    .about-us-introduction,
+    .about-us-projects,
+    .about-us-mission,
+    .about-us-vision {
+        padding: 20px;
+    }
+
+    .about-us-title, 
+    .about-us-project-title,
+    .about-us-mission-title,
+    .about-us-vision-title {
+        font-size: 1.6rem;
+    }
+
+    .about-us-description,
+    .about-us-project-description,
+    .about-us-mission-description,
+    .about-us-vision-description {
+        font-size: 1rem;
+    }
+}
