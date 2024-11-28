@@ -27,15 +27,14 @@ const Header = () => {
             <div className="logo-container">
                 <img src={logo} alt="Logo" className="logo" />
                 <div className="company-name">
-                    <span>Six Square</span>
-                    <span>Builders</span>
+                    <span>Six Square Builders</span>
+                    
                 </div>
             </div>
             <nav>
                 <ul className="nav__links">
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/aboutus">About Us</Link></li>
-                    <li><Link to="#services">Services</Link></li>
                     <li className="projects-dropdown">
                         <span>Projects</span>
                         <ul className="dropdown-menu">

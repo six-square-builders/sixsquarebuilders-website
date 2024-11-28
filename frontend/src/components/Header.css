@@ -1,4 +1,4 @@
-/* Header default styles */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Castoro+Titling&display=swap');/* Header default styles */
 .header {
     display: flex;
     justify-content: space-between;
@@ -33,7 +33,7 @@
 }
 
 .logo {
-    width: 60px;
+    width: 80px;
     height: auto;
     cursor: pointer;
 }
@@ -41,10 +41,11 @@
 .company-name {
     display: flex;
     flex-direction: column;
-    font-family: 'Times New Roman', serif;
-    font-size: 1.2rem;
+    font-family:  "Castoro Titling", serif;
+    font-size: 2rem;
     color: white;
     line-height: 1.2;
+    padding-left: 10px;
 }
 
 .nav__links {
