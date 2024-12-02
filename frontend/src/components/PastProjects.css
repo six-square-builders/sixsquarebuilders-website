@@ -1,6 +1,6 @@
 /* General styles for the projects page */
 .past-project {
-    padding: 100px 20px;
+    padding: 150px 20px;
     margin: 0 auto;
     max-width: 1200px;
     font-family: 'Arial', sans-serif;
@@ -58,7 +58,7 @@
     background-color: #fff;
     text-align: center;
     font-size: 1rem;
-    color: #2c3e50;
+    color: #000000;
 }
 
 /* Modal styles for full image view */

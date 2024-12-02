@@ -8,8 +8,9 @@ const ContactUs = () => {
             <p>Feel free to reach out to us using the details below:</p>
 
             <div className="contact-info">
-                <p><strong>Head Office</strong></p>
-                <p>No. 33, S2, Bazaar Road , Ram Nagar North,</p>
+                <p><strong>Contact No.:</strong> 8015407730</p>
+                <p><strong>Whatsapp No.:</strong> 9884889308</p>
+                <p><strong>Address :</strong> No. 33, S2, Bazaar Road , Ram Nagar North,</p>
                 <p>Madipakkam chennai - 600 091, Tamil Nadu, India</p>
                 <p><strong>Website:</strong> <a href="http://www.sixsquarebuilders.co.in" target="_blank" rel="noopener noreferrer">www.sixsquarebuilders.co.in</a></p>
                 <p><strong>E-Mail:</strong> <a href="mailto:ssbuilders2012@yahoo.com">ssbuilders2012@yahoo.com</a></p>

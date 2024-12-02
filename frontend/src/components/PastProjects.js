@@ -3,6 +3,9 @@ import "./PastProjects.css";
 import project1 from "../assets/banner1.1.jpg";
 import project2 from "../assets/banner1.2.jpg";
 import project3 from "../assets/banner1.3.jpg";
+import project4 from "../assets/banner1.4.jpg";
+import project5 from "../assets/banner1.5.jpg";
+import project6 from "../assets/banner1.6.jpg";
 
 const PastProjects = () => {
     const [selectedProject, setSelectedProject] = useState(null);
@@ -11,6 +14,7 @@ const PastProjects = () => {
         {
             title: "Sadashiv Nagar",
             image: project1,
+            description: ""
         },
         {
             title: "Balaiah Garden Madipakkam",
@@ -19,6 +23,18 @@ const PastProjects = () => {
         {
             title: "Medavakkam",
             image: project3,
+        },
+        {
+            title: "Pallikarnai",
+            image: project4,
+        },
+        {
+            title: "Tambaram",
+            image:project5,
+        },
+        {
+            title: "Pammal",
+            image: project6,
         },
     ];
 
@@ -48,7 +64,7 @@ const PastProjects = () => {
                             className="past-project-image"
                         />
                         <div className="past-project-content">
-                            <h2>{project.title}</h2>
+                            <h2>{project.description}</h2>
                         </div>
                         {/* Location Name Below the Image */}
                         <div className="past-project-location">

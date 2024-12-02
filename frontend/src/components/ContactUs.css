@@ -1,5 +1,5 @@
 .contact-us {
-    padding: 125px 20px;
+    padding: 150px 20px;
     margin: 0 auto;
     max-width: 1200px;
     font-family: 'Arial', sans-serif;
@@ -32,7 +32,7 @@
     width: 100%;
     max-width: 800px; /* Keep content from stretching too wide */
     margin: 0; /* Remove any centering */
-    line-height: 1.8; /* Make the text more readable */
+    line-height: 0.8; /* Make the text more readable */
 }
 
 .contact-info h2 {

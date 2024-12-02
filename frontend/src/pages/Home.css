@@ -1,4 +1,14 @@
-/* Home.css - Home Page Specific Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Ensures padding and border do not affect element's width and height */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .home {
   padding-top: 100px;
   position: relative;
@@ -16,34 +26,33 @@
 }
 
 .image-container {
-  flex: 0 0 46%; /* Image takes up 40% of the width */
+  flex: 0 0 100%; /* Image takes up 100% of the width */
   display: flex;
   justify-content: center; /* Center the image horizontally */
   align-items: center;
 }
 
 .image-container img {
-  width: 80%; /* Make the image smaller, 80% of the container's width */
-  height: auto; /* Ensure aspect ratio is maintained */
-  object-fit: contain; /* Prevent cropping, fit the whole image */
+  width: 100%; /* Make the image cover the container */
+  height: 100%; /* Full height */
+  object-fit: cover; /* Ensure the image covers the area without distortion */
 }
 
 .overlay {
-  flex: 1; /* Takes up the remaining 60% of the width */
-  display: flex;
-  justify-content: flex-start; /* Align content to the left */
-  align-items: center; /* Center text vertically */
-  padding-left: 30px; /* Add space between text and the left edge */
-  height: 100%; /* Full height */
+  position: absolute;
+  bottom: 20px; /* Place it below the image */
+  left: 0;
+  width: 100%; /* Full width */
+  text-align: center; /* Center the text */
   background: rgba(0, 0, 0, 0.5); /* Transparent black overlay */
-  box-sizing: border-box; /* Ensure padding is included in width */
+  padding: 20px 0; /* Space for the text */
 }
 
 .overlay h2 {
   font-size: 3rem;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  text-align: left;
+  color: rgb(255, 255, 255);
 }
 
 /* About and Services Section */
@@ -70,6 +79,7 @@
 
   .image-container img {
     width: 100%; /* Ensure image fills the container */
+    height: auto; /* Let the image scale proportionally */
   }
 
   .overlay h2 {
