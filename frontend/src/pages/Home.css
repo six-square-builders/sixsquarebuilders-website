@@ -1,45 +1,49 @@
+/* Home.css - Home Page Specific Styles */
 .home {
+  padding-top: 100px;
   position: relative;
   width: 100%;
-  padding-top: 100px;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 .hero-section {
-  display: flex; /* Side-by-side layout */
+  position: relative;
+  display: flex; /* Flexbox layout for left-right structure */
   width: 100%;
-  height: 80vh; /* Full screen height (adjusted to 80% of the viewport) */
+  height: 100vh; /* Full viewport height */
   background-color: #e9e9e9;
+  color: white;
 }
 
 .image-container {
-  flex: 1; /* The image takes up half of the width */
+  flex: 0 0 46%; /* Image takes up 40% of the width */
   display: flex;
-  justify-content: flex-start; /* Align image to the left */
+  justify-content: center; /* Center the image horizontally */
   align-items: center;
 }
 
 .image-container img {
-  width: 40%; /* Keep the same width */
-  height: auto;
-  object-fit: cover; /* Maintain aspect ratio */
+  width: 80%; /* Make the image smaller, 80% of the container's width */
+  height: auto; /* Ensure aspect ratio is maintained */
+  object-fit: contain; /* Prevent cropping, fit the whole image */
 }
 
 .overlay {
-  flex: 1; /* Takes up the remaining half width */
+  flex: 1; /* Takes up the remaining 60% of the width */
   display: flex;
-  align-items: center;
-  justify-content: flex-end; /* Move content to the right */
-  text-align: right;
-  padding-right: 30px; /* Add space between the text and the edge */
+  justify-content: flex-start; /* Align content to the left */
+  align-items: center; /* Center text vertically */
+  padding-left: 30px; /* Add space between text and the left edge */
   height: 100%; /* Full height */
-  background: rgba(0, 0, 0, 0); /* Transparent background */
+  background: rgba(0, 0, 0, 0.5); /* Transparent black overlay */
+  box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 .overlay h2 {
   font-size: 3rem;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  text-align: right; /* Align text inside the overlay */
+  text-align: left;
 }
 
 /* About and Services Section */
@@ -61,14 +65,15 @@
 @media (max-width: 768px) {
   .hero-section {
     flex-direction: column; /* Stack image and text vertically on smaller screens */
+    height: 60vh; /* Adjust height for smaller screens */
   }
 
   .image-container img {
-    width: 100%; /* Make sure image remains visible */
+    width: 100%; /* Ensure image fills the container */
   }
 
   .overlay h2 {
-    font-size: 2rem;
+    font-size: 2rem; /* Smaller font size for overlay text */
   }
 
   .about-section h2, .services-section h2 {
