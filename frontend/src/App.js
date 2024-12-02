@@ -9,6 +9,7 @@ import PastProjects from "./components/PastProjects";
 import AboutUs from "./components/AboutUs";
 import Home from "./pages/Home";
 import "./App.css"; // Global styles
+import ContactUs from "./components/ContactUs";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/UpcomingProjects" element={<UpcomingProjects />} />
         <Route path="/CurrentProjects" element={<CurrentProjects />} />
         <Route path="/PastProjects" element={<PastProjects />} />
+        <Route path="/ContactUs" element={<ContactUs />} />
       </Routes>
       <Footer />
     </div>

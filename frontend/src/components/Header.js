@@ -43,7 +43,7 @@ const Header = () => {
                             <li><Link to="/PastProjects">Past Projects</Link></li>
                         </ul>
                     </li>
-                    <li><Link to="#contact">Contact</Link></li>
+                    <li><Link to="/ContactUs">Contact</Link></li>
                 </ul>
             </nav>
         </header>

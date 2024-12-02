@@ -1,6 +1,6 @@
 /* General styles for the projects page */
 .past-project {
-    padding: 40px 20px;
+    padding: 100px 20px;
     margin: 0 auto;
     max-width: 1200px;
     font-family: 'Arial', sans-serif;
@@ -45,14 +45,23 @@
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
-/* Image styles */
+/* Image styles for preview (before click) */
 .past-project-image {
     width: 100%;
-    height: auto;
-    object-fit: cover;
+    height: 200px; /* Fixed height for all images */
+    object-fit: cover; /* Ensure images are cropped and cover the space */
 }
 
-/* Modal styles */
+/* Location Name Below the Image */
+.past-project-location {
+    padding: 10px;
+    background-color: #fff;
+    text-align: center;
+    font-size: 1rem;
+    color: #2c3e50;
+}
+
+/* Modal styles for full image view */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -79,9 +88,12 @@
     animation: scaleIn 0.3s ease-in-out;
 }
 
+/* Full image styles for modal */
 .modal-content img {
-    width: 100%;
-    height: auto;
+    width: 100%; /* Ensure the image takes up the full width */
+    height: auto; /* Keep the aspect ratio intact */
+    max-height: 60vh; /* Limit the height to the viewport height */
+    object-fit: contain; /* Ensure no cropping, full image visible */
 }
 
 .modal-text {

@@ -1,7 +1,7 @@
 // Home.js
 import React from "react";
 import "./Home.css"; // Styles specific to the Home page
-import aboutImage from "../assets/banner1.jpg"; // Image file
+import aboutImage from "../assets/banner1.jpeg"; // Image file
 
 const Home = () => {
   return (

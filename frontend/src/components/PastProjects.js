@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import "./PastProjects.css";
-import project1 from "../assets/banner2.jpg"; // Adjusted path
+import project1 from "../assets/banner1.1.jpg";
+import project2 from "../assets/banner1.2.jpg";
+import project3 from "../assets/banner1.3.jpg";
 
 const PastProjects = () => {
     const [selectedProject, setSelectedProject] = useState(null);
 
     const projects = [
         {
-            title: "Balaiah Garden Madipakkam",
-            
+            title: "Sadashiv Nagar",
             image: project1,
         },
         {
-            title: "Urban Apartment",
-            description: "An innovative urban apartment complex.",
-            image: project1,
+            title: "Balaiah Garden Madipakkam",
+            image: project2,
+        },
+        {
+            title: "Medavakkam",
+            image: project3,
         },
     ];
 
@@ -45,7 +49,10 @@ const PastProjects = () => {
                         />
                         <div className="past-project-content">
                             <h2>{project.title}</h2>
-                            <p>{project.description}</p>
+                        </div>
+                        {/* Location Name Below the Image */}
+                        <div className="past-project-location">
+                            <p>{project.title}</p>
                         </div>
                     </div>
                 ))}
@@ -57,7 +64,6 @@ const PastProjects = () => {
                         <img src={selectedProject.image} alt={selectedProject.title} />
                         <div className="modal-text">
                             <h2>{selectedProject.title}</h2>
-                            <p>{selectedProject.description}</p>
                         </div>
                         <button className="close-button" onClick={closeModal}>×</button>
                     </div>
