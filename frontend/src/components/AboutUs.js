@@ -18,7 +18,7 @@ const AboutUs = () => {
                         shape the skyline with our unwavering commitment to excellence.
                     </p>
                 </div>
-
+                {/*
                 <div className="about-us-projects">
                     <h2 className="about-us-project-title">Project Details</h2>
                     <p className="about-us-project-description">
@@ -28,7 +28,8 @@ const AboutUs = () => {
                         detail has made these developments stand out in the real estate market.
                     </p>
                 </div>
-
+                
+                */}
                 <div className="about-us-mission">
                     <h2 className="about-us-mission-title">Mission</h2>
                     <p className="about-us-mission-description">

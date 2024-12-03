@@ -7,7 +7,7 @@ const UpcomingProjects = () => {
 
     const projects = [
         {
-            title: "Sadashiv Nagar",
+            title: "Velachery",
             image: projectVelachery,
             description: "",
         },
