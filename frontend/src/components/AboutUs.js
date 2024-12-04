@@ -12,10 +12,10 @@ const AboutUs = () => {
                 <div className="about-us-introduction">
                     <h2 className="about-us-title">Who are we?</h2>
                     <p className="about-us-description">
-                        Six Square Builders, established in 2012 by Gopinathan and Viji, is a trusted name in the real estate sector. 
-                        With over a decade of experience, our firm has consistently delivered exceptional projects, earning a reputation 
-                        for quality, integrity, and innovation. Having successfully completed more than 25 projects, we continue to 
-                        shape the skyline with our unwavering commitment to excellence.
+                    Six Square Builders, founded in 2012 by Shri. Gopinathan Govindaraj and Smt. Viji Gopinathan, is a trusted name in the 
+                    real estate sector. With over a decade of experience, the firm has consistently delivered exceptional projects, earning 
+                    a reputation for quality, integrity, and innovation. Having successfully completed more than 25 projects, they continue 
+                    to shape the skyline with their unwavering commitment to excellence.
                     </p>
                 </div>
                 {/*
