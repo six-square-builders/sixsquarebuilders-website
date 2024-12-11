@@ -12,13 +12,15 @@ const PastProjects = () => {
 
     const projects = [
         {
+
+            title: "Balaiah Garden Madipakkam",
+            image: project2,
+            
+        },
+        {
             title: "Sadashiv Nagar",
             image: project1,
             description: ""
-        },
-        {
-            title: "Balaiah Garden Madipakkam",
-            image: project2,
         },
         {
             title: "Medavakkam",
