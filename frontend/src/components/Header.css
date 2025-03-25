@@ -1,118 +1,118 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Castoro+Titling&display=swap');/* Header default styles */
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Castoro+Titling&display=swap"); /* Header default styles */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 5%;
-    background-color: #000;
-    color: white;
-    width: 100%;
-    box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    transition: transform 0.3s ease-in-out; /* Smooth show/hide transition */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+  background-color: #000;
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  transition: transform 0.3s ease-in-out; /* Smooth show/hide transition */
 }
 
 /* When scrolling down (hide the header) */
 .header.hide {
-    transform: translateY(-100%);
+  transform: translateY(-100%);
 }
 
 /* When scrolling up (show the header) */
 .header.show {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .logo {
-    width: 80px;
-    height: auto;
-    cursor: pointer;
+  width: 80px;
+  height: auto;
+  cursor: pointer;
 }
 
 .company-name {
-    display: flex;
-    flex-direction: column;
-    font-family:  "Castoro Titling", serif;
-    font-size: 2rem;
-    color: white;
-    line-height: 1.2;
-    padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Castoro Titling", serif;
+  font-size: 2rem;
+  color: white;
+  line-height: 1.2;
+  padding-left: 10px;
 }
 
 .nav__links {
-    list-style: none;
-    display: flex;
-    gap: 30px; /* Adjusted gap between links */
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 30px; /* Adjusted gap between links */
+  margin: 0;
+  padding: 0;
 }
 
 .nav__links li a {
-    text-decoration: none;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
-    font-size: 1rem;
-    transition: color 0.3s ease;
+  text-decoration: none;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease;
 }
 
 .nav__links li a:hover {
-    color: #0088a9;
+  color: #0088a9;
 }
 
 /* Projects Dropdown Styling */
 .projects-dropdown {
-    position: relative;
+  position: relative;
 }
 
 .projects-dropdown .dropdown-menu {
-    display: none; /* Hide the dropdown initially */
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #333;
-    list-style-type: none;
-    padding: 10px 0;
-    margin: 0;
-    width: 200px;
-    border-radius: 5px;
+  display: none; /* Hide the dropdown initially */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #333;
+  list-style-type: none;
+  padding: 10px 0;
+  margin: 0;
+  width: 200px;
+  border-radius: 5px;
 }
 
 .projects-dropdown:hover .dropdown-menu {
-    display: block; /* Show the dropdown when hovering over the "Projects" menu */
+  display: block; /* Show the dropdown when hovering over the "Projects" menu */
 }
 
 .dropdown-menu li {
-    padding: 10px 20px;
+  padding: 10px 20px;
 }
 
 .dropdown-menu li a {
-    color: white;
-    font-size: 1rem;
+  color: white;
+  font-size: 1rem;
 }
 
 .dropdown-menu li a:hover {
-    color: #0088a9;
+  color: #0088a9;
 }
 
 @media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px;
-    }
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
 
-    .nav__links {
-        flex-direction: column;
-        gap: 15px; /* Adjust gap for smaller screens */
-    }
+  .nav__links {
+    flex-direction: column;
+    gap: 15px; /* Adjust gap for smaller screens */
+  }
 }

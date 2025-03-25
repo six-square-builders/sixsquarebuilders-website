@@ -30,13 +30,18 @@ const Home = () => {
       {/* Services Section */}
       <div id="services" className="services-section">
         <h2>Our Services</h2>
-        <p>We offer a wide range of services, including construction, renovation, and project management.</p>
+        <p>
+          We offer a wide range of services, including construction, renovation,
+          and project management.
+        </p>
       </div>
 
       {/* Contact Section */}
       <div id="contact" className="contact-section">
         <h2>Contact Us</h2>
-        <p>If you have any questions or inquiries, feel free to reach out to us!</p>
+        <p>
+          If you have any questions or inquiries, feel free to reach out to us!
+        </p>
       </div>
     </div>
   );

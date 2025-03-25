@@ -1,60 +1,60 @@
 .contact-us {
-    padding: 150px 20px;
-    margin: 0 auto;
-    max-width: 1200px;
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+  padding: 150px 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f4;
 }
 
 .contact-us h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    padding-left: 10px;
-    color: #2c3e50;
-    text-align: left; /* Align header to the left */
+  font-size: 3rem;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  color: #2c3e50;
+  text-align: left; /* Align header to the left */
 }
 
 .contact-us p {
-    font-size: 1.2rem;
-    color: #7f8c8d;
-    margin-bottom: 20px;
-    text-align: left; /* Align paragraph text to the left */
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 20px;
+  text-align: left; /* Align paragraph text to the left */
 }
 
 .contact-info {
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    font-size: 1.2rem;
-    color: #2c3e50;
-    text-align: center; /* Ensure text inside contact-info is left-aligned */
-    width: 100%;
-    max-width: 800px; /* Keep content from stretching too wide */
-    margin: 0; /* Remove any centering */
-    line-height: 0.8; /* Make the text more readable */
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-size: 1.2rem;
+  color: #2c3e50;
+  text-align: center; /* Ensure text inside contact-info is left-aligned */
+  width: 100%;
+  max-width: 800px; /* Keep content from stretching too wide */
+  margin: 0; /* Remove any centering */
+  line-height: 0.8; /* Make the text more readable */
 }
 
 .contact-info h2 {
-    font-size: 2rem;
-    margin-top: 0;
-    font-weight: bold; /* Bold the heading */
+  font-size: 2rem;
+  margin-top: 0;
+  font-weight: bold; /* Bold the heading */
 }
 
 .contact-info p {
-    margin-bottom: 10px;
-    font-size: 1.1rem;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
 }
 
 .contact-info strong {
-    font-weight: bold; /* Bold the labels like Website, E-Mail */
+  font-weight: bold; /* Bold the labels like Website, E-Mail */
 }
 
 .contact-info a {
-    color: #3498db;
-    text-decoration: none;
+  color: #3498db;
+  text-decoration: none;
 }
 
 .contact-info a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }

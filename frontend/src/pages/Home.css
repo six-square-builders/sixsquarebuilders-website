@@ -51,12 +51,13 @@ body {
 .overlay h2 {
   font-size: 3rem;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: rgb(255, 255, 255);
 }
 
 /* About and Services Section */
-.about-section, .services-section {
+.about-section,
+.services-section {
   padding: 20px;
   background-color: #fff;
   color: #333;
@@ -66,7 +67,8 @@ body {
   background-color: #f7f7f7;
 }
 
-#about, #services {
+#about,
+#services {
   padding-top: 100px; /* Ensures space for sticky navigation */
 }
 
@@ -86,11 +88,13 @@ body {
     font-size: 2rem; /* Smaller font size for overlay text */
   }
 
-  .about-section h2, .services-section h2 {
+  .about-section h2,
+  .services-section h2 {
     font-size: 1.5rem;
   }
 
-  .about-section p, .services-section p {
+  .about-section p,
+  .services-section p {
     font-size: 1rem;
   }
 }

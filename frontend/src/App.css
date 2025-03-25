@@ -5,7 +5,10 @@ body {
   padding: 0;
 }
 
-#home, #about, #services, #contact {
+#home,
+#about,
+#services,
+#contact {
   padding: 50px 20px;
   text-align: center;
 }
