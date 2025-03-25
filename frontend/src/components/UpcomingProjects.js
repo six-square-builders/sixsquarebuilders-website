@@ -1,22 +1,12 @@
 import React, { useState } from "react";
 import './UpcomingProjects.css'; 
-import projectVelachery from "../assets/banner2.1.jpg"; 
-import projectMedavakkam from "../assets/banner2.2.jpg";
+
 
 const UpcomingProjects = () => {
     const [selectedProject, setSelectedProject] = useState(null);
 
     const projects = [
-        {
-            title: "Velachery",
-            image: projectVelachery,
-            description: "",
-        },
-        {
-            title: "Medavakkam",
-            image: projectMedavakkam,
-            
-        }
+     
     ];
 
     const openModal = (project) => {

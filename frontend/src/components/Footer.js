@@ -7,13 +7,13 @@ const Footer = () => {
   return (
     <footer className="footer" id="contact">
       <div className="social-media">
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.facebook.com/share/16R6hLSYWB/" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faFacebook} size="2x" />
         </a>
         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faTwitter} size="2x" />
         </a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.instagram.com/gopinathangovindaraj?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faInstagram} size="2x" />
         </a>
         <a href="https://www.linkedin.com/company/six-square-builders/" target="_blank" rel="noopener noreferrer">
