@@ -1,100 +1,308 @@
+/* Reset and base */
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Ensures padding and border do not affect element's width and height */
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain; /* Prevent overscroll bounce */
 }
 
 body {
-  margin: 0;
-  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0ede5;
+  color: #333;
+  line-height: 1.6;
+  /* allow vertical scroll if content overflows */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
 }
 
 .home {
-  padding-top: 100px;
-  position: relative;
   width: 100%;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  min-height: 100vh; /* ensure fills viewport height */
+  overflow-x: hidden;
+  overflow-y: auto; /* allow scroll if needed */
 }
 
+/* Hero Section */
 .hero-section {
   position: relative;
-  display: flex; /* Flexbox layout for left-right structure */
+  height: 100vh;
   width: 100%;
-  height: 100vh; /* Full viewport height */
-  background-color: #e9e9e9;
-  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .image-container {
-  flex: 0 0 100%; /* Image takes up 100% of the width */
-  display: flex;
-  justify-content: center; /* Center the image horizontally */
-  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
 }
 
 .image-container img {
-  width: 100%; /* Make the image cover the container */
-  height: 100%; /* Full height */
-  object-fit: cover; /* Ensure the image covers the area without distortion */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(60%);
+
+  /* Smooth continuous slow zoom in/out animation */
+  animation: slowZoom 20s ease-in-out infinite;
+}
+
+/* Keyframes for smooth continuous slow zoom */
+@keyframes slowZoom {
+  0%,
+  100% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 .overlay {
-  position: absolute;
-  bottom: 20px; /* Place it below the image */
-  left: 0;
-  width: 100%; /* Full width */
-  text-align: center; /* Center the text */
-  background: rgba(0, 0, 0, 0.5); /* Transparent black overlay */
-  padding: 20px 0; /* Space for the text */
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  max-width: 600px;
+  padding: 0 20px;
 }
 
-.overlay h2 {
-  font-size: 3rem;
-  margin: 0;
+.overlay h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
   font-family: "Montserrat", sans-serif;
-  color: rgb(255, 255, 255);
+  letter-spacing: 2px;
 }
 
-/* About and Services Section */
-.about-section,
-.services-section {
-  padding: 20px;
-  background-color: #fff;
-  color: #333;
+.overlay p {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  opacity: 0.85;
 }
 
-.about-section {
-  background-color: #f7f7f7;
+/* Button */
+.btn-primary {
+  display: inline-block;
+  padding: 12px 30px;
+  background-color: #1c4131;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  box-shadow: 0 6px 10px rgba(28, 65, 49, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-#about,
-#services {
-  padding-top: 100px; /* Ensures space for sticky navigation */
+.btn-primary:hover {
+  background-color: #0f271a;
+  box-shadow: 0 10px 20px rgba(15, 39, 26, 0.6);
+  cursor: pointer;
 }
 
-/* Responsive Design */
+/* Sections common style */
+.section {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 140px 20px 80px; /* top padding includes space for fixed header */
+  opacity: 1;
+}
+
+/* Animate on scroll */
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section headers */
+
+.section h2 {
+  font-size: 2.8rem;
+  color: #1c4131;
+  margin-bottom: 25px;
+  font-weight: 700;
+  border-bottom: 3px solid #1c4131;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* Section paragraphs */
+.section p {
+  font-size: 1.125rem;
+  color: #4a4a4a;
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .hero-section {
-    flex-direction: column; /* Stack image and text vertically on smaller screens */
-    height: 60vh; /* Adjust height for smaller screens */
+  .overlay h1 {
+    font-size: 2.5rem;
   }
 
-  .image-container img {
-    width: 100%; /* Ensure image fills the container */
-    height: auto; /* Let the image scale proportionally */
-  }
-
-  .overlay h2 {
-    font-size: 2rem; /* Smaller font size for overlay text */
-  }
-
-  .about-section h2,
-  .services-section h2 {
-    font-size: 1.5rem;
-  }
-
-  .about-section p,
-  .services-section p {
+  .overlay p {
     font-size: 1rem;
   }
+
+  .section {
+    padding: 100px 15px 60px;
+  }
+
+  .section h2 {
+    font-size: 2.2rem;
+  }
+
+  .section p {
+    font-size: 1rem;
+  }
+}
+
+/* === HEADING STYLE #3 === */
+/* About Section - Fixed Version */
+.about-section {
+  display: flex;
+  margin-top: 100px;
+}
+
+.about-content {
+  flex: 1;
+  margin-right: 20px; /* Increased from 40px */
+}
+.about-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 125px;
+  min-width: 180px; /* Ensure enough width */
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%; /* Ensure full width */
+}
+
+.stat-number {
+  font-family: BarlowCondensed, sans-serif;
+  font-style: normal;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: normal;
+  margin: 0;
+  line-height: 1.2;
+  width: 100%; /* Full width */
+  text-align: left;
+  color: #00502f;
+}
+
+.stat-label {
+  font-family: Barlow, sans-serif;
+  font-size: 1.125rem;
+  letter-spacing: normal;
+  font-weight: 600;
+  line-height: 1.44;
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .about-stats {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 40px;
+    padding-top: 30px;
+  }
+
+  .stat-item {
+    flex: 0 0 auto; /* Don't grow or shrink */
+  }
+}
+
+@media (max-width: 480px) {
+  .about-stats {
+    gap: 20px;
+  }
+
+  .stat-item {
+    min-width: 100px; /* Ensure enough space for labels */
+  }
+}
+.eight h1 {
+  font-family: Barlow, sans-serif;
+  position: relative;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: left;
+  padding-left: 70px; /* space to show the line */
+  text-transform: uppercase;
+}
+
+.eight h1::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 50px; /* length of the line */
+  height: 2px;
+  background-color: #000000;
+  transform: translateY(-50%);
+}
+
+/* Remove the after line */
+.eight h1:after {
+  display: none;
+}
+
+.about-section p {
+  font-family: Barlow, sans-serif;
+  font-size: 15px;
+  text-align: left;
+  margin-left: 70px;
+  padding-top: 10px;
+  margin-right: 200px;
+}
+
+.services-section p {
+  font-family: Barlow, sans-serif;
+  font-size: 15px;
+  text-align: left;
+  margin-left: 70px;
+  padding-top: 10px;
+  margin-right: 200px;
+}
+
+.contact-section p {
+  font-family: Barlow, sans-serif;
+  font-size: 15px;
+  text-align: left;
+  margin-left: 70px;
+  padding-top: 10px;
+  margin-right: 200px;
+  margin-bottom: 100px;
+}
+
+.TagLine {
+  font-size: 2rem;
+  text-align: left;
+  margin-left: 68px;
+  padding-top: 20px;
+  font-weight: 600;
+  margin-right: 80px;
 }

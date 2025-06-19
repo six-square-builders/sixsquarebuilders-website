@@ -13,6 +13,10 @@ body {
   text-align: center;
 }
 
+.content {
+  padding-top: 100px; /* same as your header height */
+}
+
 footer {
   background-color: #aeaeae;
   color: rgb(0, 0, 0);
