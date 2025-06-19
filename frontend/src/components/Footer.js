@@ -1,6 +1,5 @@
 import React from "react";
 import "./Footer.css";
-
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -18,7 +17,7 @@ const Footer = () => {
               </Link>
             </li>
             <li className="footer-nav-item">
-              <Link to="ContactUs" className="footer-nav-link">
+              <Link to="/ContactUs" className="footer-nav-link">
                 Contact
               </Link>
             </li>
@@ -157,10 +156,13 @@ const Footer = () => {
           </a>
         </div>
 
-        <div class="footer-copyright">
+        <div className="footer-copyright">
           <p>
             &copy; 2025 Six Square Builders. All Rights Reserved. | Designed by
-            Harmesh G V.{" "}
+            <a href="https://harmeshgv.github.io/portfolio/">
+              {" "}
+              Harmesh G V.
+            </a>{" "}
           </p>
         </div>
       </div>

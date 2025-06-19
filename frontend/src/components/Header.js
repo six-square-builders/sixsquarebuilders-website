@@ -1,62 +1,94 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../assets/logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPhone, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
-  const [scrollingUp, setScrollingUp] = useState(true); // Initially visible
-  const [lastScrollY, setLastScrollY] = useState(window.scrollY); // Set to current scroll position
-
-  const handleScroll = useCallback(() => {
-    const currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY) {
-      setScrollingUp(false); // Scrolling down, hide header
-    } else {
-      setScrollingUp(true); // Scrolling up, show header
-    }
-    setLastScrollY(currentScrollY);
-  }, [lastScrollY]);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+  }, []);
 
   return (
-    <header className={`header ${scrollingUp ? "show" : "hide"}`}>
-      <div className="logo-container">
-        <img src={logo} alt="Logo" className="logo" />
-        <div className="company-name">
-          <span>Six Square Builders</span>
+    <header className={`header ${isScrolled ? "scrolled" : ""}`}>
+      <div className="header-container">
+        <div className="logo-container">
+          <Link to="/">
+            <img src={logo} alt="Six Square Builders Logo" className="logo" />
+          </Link>
+          <div className="company-info">
+            <h1 className="company-name">Six Square Builders</h1>
+          </div>
         </div>
-      </div>
-      <nav>
-        <ul className="nav__links">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/aboutus">About Us</Link>
-          </li>
-          <li className="projects-dropdown">
-            <span>Projects</span>
-            <ul className="dropdown-menu">
+
+        <div className="header-right">
+          <button
+            className="mobile-menu-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <FontAwesomeIcon icon={mobileMenuOpen ? faTimes : faBars} />
+          </button>
+
+          <nav className={`main-nav ${mobileMenuOpen ? "open" : ""}`}>
+            <ul className="nav__links">
               <li>
-                <Link to="/UpcomingProjects">Upcoming Projects</Link>
+                <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+                  Home
+                </Link>
               </li>
               <li>
-                <Link to="/CurrentProjects">Current Projects</Link>
+                <Link to="/aboutus" onClick={() => setMobileMenuOpen(false)}>
+                  About Us
+                </Link>
+              </li>
+              <li className="projects-dropdown">
+                <span>
+                  Projects <span className="dropdown-arrow">▼</span>
+                </span>
+                <ul className="dropdown-menu">
+                  <li>
+                    <Link
+                      to="/UpcomingProjects"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Upcoming Projects
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/CurrentProjects"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Current Projects
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/PastProjects"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Past Projects
+                    </Link>
+                  </li>
+                </ul>
               </li>
               <li>
-                <Link to="/PastProjects">Past Projects</Link>
+                <Link to="/ContactUs" onClick={() => setMobileMenuOpen(false)}>
+                  Contact
+                </Link>
               </li>
             </ul>
-          </li>
-          <li>
-            <Link to="/ContactUs">Contact</Link>
-          </li>
-        </ul>
-      </nav>
+          </nav>
+        </div>
+      </div>
     </header>
   );
 };

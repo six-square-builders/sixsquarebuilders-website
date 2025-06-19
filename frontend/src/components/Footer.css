@@ -22,14 +22,12 @@
 /* Footer Styles */
 footer {
   background: var(--eerie-black) !important;
-  padding: 20px 0;
+  padding: 10px 0;
   font-family: "Poppins", sans-serif;
 }
 
 .footer-nav {
   border-bottom: 1px solid var(--onyx);
-  padding-bottom: 20px;
-  margin-bottom: 20px;
 }
 
 .footer-nav .nav-title {
@@ -114,7 +112,7 @@ footer {
   justify-content: flex-end; /* Aligns icons to the right */
   margin-top: 20px; /* Adds space below the content */
   gap: 15px; /* Adds space between icons */
-  padding-right: 125px;
+  padding-right: 155px;
 }
 
 .facebook {

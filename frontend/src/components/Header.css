@@ -1,118 +1,307 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Castoro+Titling&display=swap"); /* Header default styles */
+/* Header.css */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+/* Base Header Styles */
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 5%;
-  background-color: #000;
-  color: white;
-  width: 100%;
-  box-sizing: border-box;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
-  transition: transform 0.3s ease-in-out; /* Smooth show/hide transition */
+  background-color: rgba(0, 0, 0, 1);
+  color: white;
+  padding: 25px 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* When scrolling down (hide the header) */
-.header.hide {
-  transform: translateY(-100%);
+.header.scrolled {
+  background-color: rgba(0, 0, 0, 0.95);
+  padding: 10px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* When scrolling up (show the header) */
-.header.show {
-  transform: translateY(0);
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
+/* Logo Section */
 .logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  height: 50px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.company-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.company-name {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.company-tagline {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.8rem;
+  color: #ccc;
+  margin: 0;
+  font-weight: 300;
+}
+
+/* Contact Info */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+}
+
+.contact-item {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.logo {
-  width: 80px;
-  height: auto;
-  cursor: pointer;
+.contact-icon {
+  font-size: 1.2rem;
+  color: #f8b400;
 }
 
-.company-name {
-  display: flex;
-  flex-direction: column;
-  font-family: "Castoro Titling", serif;
-  font-size: 2rem;
-  color: white;
-  line-height: 1.2;
-  padding-left: 10px;
+.contact-label {
+  display: block;
+  font-size: 0.7rem;
+  color: #ccc;
+  font-weight: 300;
 }
 
-.nav__links {
-  list-style: none;
-  display: flex;
-  gap: 30px; /* Adjusted gap between links */
-  margin: 0;
-  padding: 0;
-}
-
-.nav__links li a {
-  text-decoration: none;
-  color: white;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
+.contact-value {
+  display: block;
   font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.nav__links li a:hover {
-  color: #0088a9;
+.contact-value:hover {
+  color: #f8b400;
 }
 
-/* Projects Dropdown Styling */
-.projects-dropdown {
+/* Navigation */
+.main-nav {
+  display: flex;
+}
+
+.nav__links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 70px;
+  align-items: center;
+}
+
+.nav__links li {
   position: relative;
 }
 
-.projects-dropdown .dropdown-menu {
-  display: none; /* Hide the dropdown initially */
+.nav__links li a {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  padding: 5px 0;
+  position: relative;
+}
+
+.nav__links li a:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #3d630d;
+  transition: width 0.3s ease;
+}
+
+.nav__links li a:hover:after {
+  width: 100%;
+}
+
+.nav__links li a:hover {
+  color: #3a5635;
+}
+
+/* Dropdown Menu */
+.projects-dropdown {
+  cursor: pointer;
+}
+
+.dropdown-arrow {
+  font-size: 0.6rem;
+  margin-left: 5px;
+}
+
+.dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #333;
-  list-style-type: none;
+  background-color: #fff;
+  list-style: none;
   padding: 10px 0;
   margin: 0;
   width: 200px;
   border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  z-index: 100;
 }
 
 .projects-dropdown:hover .dropdown-menu {
-  display: block; /* Show the dropdown when hovering over the "Projects" menu */
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 .dropdown-menu li {
-  padding: 10px 20px;
+  padding: 0;
 }
 
 .dropdown-menu li a {
-  color: white;
-  font-size: 1rem;
+  display: block;
+  padding: 8px 20px;
+  color: #000000 !important;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
 }
 
 .dropdown-menu li a:hover {
-  color: #0088a9;
+  background-color: #3d630d;
+  color: #000 !important;
+}
+
+.dropdown-menu li a:after {
+  display: none;
+}
+
+/* Mobile Menu */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .nav__links {
+    gap: 15px;
+  }
+
+  .contact-info {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
   .header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px;
+    padding: 10px 0;
+  }
+
+  .header-right {
+    gap: 15px;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .main-nav {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0);
+    padding: 20px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .main-nav.open {
+    transform: translateX(0);
   }
 
   .nav__links {
     flex-direction: column;
-    gap: 15px; /* Adjust gap for smaller screens */
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .projects-dropdown .dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    background: none;
+    width: 100%;
+    padding: 10px 0 0 15px;
+  }
+
+  .dropdown-menu li a {
+    color: #ccc !important;
+    padding: 5px 0;
+  }
+
+  .dropdown-arrow {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .company-name {
+    font-size: 1.2rem;
+  }
+
+  .company-tagline {
+    font-size: 0.7rem;
+  }
+
+  .logo {
+    height: 40px;
   }
 }
