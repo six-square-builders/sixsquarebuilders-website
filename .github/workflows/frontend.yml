@@ -36,4 +36,4 @@ jobs:
           git config --global user.email "$GIT_EMAIL"
           git config --global user.name "$GIT_USER"
           REPO_URL=https://$GH_TOKEN@github.com/${{ github.repository }}.git
-          npx gh-pages -d build -u '"github-actions[bot] <github-actions[bot]@users.noreply.github.com>"' -r $REPO_URL
+          npx gh-pages -d build -u 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>' -r $REPO_URL
