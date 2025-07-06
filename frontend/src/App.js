@@ -3,13 +3,13 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import UpcomingProjects from "./components/UpcomingProjects";
-import CurrentProjects from "./components/CurrentProjects";
-import PastProjects from "./components/PastProjects";
-import AboutUs from "./components/AboutUs";
+import UpcomingProjects from "./pages/UpcomingProjects";
+import CurrentProjects from "./pages/CurrentProjects";
+import PastProjects from "./pages/PastProjects";
+import AboutUs from "./pages/AboutUs";
 import Home from "./pages/Home";
-import ContactUs from "./components/ContactUs";
-import ScrollToTop from "./ScrollToTop"; // ✅ Make sure file exists
+import ContactUs from "./pages/ContactUs";
+import ScrollToTop from "./components/ScrollToDown"; 
 import "./App.css";
 
 const App = () => {

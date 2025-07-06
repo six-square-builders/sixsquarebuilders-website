@@ -4,34 +4,35 @@ on:
   push:
     branches:
       - main
-
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: '18'
 
       - name: Install dependencies
-        working-directory: ./frontend
-        run: npm install
+        run: npm ci
+        working-directory: frontend
 
-      - name: Build the app
-        working-directory: ./frontend
+      - name: Build React app
         run: npm run build
+        working-directory: frontend
 
-      - name: Deploy to GitHub Pages
-        working-directory: ./frontend
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Python dependencies
+        run: pip install requests tenacity
+
+      - name: Run Deploy Script with Retry and Alert
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          npx gh-pages -d build -r "https://github-actions:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          chmod +x scripts/deploy_with_retry.sh
+          ./scripts/deploy_with_retry.sh
