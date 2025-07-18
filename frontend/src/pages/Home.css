@@ -7,12 +7,15 @@
 
 html,
 body {
-  min-height: 100%;
   overflow-x: hidden;
-  overscroll-behavior-y: contain; /* Prevent overscroll bounce */
-}
-
-body {
+    overscroll-behavior-y: none; 
+  }
+  html{
+    height:100%;
+  }
+  
+  body {
+    min-height: 100%;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f0ede5;
   color: #333;
