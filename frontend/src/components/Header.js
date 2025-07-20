@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../assets/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faTimes, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -50,8 +50,9 @@ const Header = () => {
                 </Link>
               </li>
               <li className="projects-dropdown">
-                <span>
-                  Projects <span className="dropdown-arrow">▼</span>
+                <span className="nav-link-dropdown">
+                  Projects 
+                  { " "}<FontAwesomeIcon icon={faChevronDown} className="dropdown-icon" />
                 </span>
                 <ul className="dropdown-menu">
                   <li>
