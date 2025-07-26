@@ -130,7 +130,7 @@
   position: relative;
 }
 
-.nav__links li a {
+.nav__links li a, .nav-link-dropdown {
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   color: white;
