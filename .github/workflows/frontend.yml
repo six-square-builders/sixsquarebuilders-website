@@ -30,6 +30,8 @@ jobs:
 
       - name: Build project
         run: npm run build
+        working-directory: ./frontend
+
 
       - name: Deploy to GitHub Pages
         env:
@@ -38,3 +40,5 @@ jobs:
          git config user.name "github-actions[bot]"
          git config user.email "github-actions[bot]@users.noreply.github.com"
          npm run deploy
+        working-directory: ./frontend
+
