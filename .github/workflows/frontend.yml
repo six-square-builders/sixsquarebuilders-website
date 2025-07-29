@@ -1,38 +1,33 @@
-name: Frontend CI & Deploy to GitHub Pages
+name: Build and Deploy
 
 on:
   push:
     branches:
-      - main
+      - main   # Runs only on main branch pushes
+
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '18'  # use your Node version
 
       - name: Install dependencies
-        run: npm ci
-        working-directory: frontend
+        run: npm install
 
-      - name: Build React app
+      - name: Build project
         run: npm run build
-        working-directory: frontend
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install Python dependencies
-        run: pip install requests tenacity
-
-      - name: Run Deploy Script with Retry and Alert
+      - name: Deploy to GitHub Pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          chmod +x scripts/deploy_with_retry.sh
-          ./scripts/deploy_with_retry.sh
+         git config user.name "github-actions[bot]"
+         git config user.email "github-actions[bot]@users.noreply.github.com"
+         npm run deploy
