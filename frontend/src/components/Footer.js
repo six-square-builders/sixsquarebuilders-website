@@ -161,7 +161,7 @@ const Footer = () => {
             &copy; 2025 Six Square Builders. All Rights Reserved. | Designed by
             <a href="https://harmeshgv.github.io/portfolio/">
               {" "}
-              Harmesh G V.
+              Harmesh G V .
             </a>{" "}
           </p>
         </div>
