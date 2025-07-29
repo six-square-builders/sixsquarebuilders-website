@@ -3,42 +3,32 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main   # Runs only on main branch pushes
+      - main
+
+permissions:
+  contents: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '18'  # use your Node version
+          node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+      - run: npm install
         working-directory: ./frontend
 
-      - name: Check Package
-        run: ls -la
-        
-
-      - name: Build project
-        run: npm run build
+      - run: npm run build
         working-directory: ./frontend
-
 
       - name: Deploy to GitHub Pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-         git config user.name "github-actions[bot]"
-         git config user.email "github-actions[bot]@users.noreply.github.com"
-         npm run deploy
+        run: npm run deploy
         working-directory: ./frontend
-
