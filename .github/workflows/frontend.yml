@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -20,6 +22,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./frontend
+
+      - name: Check Package
+        run: ls -la
+        
 
       - name: Build project
         run: npm run build
