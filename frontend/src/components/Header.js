@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Header.css";
 import logo from "../assets/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,6 +8,8 @@ import { faBars, faTimes, faChevronDown } from "@fortawesome/free-solid-svg-icon
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,13 +19,26 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavClick = (targetPath, event) => {
+    event.preventDefault();
+    setMobileMenuOpen(false);
+    
+    if (location.pathname === targetPath) {
+      // If already on the same page, scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // Navigate to the new page
+      navigate(targetPath);
+    }
+  };
+
   return (
     <header className={`header ${isScrolled ? "scrolled" : ""}`}>
       <div className="header-container">
         <div className="logo-container">
-          <Link to="/">
+          <a href="/" onClick={(e) => handleNavClick('/', e)}>
             <img src={logo} alt="Six Square Builders Logo" className="logo" />
-          </Link>
+          </a>
           <div className="company-info">
             <h1 className="company-name">Six Square Builders</h1>
           </div>
@@ -40,14 +55,14 @@ const Header = () => {
           <nav className={`main-nav ${mobileMenuOpen ? "open" : ""}`}>
             <ul className="nav__links">
               <li>
-                <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+                <a href="/" onClick={(e) => handleNavClick('/', e)}>
                   Home
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/aboutus" onClick={() => setMobileMenuOpen(false)}>
+                <a href="/aboutus" onClick={(e) => handleNavClick('/aboutus', e)}>
                   About Us
-                </Link>
+                </a>
               </li>
               <li className="projects-dropdown">
                 <span className="nav-link-dropdown">
@@ -56,35 +71,35 @@ const Header = () => {
                 </span>
                 <ul className="dropdown-menu">
                   <li>
-                    <Link
-                      to="/UpcomingProjects"
-                      onClick={() => setMobileMenuOpen(false)}
+                    <a
+                      href="/UpcomingProjects"
+                      onClick={(e) => handleNavClick('/UpcomingProjects', e)}
                     >
                       Upcoming Projects
-                    </Link>
+                    </a>
                   </li>
                   <li>
-                    <Link
-                      to="/CurrentProjects"
-                      onClick={() => setMobileMenuOpen(false)}
+                    <a
+                      href="/CurrentProjects"
+                      onClick={(e) => handleNavClick('/CurrentProjects', e)}
                     >
                       Current Projects
-                    </Link>
+                    </a>
                   </li>
                   <li>
-                    <Link
-                      to="/PastProjects"
-                      onClick={() => setMobileMenuOpen(false)}
+                    <a
+                      href="/PastProjects"
+                      onClick={(e) => handleNavClick('/PastProjects', e)}
                     >
                       Past Projects
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </li>
               <li>
-                <Link to="/ContactUs" onClick={() => setMobileMenuOpen(false)}>
+                <a href="/ContactUs" onClick={(e) => handleNavClick('/ContactUs', e)}>
                   Contact
-                </Link>
+                </a>
               </li>
             </ul>
           </nav>
