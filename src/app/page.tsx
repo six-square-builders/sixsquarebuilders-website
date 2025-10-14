@@ -18,10 +18,10 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 py-28 text-primary-foreground md:grid-cols-2 md:py-36">
           <div>
             <h1 className="text-balance text-4xl font-bold leading-tight md:text-5xl">
-              Building Landmarks, Crafting Homes
+              Designing Dreams, Building Realities
             </h1>
             <p className="mt-4 max-w-prose text-lg text-white/90">
-              Skyline Constructions delivers quality residential and commercial spaces. Explore our ongoing, past, and upcoming projects, and discover premium flats ready for you.
+               Six Square Builders transforms visions into luxurious living and working spaces, with attention to detail, quality craftsmanship, and modern aesthetics.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -110,19 +110,19 @@ export default function Home() {
         <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
           {[
             {
-              title: "Skyline Heights",
-              src: "https://images.unsplash.com/photo-1487956382158-bb926046304a?q=80&w=1200&auto=format&fit=crop",
+              title: "Ganesh Castle",
+              src: "/flats/ganesh_castle.png",
               tag: "Ongoing",
             },
             {
-              title: "Riverview Residency",
-              src: "https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1200&auto=format&fit=crop",
+              title: "Ganapathy Enclave",
+              src: "/flats/ganapathi_enclave.png",
               tag: "Past",
             },
             {
-              title: "Tech Park Central",
-              src: "https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=1200&auto=format&fit=crop",
-              tag: "Future",
+              title: "Balaiah Garden",
+              src: "/flats/balaiah_garden.png",
+              tag: "Past",
             },
           ].map((p) => (
             <div key={p.title} className="group overflow-hidden rounded-lg border">
@@ -154,4 +154,4 @@ export default function Home() {
       </section>
     </main>
   );
-}   
+}

@@ -2,7 +2,7 @@
 
 export default function AboutPage() {
   return (
-    <main className="mx-auto max-w-7xl px-4 py-12">
+    <main className="mx-auto max-w-7xl px-4 py-22">
       <header className="mb-6">
         <h1 className="text-3xl font-bold">About Us</h1>
         <p className="mt-2 max-w-prose text-muted-foreground">
@@ -24,13 +24,14 @@ export default function AboutPage() {
           </ul>
         </div>
         <div className="overflow-hidden rounded-lg border">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://images.unsplash.com/photo-1487956382158-bb926046304a?q=80&w=1600&auto=format&fit=crop"
-            alt="Team at a construction site"
-            className="h-full w-full object-cover"
-          />
-        </div>
+  <img
+    src="https://images.unsplash.com/photo-1487956382158-bb926046304a?q=80&w=1600&auto=format&fit=crop"
+    alt="Team at a construction site"
+    className="w-full h-72 object-cover"
+  />
+</div>
+
+
       </section>
 
       <section className="mt-12">
