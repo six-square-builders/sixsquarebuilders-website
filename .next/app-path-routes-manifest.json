@@ -3,7 +3,7 @@
   "/favicon.ico/route": "/favicon.ico",
   "/about/page": "/about",
   "/contact/page": "/contact",
-  "/flats/page": "/flats",
   "/page": "/",
+  "/flats/page": "/flats",
   "/projects/page": "/projects"
 }

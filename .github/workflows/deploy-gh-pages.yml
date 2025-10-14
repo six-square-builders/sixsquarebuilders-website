@@ -26,13 +26,12 @@ jobs:
       - name: Build Next.js app
         env:
           NODE_ENV: production
+          NEXT_PUBLIC_DEPLOY: true   # ✅ add this line
         run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GH_PAT }}  # use your PAT secret
-
+          github_token: ${{ secrets.GH_PAT }}
           publish_dir: ./out
           cname: www.sixsquarebuilders.co.in  # optional if using a custom domain
-
