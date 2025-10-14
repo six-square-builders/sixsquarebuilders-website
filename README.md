@@ -65,7 +65,7 @@ The in-modal enquiry uses EmailJS on the client — no backend.
    - `NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id`
    - `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id`
    - `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key`
-5. Restart `npm run dev`.
+5. Restart `npm run dev` .
 
 Where it's used: `src/app/projects/page.tsx` in the `QuickInquiry` component.
 
