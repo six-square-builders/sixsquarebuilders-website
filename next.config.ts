@@ -2,14 +2,16 @@ import type { NextConfig } from "next";
 import path from "node:path";
 
 const LOADER = path.resolve(__dirname, 'src/visual-edits/component-tagger-loader.js');
-const isProd = process.env.NODE_ENV === "production";
+
+// Use a single env variable for deploy
+const isProd = process.env.NEXT_PUBLIC_DEPLOY === "true";
 
 const nextConfig: NextConfig = {
-  output: "export", // ✅ This enables static export
+  output: "export", // ✅ enables static export
   basePath: isProd ? "/six-square-builders" : "",
   assetPrefix: isProd ? "/six-square-builders/" : "",
   images: {
-    unoptimized: true, // since GH Pages doesn't support Next image optimization
+    unoptimized: true, // GH Pages doesn't support Next image optimization
     remotePatterns: [
       { protocol: "https", hostname: "**" },
       { protocol: "http", hostname: "**" }

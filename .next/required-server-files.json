@@ -12,7 +12,7 @@
     },
     "distDir": ".next",
     "cleanDistDir": true,
-    "assetPrefix": "/six-square-builders/",
+    "assetPrefix": "",
     "cacheMaxMemorySize": 52428800,
     "configOrigin": "next.config.ts",
     "useFileSystemPublicRoutes": true,
@@ -46,7 +46,7 @@
         256,
         384
       ],
-      "path": "/six-square-builders/_next/image",
+      "path": "/_next/image",
       "loader": "default",
       "loaderFile": "",
       "domains": [],
@@ -78,9 +78,9 @@
       "pagesBufferLength": 5
     },
     "amp": {
-      "canonicalBase": "/six-square-builders"
+      "canonicalBase": ""
     },
-    "basePath": "/six-square-builders",
+    "basePath": "",
     "sassOptions": {},
     "trailingSlash": false,
     "i18n": null,
