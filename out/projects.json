@@ -1,0 +1,109 @@
+[
+  {
+    "id": "skyline-heights",
+    "name": "Skyline Heights",
+    "address": "Plot 12, Skyline Avenue, Downtown, City 12345",
+    "coords": { "lat": 19.076, "lng": 72.8777 },
+    "status": { "stage": "Structure up to 10th floor – 40% Progress", "progress": 40 },
+    "possessionDate": "2026-03-01",
+    "media": [
+      { "type": "image", "url": "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop" },
+      { "type": "image", "url": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop" },
+      { "type": "video", "url": "https://www.w3schools.com/html/mov_bbb.mp4" },
+      { "type": "image", "url": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=1200&auto=format&fit=crop" }
+    ],
+    "flats": [
+      {
+        "type": "2 BHK",
+        "areas": { "carpet": 780, "builtUp": 950, "superBuiltUp": 1100 },
+        "floors": "5-18",
+        "facing": ["East", "North"],
+        "balcony": ["City view", "Garden view"],
+        "floorPlans": [
+          { "label": "2D Plan", "url": "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1200&auto=format&fit=crop" },
+          { "label": "3D Layout", "url": "https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=1200&auto=format&fit=crop" }
+        ],
+        "basePricePerSqft": 9500
+      },
+      {
+        "type": "3 BHK",
+        "areas": { "carpet": 1020, "builtUp": 1250, "superBuiltUp": 1450 },
+        "floors": "10-22",
+        "facing": ["West", "South"],
+        "balcony": ["Pool view"],
+        "floorPlans": [
+          { "label": "2D Plan", "url": "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=1200&auto=format&fit=crop" }
+        ],
+        "basePricePerSqft": 9900
+      }
+    ],
+    "pricing": {
+      "allInclusiveExample": {
+        "maintenance": 150000,
+        "parking": 300000,
+        "club": 75000,
+        "gstPercent": 5,
+        "registrationPercent": 6
+      },
+      "banks": ["HDFC", "ICICI", "SBI"],
+      "paymentSchedule": [
+        { "milestone": "Booking", "percent": 10 },
+        { "milestone": "Plinth", "percent": 15 },
+        { "milestone": "Structure", "percent": 30 },
+        { "milestone": "Brickwork", "percent": 25 },
+        { "milestone": "Possession", "percent": 20 }
+      ]
+    },
+    "amenities": ["Clubhouse", "Gym", "Pool", "Parking", "Power backup", "Security"],
+    "specs": {"flooring": "Vitrified tiles", "fittings": "Grohe/Kohler", "kitchen": "Granite with SS sink", "smartHome": "Video door phone"},
+    "sustainability": ["Rainwater harvesting", "Solar panels"],
+    "developer": {"name": "Skyline Constructions", "trackRecord": "20+ projects delivered across the city"},
+    "legal": {
+      "rera": "RERA-ABC-2025-09",
+      "approvals": "Municipal approvals obtained. OC to be applied.",
+      "documents": [
+        {"label": "Brochure (PDF)", "url": "https://example.com/brochure.pdf"}
+      ]
+    },
+    "testimonials": [
+      {"name": "A. Sharma", "text": "Quality construction and on-time updates."}
+    ],
+    "awards": ["Best Residential High-rise 2024"],
+    "landmarks": [
+      {"type": "School", "name": "City International", "distanceKm": 1.2},
+      {"type": "Hospital", "name": "Metro Care", "distanceKm": 2.1},
+      {"type": "Mall", "name": "Galaxy Mall", "distanceKm": 1.8}
+    ]
+  },{
+    "id":"central-avenue-towers",
+     "name": "Central Avenue Towers",
+  "address": "Plot 20, Central Avenue, Downtown, City 12345",
+  "coords": { "lat": 19.08, "lng": 72.88 }
+
+  },
+  {
+    "id": "riverview-residency",
+    "name": "Riverview Residency",
+    "address": "Riverview Road, Riverside, City 56789",
+    "coords": { "lat": 28.6139, "lng": 77.209 },
+    "status": { "stage": "Completed – 100%", "progress": 100 },
+    "possessionDate": "2023-12-01",
+    "media": [
+      { "type": "image", "url": "https://images.unsplash.com/photo-1504805572947-34fad45aed93?q=80&w=1200&auto=format&fit=crop" },
+      { "type": "image", "url": "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop" }
+    ],
+    "amenities": ["Parking", "Security"],
+    "developer": {"name": "Skyline Constructions", "trackRecord": "Trusted developer"}
+  },
+  {
+    "id": "tech-park-central",
+    "name": "Tech Park Central",
+    "address": "12 IT Corridor, North Zone, City 24680",
+    "coords": { "lat": 12.9716, "lng": 77.5946 },
+    "status": { "stage": "Foundation Complete – 35% Progress", "progress": 35 },
+    "possessionDate": "2026-10-01",
+    "media": [
+      { "type": "image", "url": "https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=1200&auto=format&fit=crop" }
+    ]
+  }
+]
