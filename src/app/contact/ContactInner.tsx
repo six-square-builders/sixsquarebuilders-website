@@ -242,26 +242,34 @@ export default function ContactPage() {
           <div className="rounded-lg border p-4">
             <h2 className="text-base font-semibold">Office</h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              Skyline Constructions
-              <br /> 221B Riverside Drive
-              <br /> Metropolis, NY 10001
+            Six Square Builders
+<br /> No. 270, 6th Main Rd
+<br /> Sadasiva Nagar, Madipakkam
+<br /> Chennai 600091
+
             </p>
           </div>
           <div className="rounded-lg border p-4">
             <h2 className="text-base font-semibold">Contact</h2>
             <p className="mt-1 text-sm text-muted-foreground">
               Phone: (+91) 8015407730
-              <br /> Email: sales@skylineconstructions.com
+              <br /> Email: ssbuilders2012@yahoo.com
             </p>
           </div>
           <div className="overflow-hidden rounded-lg border">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://images.unsplash.com/photo-1506976785307-8732e854ad75?q=80&w=1200&auto=format&fit=crop"
-              alt="Our office location"
-              className="h-56 w-full object-cover"
-            />
-          </div>
+  <div className="overflow-hidden rounded-lg border h-60">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.127328742881!2d80.19966677591667!3d12.963703215049751!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525dc23831940b%3A0xf034eaacb06463d3!2s270%2C%206th%20Main%20Rd%2C%20Meenatchi%20Sundareswarar%20Koil%2C%20Sadasiva%20Nagar%2C%20Madipakkam%2C%20Chennai%2C%20Tamil%20Nadu%20600091!5e0!3m2!1sen!2sin!4v1760477487253!5m2!1sen!2sin"
+    className="w-full h-full"
+    style={{ border: 0 }}
+    allowFullScreen
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+  ></iframe>
+</div>
+
+</div>
+
         </aside>
       </section>
     </main>

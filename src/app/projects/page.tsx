@@ -24,54 +24,32 @@ const slugify = (s: string) =>
 const GALLERIES: Record<TabKey, { id: string; title: string; src: string }[]> = {
   ongoing: [
     {
-      title: "Skyline Heights",
-      id: "skyline-heights",
-      src: "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop",
+      title: "Ganesh Castle",
+      id: "ganesh-castle",
+      src: "/flats/ganesh_castle.png",
     },
-    {
-      title: "Central Avenue Towers",
-      id: "central-avenue-towers",
-      src: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      title: "Harbor Square",
-      id: slugify("Harbor Square"),
-      src: "https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=1200&auto=format&fit=crop",
-    },
+
   ],
   past: [
     {
-      title: "Riverview Residency",
+      title: "Balaian Garden",
       id: slugify("Riverview Residency"),
-      src: "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop",
+      src: "/flats/balaiah_garden.png",
     },
     {
-      title: "Maple Grove Villas",
+      title: "Ganapathi Enclave",
       id: slugify("Maple Grove Villas"),
-      src: "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop",
+      src: "/flats/ganapathi_enclave.png",
     },
-    {
-      title: "Sunset Arcade",
-      id: slugify("Sunset Arcade"),
-      src: "https://images.unsplash.com/photo-1504805572947-34fad45aed93?q=80&w=1200&auto=format&fit=crop",
-    },
+
   ],
   future: [
     {
-      title: "Tech Park Central",
+      title: "Coming Soon",
       id: slugify("Tech Park Central"),
-      src: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=1200&auto=format&fit=crop",
+      src: "/flats/coming_soon.png",
     },
-    {
-      title: "Green Meadows",
-      id: slugify("Green Meadows"),
-      src: "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      title: "Lakeside Horizon",
-      id: slugify("Lakeside Horizon"),
-      src: "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1200&auto=format&fit=crop",
-    },
+
   ],
 };
 
@@ -391,7 +369,7 @@ function ProjectModal({
 
               {/* Construction Status */}
               <section>
-                <h3 className="text-xl font-semibold">Construction Status</h3>
+                <h3 className="text-xl font-semibold pt-10">Construction Status</h3>
                 <div className="mt-2 grid gap-4 md:grid-cols-3">
                   <div className="rounded-lg border p-4">
                     <div className="text-sm text-muted-foreground">Current Stage</div>
@@ -536,9 +514,7 @@ function ProjectModal({
                     )}
                   </div>
                 </div>
-                <div className="mt-3">
-                  <Link href="/projects" className="text-sm text-primary underline underline-offset-4">View Full Details Page</Link>
-                </div>
+
               </section>
 
               {/* Interaction & Lead Capture */}
@@ -553,7 +529,7 @@ function ProjectModal({
               </section>
 
               {/* Social Proof */}
-              {(!!data.testimonials?.length || !!data.awards?.length) && (
+              {(!!data.testimonials?.length ) && (
                 <section>
                   <h3 className="text-xl font-semibold">Social Proof</h3>
                   <div className="mt-3 grid gap-4 md:grid-cols-2">
@@ -567,16 +543,7 @@ function ProjectModal({
                         </ul>
                       </div>
                     )}
-                    {!!data.awards?.length && (
-                      <div className="rounded-lg border p-4">
-                        <div className="text-sm text-muted-foreground">Awards & Mentions</div>
-                        <ul className="mt-2 list-disc pl-5 text-sm">
-                          {data.awards.map((a, i) => (
-                            <li key={i}>{a}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+
                   </div>
                 </section>
               )}
