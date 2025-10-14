@@ -106,7 +106,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/home/mcqueen",
+    "outputFileTracingRoot": "/home/mcqueen/Documents/sixsquarebuilders-website",
     "experimental": {
       "nodeMiddleware": false,
       "cacheLife": {
@@ -289,18 +289,11 @@
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
     "turbopack": {
-      "rules": {
-        "*.{jsx,tsx}": {
-          "loaders": [
-            "/home/mcqueen/Documents/sixsquarebuilders-website/src/visual-edits/component-tagger-loader.js"
-          ]
-        }
-      },
-      "root": "/home/mcqueen"
+      "root": "/home/mcqueen/Documents/sixsquarebuilders-website"
     }
   },
   "appDir": "/home/mcqueen/Documents/sixsquarebuilders-website",
-  "relativeAppDir": "Documents/sixsquarebuilders-website",
+  "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",
     ".next/server/pages-manifest.json",

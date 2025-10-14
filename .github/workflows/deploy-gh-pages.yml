@@ -21,7 +21,7 @@ jobs:
         run: npm ci
 
       - name: Clean output folder
-        run: rm -rf out
+        run: rm -rf .next out
 
       - name: Build Next.js app
         env:
