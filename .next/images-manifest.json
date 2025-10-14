@@ -21,7 +21,7 @@
       256,
       384
     ],
-    "path": "/_next/image",
+    "path": "/six-square-builders/_next/image",
     "loader": "default",
     "loaderFile": "",
     "domains": [],
@@ -45,7 +45,7 @@
         "pathname": "^(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$))(?:(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$)).)*?)\\/?)$"
       }
     ],
-    "unoptimized": false,
+    "unoptimized": true,
     "sizes": [
       640,
       750,

@@ -2,8 +2,16 @@
   "version": 3,
   "pages404": true,
   "caseSensitive": false,
-  "basePath": "",
+  "basePath": "/six-square-builders",
   "redirects": [
+    {
+      "source": "/six-square-builders/",
+      "destination": "/six-square-builders",
+      "basePath": false,
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^/six-square-builders/$"
+    },
     {
       "source": "/:path+/",
       "destination": "/:path+",
@@ -75,5 +83,15 @@
     "pathHeader": "x-nextjs-rewritten-path",
     "queryHeader": "x-nextjs-rewritten-query"
   },
-  "rewrites": []
+  "rewrites": {
+    "beforeFiles": [
+      {
+        "source": "/six-square-builders//_next/:path+",
+        "destination": "/six-square-builders/_next/:path+",
+        "regex": "^/six-square-builders//_next(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))(?:/)?$"
+      }
+    ],
+    "afterFiles": [],
+    "fallback": []
+  }
 }
