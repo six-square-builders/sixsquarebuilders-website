@@ -1,9 +1,9 @@
 [
   {
-    "id": "skyline-heights",
-    "name": "Skyline Heights",
-    "address": "Plot 12, Skyline Avenue, Downtown, City 12345",
-    "coords": { "lat": 19.076, "lng": 72.8777 },
+    "id": "ganesh-castle",
+    "name": "Ganesh Castle",
+    "address": "270, 6th Main Rd, Sadasiva Nagar, Madipakkam, Chennai – 600091",
+    "coords": { "lat": 12.963875716446076, "lng": 80.2022417016096 },
     "status": { "stage": "Structure up to 10th floor – 40% Progress", "progress": 40 },
     "possessionDate": "2026-03-01",
     "media": [
@@ -54,7 +54,7 @@
         { "milestone": "Possession", "percent": 20 }
       ]
     },
-    "amenities": ["Clubhouse", "Gym", "Pool", "Parking", "Power backup", "Security"],
+    "amenities": ["Generator", "Solar Panel", "Lift", "Parking", "CCTV Surveillance", "Security"],
     "specs": {"flooring": "Vitrified tiles", "fittings": "Grohe/Kohler", "kitchen": "Granite with SS sink", "smartHome": "Video door phone"},
     "sustainability": ["Rainwater harvesting", "Solar panels"],
     "developer": {"name": "Skyline Constructions", "trackRecord": "20+ projects delivered across the city"},
@@ -70,9 +70,10 @@
     ],
     "awards": ["Best Residential High-rise 2024"],
     "landmarks": [
-      {"type": "School", "name": "City International", "distanceKm": 1.2},
-      {"type": "Hospital", "name": "Metro Care", "distanceKm": 2.1},
-      {"type": "Mall", "name": "Galaxy Mall", "distanceKm": 1.8}
+      {"type": "Bus Stand", "name": "Madipakkam", "distanceKm": 0.9},
+      {"type": "Bus Stop", "name": "Sadasiva nagar", "distanceKm": 0.3},
+      {"type": "Schools", "name": "", "distanceKm": 0.9},
+      {"type": "Metro Station", "name": "Velachery", "distanceKm":2.0}
     ]
   },{
     "id":"central-avenue-towers",
@@ -83,9 +84,9 @@
   },
   {
     "id": "riverview-residency",
-    "name": "Riverview Residency",
-    "address": "Riverview Road, Riverside, City 56789",
-    "coords": { "lat": 28.6139, "lng": 77.209 },
+    "name": "Balaiah Garden",
+    "address": "Balaiah Garden, Madipakkam, Chennai - 600091",
+    "coords": { "lat": 12.965133656768137 , "lng": 80.19983842836386 },
     "status": { "stage": "Completed – 100%", "progress": 100 },
     "possessionDate": "2023-12-01",
     "media": [
@@ -97,13 +98,9 @@
   },
   {
     "id": "tech-park-central",
-    "name": "Tech Park Central",
-    "address": "12 IT Corridor, North Zone, City 24680",
-    "coords": { "lat": 12.9716, "lng": 77.5946 },
-    "status": { "stage": "Foundation Complete – 35% Progress", "progress": 35 },
-    "possessionDate": "2026-10-01",
-    "media": [
-      { "type": "image", "url": "https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=1200&auto=format&fit=crop" }
-    ]
+    "name": "Coming Soon",
+    "status": { "stage": "", "progress": 0 },
+
+    "comingSoon": true
   }
 ]
