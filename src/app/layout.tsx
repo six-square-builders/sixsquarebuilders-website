@@ -7,7 +7,7 @@ import { Toaster } from "../components/ui/sonner";
 import { Footer } from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "Skyline Constructions",
+  title: "Six Square Builders",
   description: "Construction company showcasing ongoing, past, and future projects with premium flats for sale.",
 };
 

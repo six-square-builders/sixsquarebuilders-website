@@ -1,9 +1,13 @@
 version: "3.9"
+
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sixsquarebuilders
     ports:
-      - "3000:80"
-    # For local development to rebuild quickly, you can comment build and use image if pushed
-    # image: your-dockerhub-username/your-app:latest
-    # environment: []
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    restart: unless-stopped

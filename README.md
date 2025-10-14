@@ -1,151 +1,255 @@
-# Skyline Constructions – Frontend-Only App (Next.js)
+# Six Square Builders – Construction & Real Estate Website
 
-A static React app for showcasing construction projects with a full-width Project Details modal and an in-modal enquiry form that sends emails via EmailJS — no backend required. Deployable to GitHub Pages, Netlify, Vercel, or as a Docker container.
+[![Live Site](https://img.shields.io/badge/Live-Site-blue?style=for-the-badge\&logo=google-chrome)](https://www.sixsquarebuilders.co.in)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repo-black?style=for-the-badge\&logo=github)](https://github.com/six-square-builders/sixsquarebuilders-website)
+
+A modern, responsive, **Next.js-based static website** for showcasing residential and commercial projects by **Six Square Builders**.
+The site features project details, enquiry forms, and seamless deployment via **GitHub Pages**, **Vercel**, or **Docker (NGINX)** — with no backend required.
+
+---
+
+## Overview
+
+This website serves as a digital presence for **Six Square Builders**, displaying ongoing, upcoming, and completed projects with interactive modals and an in-modal enquiry form powered by **EmailJS**.
+
+It is a **fully static frontend** built with **Next.js 15 (App Router)** and **Tailwind CSS v4**, optimized for fast loading, accessibility, and responsive viewing across all devices.
+
+---
 
 ## Features
-- Projects grid with tabs (Ongoing, Past, Future)
-- Click any project to open a full-width, responsive modal overlay
-- Modal includes:
-  - Project Overview (address, media gallery, landmarks, Google Map embed)
-  - Construction Status (stage, progress, possession date)
-  - Flat/Unit Details (areas, facing, balconies, floorplans)
-  - Pricing & Payment (all-inclusive example, bank approvals, schedule, EMI calculator)
-  - Amenities, Specifications, Sustainability
-  - Developer & Legal info with downloadable docs
-  - Social Proof (testimonials/awards)
-  - Lead capture: Book a Site Visit, Request Callback, and Quick Inquiry form
-- Enquiry Form (inside modal):
-  - Fields: name, email, phone, message, and hidden project_name (auto-filled)
-  - Client-side validation (required, email format, phone format)
-  - EmailJS client-side email to myaddress@example.com
-  - Toasts: success and failure (with Retry)
-  - No page reloads
-- UX:
-  - Skeletons with grey shimmer while modal content loads
-  - Submit button disabled with spinner during send
-  - Responsive, keyboard accessible, ARIA labels, focus trap
-  - Lazy-loaded images and video preload=metadata
-- Static hosting friendly:
-  - Uses `public/projects.json` for data on static hosts
-  - Falls back to `/api/projects` when available
 
-## Tech
-- Next.js 15 (App Router) + React 19
-- Tailwind CSS v4
-- EmailJS client SDK (`@emailjs/browser`)
-- Sonner toasts
-- Deployed with GitHub Actions to GitHub Pages (static export)
-- Dockerized with NGINX serving the static export
+* **Dynamic Projects Showcase**
+
+  * Projects grid with categories: *Ongoing*, *Past*, and *Future*
+  * Each project opens in a full-width responsive modal overlay
+* **In-Modal Project Details**
+
+  * Construction status, possession date, amenities, and sustainability highlights
+  * Flat/unit details (area, facing, price range, etc.)
+  * Downloadable legal and brochure documents
+* **Enquiry Form (via EmailJS)**
+
+  * Fields: name, email, phone, message, project_name (auto-filled)
+  * Client-side validation with success/failure toasts
+  * No backend — emails are sent directly through EmailJS SDK
+* **Responsive UI**
+
+  * Skeleton loading placeholders and lazy-loaded media
+  * Accessible modals with focus trap and ARIA support
+* **Static Hosting Compatibility**
+
+  * Uses `public/projects.json` for static data
+  * Works seamlessly on GitHub Pages, Netlify, and Vercel
+
+---
+
+## Technology Stack
+
+* **Framework:** Next.js 15 (App Router)
+* **Language:** TypeScript + React 19
+* **Styling:** Tailwind CSS v4
+* **Email Integration:** EmailJS (`@emailjs/browser`)
+* **UI/UX Enhancements:** Sonner for notifications, accessibility-first modals
+* **Deployment:** GitHub Actions → GitHub Pages / Dockerized via NGINX
+
+---
 
 ## Local Development
-1. Install dependencies
-   - npm: `npm ci`
-2. Run dev server
-   - `npm run dev`
-3. Open http://localhost:3000
 
-Data for the modal is in `public/projects.json`.
+1. **Install dependencies**
 
-## EmailJS Configuration (Required for Enquiry Emails)
-The in-modal enquiry uses EmailJS on the client — no backend.
+   ```bash
+   npm ci
+   ```
 
-1. Create an account: https://www.emailjs.com/
-2. Add an Email Service and a Template. In the template, define the following variables:
-   - `project_name`
-   - `name`
-   - `email`
-   - `phone`
-   - `message`
-   - `to_email` (set default to `myaddress@example.com` or map in the UI)
-3. In EmailJS dashboard, copy:
-   - Service ID
-   - Template ID
-   - Public Key
-4. Create a `.env.local` file in the project root with:
-   - `NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id`
-   - `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id`
-   - `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key`
-5. Restart `npm run dev` .
+2. **Run development server**
 
-Where it's used: `src/app/projects/page.tsx` in the `QuickInquiry` component.
+   ```bash
+   npm run dev
+   ```
+
+3. **Access the app**
+
+   * Open [http://localhost:3000](http://localhost:3000)
+
+---
+
+## EmailJS Configuration (Required)
+
+This site uses **EmailJS** for client-side enquiry form submissions (no backend).
+
+1. Create an account: [https://www.emailjs.com/](https://www.emailjs.com/)
+2. Add a new **Email Service** and **Template**
+3. Define template variables:
+
+   ```
+   project_name
+   name
+   email
+   phone
+   message
+   to_email
+   ```
+4. Copy these values from the EmailJS dashboard:
+
+   * **Service ID**
+   * **Template ID**
+   * **Public Key**
+5. Create a `.env.local` file in the project root:
+
+   ```bash
+   NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
+   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
+   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
+   ```
+
+Used inside:
+`src/app/projects/page.tsx` → `QuickInquiry` component.
+
+---
 
 ## GitHub Pages Deployment (CI/CD)
-This repository includes a GitHub Actions workflow: `.github/workflows/deploy.yml`
 
-It:
-- Runs on pushes to `main`
-- Executes: `npm ci`, `npm run build`, `npm run export`
-- Uploads the `out/` folder and deploys to Pages with `actions/deploy-pages`
+This project includes an automated deployment workflow:
 
-Steps:
-1. Push your code to a GitHub repo.
-2. Ensure Pages is enabled (Settings → Pages → Source: GitHub Actions).
-3. Push to `main` to trigger the workflow.
-
-Note: For project pages (username.github.io/repo), you may need to configure a custom domain or ensure paths work. This app uses static export and root-relative paths for public assets and `public/projects.json`.
-
-## Netlify / Vercel
-- Netlify: set build command `npm run build && npm run export` and publish directory `out/`.
-- Vercel: You can deploy the Next app directly without export; the app also includes API routes for dynamic testing.
-
-## Docker
-This repo includes a multi-stage Dockerfile that builds and serves the static export using NGINX.
-
-Build and run:
-```bash
-# Build
-docker build -t skyline-app .
-
-# Run (serves on port 3000)
-docker run --rm -p 3000:80 skyline-app
-# Open http://localhost:3000
+```
+.github/workflows/deploy.yml
 ```
 
-Using docker-compose:
+### Workflow summary:
+
+* Triggers on push to `main`
+* Executes:
+
+  ```bash
+  npm ci
+  npm run build
+  npm run export
+  ```
+* Deploys the `out/` directory using `peaceiris/actions-gh-pages@v3`
+
+### Steps:
+
+1. Push code to GitHub
+2. Enable GitHub Pages under:
+
+   ```
+   Settings → Pages → Source: GitHub Actions
+   ```
+3. Push to `main` branch to trigger auto-deploy
+
+For a **custom domain**, set `CNAME` to:
+
+```
+www.sixsquarebuilders.co.in
+```
+
+---
+
+## Docker Deployment
+
+This project is fully containerized for deployment on any Docker-compatible environment.
+
+### Build and Run:
+
+```bash
+# Build image
+docker build -t sixsquarebuilders .
+
+# Run container
+docker run --rm -p 3000:80 sixsquarebuilders
+```
+
+### Using Docker Compose:
+
 ```bash
 docker-compose up --build
-# Open http://localhost:3000
 ```
 
-Key files:
-- `Dockerfile`: builds Next.js, runs `next export`, serves with NGINX
-- `nginx.conf`: SPA fallback to `/index.html`
-- `.dockerignore`: excludes node_modules, build artifacts, etc.
+Open [http://localhost:3000](http://localhost:3000)
+
+### Key Files
+
+| File                 | Description                                            |
+| -------------------- | ------------------------------------------------------ |
+| `Dockerfile`         | Multi-stage build with NGINX serving the static export |
+| `nginx.conf`         | SPA fallback configuration                             |
+| `.dockerignore`      | Excludes unnecessary build artifacts                   |
+| `docker-compose.yml` | Simplifies container build and run process             |
+
+---
 
 ## Project Structure
-- `src/app/projects/page.tsx` — Projects grid + modal + enquiry (EmailJS)
-- `public/projects.json` — Static data for modal
-- `.github/workflows/deploy.yml` — GitHub Pages CI
-- `Dockerfile`, `nginx.conf`, `.dockerignore`, `docker-compose.yml` — Containerization
+
+```
+├── src/
+│   ├── app/
+│   │   ├── page.tsx              → Home Page
+│   │   ├── about/page.tsx        → About Page
+│   │   ├── projects/page.tsx     → Projects grid + modal + enquiry form
+│   │   ├── flats/page.tsx        → Flats listing page
+│   │   └── contact/page.tsx      → Contact form
+│   ├── components/               → Navbar, Footer, UI components
+│   ├── hooks/                    → Custom React hooks
+│   ├── visual-edits/             → Internal loader utilities
+│   └── lib/                      → Reusable utilities and helpers
+├── public/projects.json          → Static project data
+├── next.config.ts                → Build configuration
+├── Dockerfile, docker-compose.yml
+├── nginx.conf, .dockerignore
+├── .github/workflows/deploy.yml  → GitHub Actions CI/CD
+└── README.md
+```
+
+---
 
 ## Accessibility & UX
-- Modal uses `role="dialog"`, `aria-modal="true"`, labelled by title and description
-- Keyboard focus trap within the modal
-- Backdrop click and mobile swipe-down to close
-- Skeleton placeholders while loading
-- Lazy-loaded images and video metadata preload
+
+* Semantic HTML and ARIA roles for modals
+* Keyboard and screen reader support
+* Focus trapping within modals
+* Responsive grid layouts and adaptive design
+* Lazy-loaded images and video previews
+
+---
 
 ## Environment Variables
-Create `.env.local` with:
+
 ```
 NEXT_PUBLIC_EMAILJS_SERVICE_ID=...
 NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=...
 NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=...
 ```
 
-These are read on the client.
+These are exposed on the client for EmailJS integration.
+
+---
 
 ## Scripts
-- `npm run dev` — start dev server
-- `npm run build` — Next.js build
-- `npm run export` — static export to `out/`
-- `npm run start` — Next.js server (not needed for static hosting)
-- `npm run lint` — lint
+
+| Command          | Description                                                     |
+| ---------------- | --------------------------------------------------------------- |
+| `npm run dev`    | Start local development server                                  |
+| `npm run build`  | Build Next.js app                                               |
+| `npm run export` | Export static site to `/out`                                    |
+| `npm run lint`   | Run ESLint checks                                               |
+| `npm run start`  | Run Next.js production server (not required for static hosting) |
+
+---
 
 ## Troubleshooting
-- Email not sending: verify EmailJS keys and template variables; check browser console for errors.
-- Blank modal data on static hosts: ensure `public/projects.json` is deployed and accessible; the app fetches this first for static hosting.
-- GitHub Pages 404 on refresh: static export + SPA fallback is handled by our Docker NGINX. For Pages, GitHub handles static file serving; avoid deep-linking to dynamic routes.
+
+| Issue                           | Possible Cause              | Solution                                                      |
+| ------------------------------- | --------------------------- | ------------------------------------------------------------- |
+| CSS not loading on GitHub Pages | Base path misconfigured     | Verify `basePath` and `assetPrefix` in `next.config.ts`       |
+| Email not sending               | Invalid EmailJS credentials | Recheck `.env.local` and EmailJS dashboard                    |
+| 404 on GitHub Pages refresh     | SPA fallback missing        | Ensure correct `output: "export"` and `nginx.conf` for Docker |
+
+---
 
 ## License
-MIT
+
+This project is licensed under the **MIT License**.
+© 2025 Six Square Builders. All rights reserved.
+
+

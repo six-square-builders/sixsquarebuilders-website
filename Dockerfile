@@ -1,29 +1,35 @@
-# Multi-stage build for static Next.js export served by NGINX
+# Use an official Node.js image to build the app
+FROM node:20-alpine AS builder
 
-# 1) Builder: install deps, build, and export static site to /app/out
-FROM node:18-alpine AS builder
+# Set working directory
 WORKDIR /app
 
-# Install dependencies first (better caching)
-COPY package.json ./
-COPY package-lock.json* bun.lock* ./
-# 👇 Add the flag here to bypass the React 18/19 peer-dep conflict
-RUN npm ci --legacy-peer-deps
+# Copy package files
+COPY package.json package-lock.json ./
 
-# Copy the rest of the source
-COPY . /app
+# Install dependencies
+RUN npm ci
 
-# Build and export static site
-RUN npm run build && npm run export
+# Copy the rest of the app
+COPY . .
 
-# 2) Runner: lightweight NGINX
-FROM nginx:1.27-alpine AS runner
+# Build the Next.js app
+RUN npm run build
 
-# Copy custom nginx config to enable SPA fallback for client-side routing
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Stage 2: Create a lightweight container to serve static files
+FROM node:20-alpine AS runner
 
-# Copy exported site
-COPY --from=builder /app/out /usr/share/nginx/html
+# Install a static server
+RUN npm install -g serve
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Set working directory
+WORKDIR /app
+
+# Copy the built static export from the builder stage
+COPY --from=builder /app/out ./
+
+# Expose port
+EXPOSE 3000
+
+# Command to serve the app
+CMD ["serve", "-s", ".", "-l", "3000"]
