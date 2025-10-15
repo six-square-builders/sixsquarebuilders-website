@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from 'next/navigation'
 
 type Flat = {
   id: string;
@@ -12,9 +13,82 @@ type Flat = {
   img: string;
 };
 
+// Added some static content for testing
 const FLATS: Flat[] = [
   {
-    id: "skyline-2bhk-a1",
+    id: "ganesh-castle",
+    title: "Ganesh Castle • 3 BHK",
+    price: "₹XX,XX,XXX",
+    beds: 3,
+    baths: 2,
+    area: "980 sq.ft",
+    img: "/flats/ganesh_castle.png",
+  },
+  {
+    id: "ganesh-castle",
+    title: "Ganesh Castle • 3 BHK",
+    price: "₹XX,XX,XXX",
+    beds: 3,
+    baths: 2,
+    area: "980 sq.ft",
+    img: "/flats/ganesh_castle.png",
+  },
+  {
+    id: "ganesh-castle",
+    title: "Ganesh Castle • 3 BHK",
+    price: "₹XX,XX,XXX",
+    beds: 3,
+    baths: 2,
+    area: "980 sq.ft",
+    img: "/flats/ganesh_castle.png",
+  },
+  {
+    id: "ganesh-castle",
+    title: "Ganesh Castle • 3 BHK",
+    price: "₹XX,XX,XXX",
+    beds: 3,
+    baths: 2,
+    area: "980 sq.ft",
+    img: "/flats/ganesh_castle.png",
+  },
+  {
+    id: "ganesh-castle",
+    title: "Ganesh Castle • 3 BHK",
+    price: "₹XX,XX,XXX",
+    beds: 3,
+    baths: 2,
+    area: "980 sq.ft",
+    img: "/flats/ganesh_castle.png",
+  },
+  {
+    id: "ganesh-castle",
+    title: "Ganesh Castle • 3 BHK",
+    price: "₹XX,XX,XXX",
+    beds: 3,
+    baths: 2,
+    area: "980 sq.ft",
+    img: "/flats/ganesh_castle.png",
+  },
+  {
+    id: "ganesh-castle",
+    title: "Ganesh Castle • 3 BHK",
+    price: "₹XX,XX,XXX",
+    beds: 3,
+    baths: 2,
+    area: "980 sq.ft",
+    img: "/flats/ganesh_castle.png",
+  },
+  {
+    id: "ganesh-castle",
+    title: "Ganesh Castle • 3 BHK",
+    price: "₹XX,XX,XXX",
+    beds: 3,
+    baths: 2,
+    area: "980 sq.ft",
+    img: "/flats/ganesh_castle.png",
+  },
+  {
+    id: "ganesh-castle",
     title: "Ganesh Castle • 3 BHK",
     price: "₹XX,XX,XXX",
     beds: 3,
@@ -27,6 +101,13 @@ const FLATS: Flat[] = [
 ];
 
 export default function FlatsPage() {
+  const router = useRouter()
+  
+  const onClickHandler = (id: string) => {
+    // add id to the router
+    router.push(`/projects?projectId=${id}`)
+  }
+
   return (
     <main className="mx-auto max-w-7xl px-4 py-12">
       <header className="mb-6">
@@ -55,12 +136,12 @@ export default function FlatsPage() {
                 >
                   Enquire
                 </Link>
-                <Link
-                  href="/projects"
-                  className="rounded-md border px-4 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground"
+                <button
+                  onClick={() => onClickHandler(flat.id)}
+                  className="rounded-md border px-4 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground cursor-pointer"
                 >
                   View Project
-                </Link>
+                </button>
               </div>
             </div>
           </article>
