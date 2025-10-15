@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
-import { useSearchParams } from 'next/navigation'
 
 type TabKey = "past" | "ongoing" | "future";
 
@@ -28,42 +27,7 @@ const GALLERIES: Record<TabKey, { id: string; title: string; src: string }[]> = 
       title: "Ganesh Castle",
       id: "ganesh-castle",
       src: "/flats/ganesh_castle.png",
-    },
-    {
-      title: "Ganesh Castle",
-      id: "ganesh-castle-1",
-      src: "/flats/ganesh_castle.png",
-    },
-    {
-      title: "Ganesh Castle",
-      id: "ganesh-castle-2",
-      src: "/flats/ganesh_castle.png",
-    },
-    {
-      title: "Ganesh Castle",
-      id: "ganesh-castle-3",
-      src: "/flats/ganesh_castle.png",
-    },
-    {
-      title: "Ganesh Castle",
-      id: "ganesh-castle-4",
-      src: "/flats/ganesh_castle.png",
-    },
-    {
-      title: "Ganesh Castle",
-      id: "ganesh-castle-5",
-      src: "/flats/ganesh_castle.png",
-    },
-    {
-      title: "Ganesh Castle",
-      id: "ganesh-castle-6",
-      src: "/flats/ganesh_castle.png",
-    },
-    {
-      title: "Ganesh Castle",
-      id: "ganesh-castle-7",
-      src: "/flats/ganesh_castle.png",
-    },
+    }
 
   ],
   past: [
@@ -143,8 +107,6 @@ export default function ProjectsPage() {
   const [data, setData] = useState<ProjectDetail | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const params = useSearchParams()
-  const projectId = params.get('projectId')
 
   // Open modal and fetch data
 // Only fetch from /projects.json for all projects
@@ -185,13 +147,6 @@ const openProject = async (id: string) => {
       };
     }
   }, [openId]);
-
-  // Open modal on change route if projectId exists in url
-  useEffect(() => { 
-    if (projectId) { 
-      openProject(projectId)
-    }  
-  }, [projectId])
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-12">
