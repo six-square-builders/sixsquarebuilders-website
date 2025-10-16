@@ -27,7 +27,7 @@ const GALLERIES: Record<TabKey, { id: string; title: string; src: string }[]> = 
       title: "Ganesh Castle",
       id: "ganesh-castle",
       src: "/flats/ganesh_castle.png",
-    },
+    }
 
   ],
   past: [

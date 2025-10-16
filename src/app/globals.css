@@ -128,3 +128,43 @@
 nextjs-portal {
   display: none !important;
 }   
+
+
+/* Modal animation */
+@layer utilities {
+  /* Only define animations on md+ */
+  @media (min-width: 768px) {
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    @keyframes scaleOut {
+      from { opacity: 1; transform: scale(1) translateY(0); }
+      to { opacity: 0; transform: scale(0.95) translateY(10px); }
+    }
+
+    .animate-fadeIn {
+      animation: fadeIn 0.25s ease-out forwards;
+    }
+    .animate-fadeOut {
+      animation: fadeOut 0.25s ease-in forwards;
+    }
+    .animate-scaleIn {
+      animation: scaleIn 0.25s ease-out forwards;
+    }
+    .animate-scaleOut {
+      animation: scaleOut 0.25s ease-in forwards;
+    }
+  }
+}
