@@ -61,11 +61,9 @@
       "remotePatterns": [
         {
           "protocol": "https",
-          "hostname": "**"
-        },
-        {
-          "protocol": "http",
-          "hostname": "**"
+          "hostname": "images.unsplash.com",
+          "port": "",
+          "pathname": "/**"
         }
       ],
       "unoptimized": true

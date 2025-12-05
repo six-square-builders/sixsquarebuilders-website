@@ -1,42 +1,118 @@
 "use client";
+import Image from "next/image";
 
 export default function AboutPage() {
   return (
-    <main className="mx-auto max-w-7xl px-4 py-22">
-      <header className="mb-6">
-        <h1 className="text-3xl font-bold">About Us</h1>
-        <p className="mt-2 max-w-prose text-muted-foreground">
-          We are a full-service construction company focused on transforming skylines and enriching lives.
-        </p>
-      </header>
-
-      <section className="grid grid-cols-1 gap-8 md:grid-cols-2">
-        <div>
-          <h2 className="text-xl font-semibold">Our Story</h2>
-          <p className="mt-2 text-muted-foreground">
-            Since our inception, Skyline Constructions has delivered projects distinguished by quality, innovation, and integrity. With a multidisciplinary team, we manage residential and commercial developments from concept to completion.
+    <main className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            Building the Future, <br />
+            <span className="text-gray-500">Restoring the Past.</span>
+          </h1>
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+            We are a full-service construction company focused on transforming skylines and enriching lives through sustainable, innovative, and high-quality craftsmanship.
           </p>
-          <h2 className="mt-8 text-xl font-semibold">Mission & Values</h2>
-          <ul className="mt-2 list-inside list-disc text-muted-foreground">
-            <li>Deliver exceptional craftsmanship and value.</li>
-            <li>Prioritize safety, sustainability, and compliance.</li>
-            <li>Build long-term relationships through transparency.</li>
-          </ul>
         </div>
-        <div className="overflow-hidden rounded-lg border">
-  <img
-    src="https://images.unsplash.com/photo-1487956382158-bb926046304a?q=80&w=1600&auto=format&fit=crop"
-    alt="Team at a construction site"
-    className="w-full h-72 object-cover"
-  />
-</div>
-
-
       </section>
 
-      <section className="mt-12">
-        <h2 className="text-xl font-semibold">Our Team</h2>
-        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+      {/* Story & Image Section */}
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+          {/* Text Content */}
+          <div className="flex flex-col justify-center">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+              Our Story
+            </h2>
+            <div className="mt-6 space-y-6 text-gray-600 leading-relaxed">
+              <p>
+                Since our inception, Skyline Constructions has delivered projects
+                distinguished by quality, innovation, and integrity. What started
+                as a small team of passionate builders has grown into a
+                multidisciplinary force in the industry.
+              </p>
+              <p>
+                We manage residential and commercial developments from concept to
+                completion, ensuring that every beam laid and every detail
+                finished meets our rigorous standards.
+              </p>
+            </div>
+
+            <div className="mt-8 border-l-4 border-gray-900 pl-4">
+              <p className="italic text-gray-600">
+                "We don't just build structures; we build trust."
+              </p>
+            </div>
+          </div>
+
+          {/* Large Image */}
+          <div className="relative h-[400px] overflow-hidden rounded-2xl bg-gray-100 shadow-xl lg:h-[500px]">
+            <Image
+              src="https://images.unsplash.com/photo-1487956382158-bb926046304a?q=80&w=1600&auto=format&fit=crop"
+              alt="Team at a construction site"
+              fill
+              className="object-cover transition-transform duration-500 hover:scale-105"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Values Section (Transformed into Cards) */}
+      <section className="bg-gray-50 py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-12 md:text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+              Mission & Values
+            </h2>
+            <p className="mt-4 text-gray-600">
+              The core principles that guide every decision we make.
+            </p>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            {[
+              {
+                title: "Craftsmanship",
+                desc: "We deliver exceptional quality and value in every square foot we build.",
+              },
+              {
+                title: "Safety & Compliance",
+                desc: "We prioritize the safety of our team and sustainability of our environment.",
+              },
+              {
+                title: "Transparency",
+                desc: "We build long-term relationships through honesty and open communication.",
+              },
+            ].map((value, idx) => (
+              <div
+                key={idx}
+                className="rounded-xl border border-gray-200 bg-white p-8 shadow-sm transition-shadow hover:shadow-md"
+              >
+                <h3 className="text-xl font-semibold text-gray-900">
+                  {value.title}
+                </h3>
+                <p className="mt-3 text-gray-600">{value.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+            Meet Our Team
+          </h2>
+          <p className="mt-4 max-w-2xl text-gray-600">
+            The experts behind our success, dedicated to bringing your vision to
+            life.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {[
             {
               name: "Ava Shah",
@@ -53,13 +129,27 @@ export default function AboutPage() {
               role: "Lead Architect",
               src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop",
             },
-          ].map((m) => (
-            <div key={m.name} className="overflow-hidden rounded-lg border">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={m.src} alt={m.name} className="h-56 w-full object-cover" />
-              <div className="p-4">
-                <h3 className="font-semibold">{m.name}</h3>
-                <p className="text-sm text-muted-foreground">{m.role}</p>
+          ].map((member) => (
+            <div
+              key={member.name}
+              className="group overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-sm"
+            >
+              <div className="relative h-72 w-full overflow-hidden bg-gray-200">
+                <Image
+                  src={member.src}
+                  alt={member.name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  {member.name}
+                </h3>
+                <p className="text-sm font-medium text-gray-500">
+                  {member.role}
+                </p>
               </div>
             </div>
           ))}

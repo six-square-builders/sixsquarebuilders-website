@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
 
@@ -46,52 +47,8 @@ const FLATS: Flat[] = [
   }
 ];
 
-interface ProjectDetail {
-  id: string;
-  name: string;
-  address: string;
-  coords?: { lat: number; lng: number };
-  status?: { stage: string; progress: number };
-  possessionDate?: string;
-  media?: { type: "image" | "video"; url: string }[];
-  flats?: {
-    type: string;
-    areas: { carpet: number; builtUp: number; superBuiltUp: number };
-    floors: string;
-    facing: string[];
-    balcony: string[];
-    floorPlans: { label: string; url: string }[];
-    basePricePerSqft: number;
-  }[];
-  pricing?: {
-    allInclusiveExample?: {
-      maintenance: number;
-      parking: number;
-      club: number;
-      gstPercent: number;
-      registrationPercent: number;
-    };
-    banks?: string[];
-    paymentSchedule?: { milestone: string; percent: number }[];
-  };
-  amenities?: string[];
-  specs?: {
-    flooring?: string;
-    fittings?: string;
-    kitchen?: string;
-    smartHome?: string;
-  };
-  sustainability?: string[];
-  developer?: { name: string; trackRecord: string };
-  legal?: {
-    rera?: string;
-    approvals?: string;
-    documents?: { label: string; url: string }[];
-  };
-  testimonials?: { name: string; text: string }[];
-  awards?: string[];
-  landmarks?: { type: string; name: string; distanceKm: number }[];
-}
+import { getProjectById } from "@/lib/projects";
+import type { ProjectDetail } from "@/types";
 
 export default function FlatsPage() {
   const [openId, setOpenId] = useState<string | null>(null);
@@ -105,11 +62,7 @@ export default function FlatsPage() {
     setError(null);
     setData(null);
     try {
-      // Use only /projects.json (static data source)
-      const res = await fetch("/projects.json", { cache: "no-store" });
-      if (!res.ok) throw new Error("Failed to load project data");
-      const all: ProjectDetail[] = await res.json();
-      const found = all.find((p) => p.id === id);
+      const found = await getProjectById(id);
       if (!found) throw new Error("Project not found");
       setData(found);
     } catch (e: any) {
@@ -148,8 +101,7 @@ export default function FlatsPage() {
         {FLATS.map((flat) => (
           <article key={flat.id} className="overflow-hidden rounded-lg border">
             <div className="relative aspect-[16/10]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={flat.img} alt={flat.title} className="h-full w-full object-cover" />
+              <Image src={flat.img} alt={flat.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
             </div>
             <div className="p-4">
               <h3 className="font-semibold">{flat.title}</h3>
@@ -328,8 +280,7 @@ function ProjectModal({
                     {data.media?.slice(0, 6).map((m, i) => (
                       <div key={i} className={"relative aspect-video overflow-hidden rounded-lg border"}>
                         {m.type === "image" ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img loading="lazy" src={m.url} alt="project media" className="h-full w-full object-cover" />
+                          <Image loading="lazy" src={m.url} alt="project media" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                         ) : (
                           <video preload="metadata" controls className="h-full w-full object-cover">
                             <source src={m.url} />
@@ -411,9 +362,8 @@ function ProjectModal({
                         {f.floorPlans?.length ? (
                           <div className="mt-3 grid grid-cols-2 gap-2">
                             {f.floorPlans.map((p, i) => (
-                              <figure key={i} className="overflow-hidden rounded border">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img loading="lazy" src={p.url} alt={p.label} className="aspect-video w-full object-cover" />
+                              <figure key={i} className="overflow-hidden rounded border relative">
+                                <Image loading="lazy" src={p.url} alt={p.label} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                                 <figcaption className="px-2 py-1 text-xs text-muted-foreground">{p.label}</figcaption>
                               </figure>
                             ))}
