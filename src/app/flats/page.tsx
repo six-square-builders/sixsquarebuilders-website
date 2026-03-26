@@ -19,13 +19,13 @@ type Flat = {
 // Added some static content for testing
 const FLATS: Flat[] = [
   {
-    id: "ganesh-castle",
-    title: "Ganesh Castle • 3 BHK",
+    id: "ganesha-tower",
+    title: "Ganesha Tower • 3 BHK",
     price: "₹XX,XX,XXX",
     beds: 3,
     baths: 2,
     area: "980 sq.ft",
-    img: "/flats/ganesh_castle.png",
+    img: "/flats/ganesha_tower.png",
   },
   {
     title: "Balaian Garden",
@@ -110,7 +110,7 @@ export default function FlatsPage() {
               </div>
               <div className="mt-4 flex gap-2">
                 <Link
-                  href={`/contact?interest=${encodeURIComponent(flat.id)}`}
+                  href={`/contact.html?interest=${encodeURIComponent(flat.id)}`}
                   className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
                 >
                   Enquire
@@ -385,7 +385,7 @@ function ProjectModal({
                       {data.pricing?.allInclusiveExample && (
                         <>
                           <li className="flex justify-between"><span>Maintenance</span><span>₹ {data.pricing.allInclusiveExample.maintenance.toLocaleString()}</span></li>
-                          <li className="flex justify-between"><span>Parking</span><span>₹ {data.pricing.allInclusiveExample.parking.toLocaleString()}</span></li>
+                          <li className="flex justify-between"><span>Parking</span><span>{data.pricing.allInclusiveExample.parking > 0 ? `₹ ${data.pricing.allInclusiveExample.parking.toLocaleString()}` : "Available"}</span></li>
                           <li className="flex justify-between"><span>Club Membership</span><span>₹ {data.pricing.allInclusiveExample.club.toLocaleString()}</span></li>
                           <li className="flex justify-between"><span>GST</span><span>{data.pricing.allInclusiveExample.gstPercent}%</span></li>
                           <li className="flex justify-between"><span>Registration</span><span>{data.pricing.allInclusiveExample.registrationPercent}%</span></li>
@@ -470,8 +470,8 @@ function ProjectModal({
               <section>
                 <h3 className="text-xl font-semibold">Get in touch</h3>
                 <div className="mt-3 flex flex-wrap gap-3">
-                  <Link href={`/contact?interest=${encodeURIComponent(data.name)}`} className="rounded-md bg-primary px-4 py-2 text-primary-foreground">Book a Site Visit</Link>
-                  <Link href={`/contact?interest=${encodeURIComponent(data.name)}&type=callback`} className="rounded-md border px-4 py-2">Request Call Back</Link>
+                  <Link href={`/contact.html?interest=${encodeURIComponent(data.name)}`} className="rounded-md bg-primary px-4 py-2 text-primary-foreground">Book a Site Visit</Link>
+                  <Link href={`/contact.html?interest=${encodeURIComponent(data.name)}&type=callback`} className="rounded-md border px-4 py-2">Request Call Back</Link>
                   <ShareButtons title={data.name} url={typeof window !== 'undefined' ? window.location.href : ''} />
                 </div>
                 <QuickInquiry defaultInterest={data.name} />

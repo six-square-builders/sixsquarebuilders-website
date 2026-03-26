@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import { heroImages } from "@/lib/data";
 
@@ -24,18 +23,18 @@ export default function Hero() {
             modern aesthetics.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/flats"
+            <a
+              href="/flats.html"
               className="rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:opacity-90"
             >
               View Flats for Sale
-            </Link>
-            <Link
-              href="/projects"
+            </a>
+            <a
+              href="/projects.html"
               className="rounded-md border px-5 py-3 text-sm font-semibold hover:bg-accent hover:text-accent-foreground"
             >
               See Our Projects
-            </Link>
+            </a>
           </div>
         </div>
         <div className="rounded-lg bg-white/10 p-4 backdrop-blur">

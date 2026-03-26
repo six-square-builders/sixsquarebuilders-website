@@ -1,11 +1,11 @@
 [
   {
-    "id": "ganesh-castle",
-    "name": "Ganesh Castle",
+    "id": "ganesha-tower",
+    "name": "Ganesha Tower",
     "address": "270, 6th Main Rd, Sadasiva Nagar, Madipakkam, Chennai – 600091",
     "coords": { "lat": 12.963875716446076, "lng": 80.2022417016096 },
-    "status": { "stage": "Structure up to 10th floor – 40% Progress", "progress": 40 },
-    "possessionDate": "2026-03-01",
+    "status": { "stage": "5th floor – 80% progress", "progress": 80 },
+    "possessionDate": "2026-10-30",
     "media": [
       { "type": "image", "url": "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop" },
       { "type": "image", "url": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop" },
@@ -13,18 +13,6 @@
       { "type": "image", "url": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=1200&auto=format&fit=crop" }
     ],
     "flats": [
-      {
-        "type": "2 BHK",
-        "areas": { "carpet": 780, "builtUp": 950, "superBuiltUp": 1100 },
-        "floors": "5-18",
-        "facing": ["East", "North"],
-        "balcony": ["City view", "Garden view"],
-        "floorPlans": [
-          { "label": "2D Plan", "url": "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1200&auto=format&fit=crop" },
-          { "label": "3D Layout", "url": "https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=1200&auto=format&fit=crop" }
-        ],
-        "basePricePerSqft": 9500
-      },
       {
         "type": "3 BHK",
         "areas": { "carpet": 1020, "builtUp": 1250, "superBuiltUp": 1450 },
@@ -34,24 +22,22 @@
         "floorPlans": [
           { "label": "2D Plan", "url": "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=1200&auto=format&fit=crop" }
         ],
-        "basePricePerSqft": 9900
+        "basePricePerSqft": 8500
       }
     ],
     "pricing": {
       "allInclusiveExample": {
         "maintenance": 150000,
-        "parking": 300000,
-        "club": 75000,
+        "parking": 0,
+        "club": 25000,
         "gstPercent": 5,
-        "registrationPercent": 6
+        "registrationPercent": 7
       },
       "banks": ["HDFC", "ICICI", "SBI"],
       "paymentSchedule": [
         { "milestone": "Booking", "percent": 10 },
-        { "milestone": "Plinth", "percent": 15 },
-        { "milestone": "Structure", "percent": 30 },
-        { "milestone": "Brickwork", "percent": 25 },
-        { "milestone": "Possession", "percent": 20 }
+        { "milestone": "Flooring", "percent": 10 },
+        { "milestone": "Possession", "percent": 10 }
       ]
     },
     "amenities": ["Generator", "Solar Panel", "Lift", "Parking", "CCTV Surveillance", "Security"],
@@ -65,10 +51,6 @@
         {"label": "Brochure (PDF)", "url": "https://example.com/brochure.pdf"}
       ]
     },
-    "testimonials": [
-      {"name": "A. Sharma", "text": "Quality construction and on-time updates."}
-    ],
-    "awards": ["Best Residential High-rise 2024"],
     "landmarks": [
       {"type": "Bus Stand", "name": "Madipakkam", "distanceKm": 0.9},
       {"type": "Bus Stop", "name": "Sadasiva nagar", "distanceKm": 0.3},

@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 export const Footer = () => {
   return (
     <footer className="mt-16 border-t bg-background/50">
@@ -22,24 +20,24 @@ export const Footer = () => {
             <h4 className="text-base font-medium">Company</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
-                <Link href="/about" className="hover:text-foreground transition-colors">
+                <a href="/about.html" className="hover:text-foreground transition-colors">
                   About Us
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/projects" className="hover:text-foreground transition-colors">
+                <a href="/projects.html" className="hover:text-foreground transition-colors">
                   Projects
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/flats" className="hover:text-foreground transition-colors">
+                <a href="/flats.html" className="hover:text-foreground transition-colors">
                   Flats for Sale
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-foreground transition-colors">
+                <a href="/contact.html" className="hover:text-foreground transition-colors">
                   Contact
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -106,18 +104,18 @@ export const Footer = () => {
             </p>
           </div>
           <div className="flex space-x-6">
-            <Link
+            <a
               href="#"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               Privacy Policy
-            </Link>
-            <Link
+            </a>
+            <a
               href="#"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               Terms of Service
-            </Link>
+            </a>
           </div>
         </div>
       </div>

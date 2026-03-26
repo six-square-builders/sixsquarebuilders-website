@@ -19,8 +19,8 @@ export const services = [
 
 export const featuredProjects = [
   {
-    title: "Ganesh Castle",
-    src: "/flats/ganesh_castle.png",
+    title: "Ganesha Tower",
+    src: "/flats/ganesha_tower.png",
     tag: "Ongoing",
   },
   {

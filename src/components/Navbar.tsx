@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { Building2, Menu, X } from "lucide-react";
 
@@ -10,41 +9,41 @@ export default function Navbar() {
 
   const navItems = [
     { href: "/", label: "Home" },
-    { href: "/projects", label: "Projects" },
-    { href: "/flats", label: "Flats for Sale" },
-    { href: "/about", label: "About Us" },
-    { href: "/contact", label: "Contact" },
+    { href: "/projects.html", label: "Projects" },
+    { href: "/flats.html", label: "Flats for Sale" },
+    { href: "/about.html", label: "About Us" },
+    { href: "/contact.html", label: "Contact" },
   ];
 
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:py-4">
-        <Link href="/" className="flex items-center gap-2">
+        <a href="/" className="flex items-center gap-2">
   {/* Replace Lucide icon + text with your logo */}
   <img
     src="/icon.png"       // your PNG file name
     alt="Skyline Constructions Logo"
     className="h-10 w-auto" // adjust size as needed
   />
-</Link>
+</a>
 
 
         <nav className="hidden items-center gap-6 md:flex">
           {navItems.map((item) => (
-            <Link
+            <a
               key={item.href}
               href={item.href}
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               {item.label}
-            </Link>
+            </a>
           ))}
-          <Link
-            href="/contact"
+          <a
+            href="/contact.html"
             className="rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground shadow hover:opacity-90"
           >
             Enquire Now
-          </Link>
+          </a>
         </nav>
 
         <button
@@ -60,22 +59,22 @@ export default function Navbar() {
         <div className="border-t md:hidden">
           <nav className="mx-auto flex max-w-7xl flex-col gap-1 p-2">
             {navItems.map((item) => (
-              <Link
+              <a
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
                 className="rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
               >
                 {item.label}
-              </Link>
+              </a>
             ))}
-            <Link
-              href="/contact"
+            <a
+              href="/contact.html"
               onClick={() => setOpen(false)}
               className="rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground shadow hover:opacity-90"
             >
               Enquire Now
-            </Link>
+            </a>
           </nav>
         </div>
       )}

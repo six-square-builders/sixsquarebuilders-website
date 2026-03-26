@@ -22,12 +22,13 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)+/g, "");
 
-const GALLERIES: Record<TabKey, { id: string; title: string; src: string }[]> = {
+const GALLERIES: Record<TabKey, { id: string; title: string; src: string; badge?: string }[]> = {
   ongoing: [
     {
-      title: "Ganesh Castle",
-      id: "ganesh-castle",
-      src: "/flats/ganesh_castle.png",
+      title: "Ganesha Tower",
+      id: "ganesha-tower",
+      src: "/flats/ganesha_tower.png",
+      badge: "On Sale",
     }
 
   ],
@@ -133,6 +134,11 @@ const openProject = async (id: string) => {
             <div className="relative aspect-[16/10]">
               <Image src={item.src} alt={item.title} loading="lazy" fill className="object-cover transition-transform group-hover:scale-[1.02]" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+              {item.badge ? (
+                <div className="absolute left-3 top-3 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground shadow">
+                  {item.badge}
+                </div>
+              ) : null}
             </div>
             <div className="p-4">
               <h3 className="font-semibold">{item.title}</h3>
@@ -385,7 +391,7 @@ function ProjectModal({
                       {data.pricing?.allInclusiveExample && (
                         <>
                           <li className="flex justify-between"><span>Maintenance</span><span>₹ {data.pricing.allInclusiveExample.maintenance.toLocaleString()}</span></li>
-                          <li className="flex justify-between"><span>Parking</span><span>₹ {data.pricing.allInclusiveExample.parking.toLocaleString()}</span></li>
+                          <li className="flex justify-between"><span>Parking</span><span>{data.pricing.allInclusiveExample.parking > 0 ? `₹ ${data.pricing.allInclusiveExample.parking.toLocaleString()}` : "Available"}</span></li>
                           <li className="flex justify-between"><span>Club Membership</span><span>₹ {data.pricing.allInclusiveExample.club.toLocaleString()}</span></li>
                           <li className="flex justify-between"><span>GST</span><span>{data.pricing.allInclusiveExample.gstPercent}%</span></li>
                           <li className="flex justify-between"><span>Registration</span><span>{data.pricing.allInclusiveExample.registrationPercent}%</span></li>
@@ -470,8 +476,8 @@ function ProjectModal({
               <section>
                 <h3 className="text-xl font-semibold">Get in touch</h3>
                 <div className="mt-3 flex flex-wrap gap-3">
-                  <Link href={`/contact?interest=${encodeURIComponent(data.name)}`} className="rounded-md bg-primary px-4 py-2 text-primary-foreground">Book a Site Visit</Link>
-                  <Link href={`/contact?interest=${encodeURIComponent(data.name)}&type=callback`} className="rounded-md border px-4 py-2">Request Call Back</Link>
+                  <Link href={`/contact.html?interest=${encodeURIComponent(data.name)}`} className="rounded-md bg-primary px-4 py-2 text-primary-foreground">Book a Site Visit</Link>
+                  <Link href={`/contact.html?interest=${encodeURIComponent(data.name)}&type=callback`} className="rounded-md border px-4 py-2">Request Call Back</Link>
                   <ShareButtons title={data.name} url={typeof window !== 'undefined' ? window.location.href : ''} />
                 </div>
                 <QuickInquiry defaultInterest={data.name} />

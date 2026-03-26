@@ -16,20 +16,15 @@ COPY . .
 # Build the Next.js app
 RUN npm run build
 
-# Stage 2: Create a lightweight container to serve static files
-FROM node:20-alpine AS runner
+# Stage 2: Serve the static export with NGINX
+FROM nginx:alpine AS runner
 
-# Install a static server
-RUN npm install -g serve
+# Copy static export and server config
+COPY --from=builder /app/out /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Set working directory
-WORKDIR /app
+# Expose nginx port
+EXPOSE 80
 
-# Copy the built static export from the builder stage
-COPY --from=builder /app/out ./
-
-# Expose port
-EXPOSE 3000
-
-# Command to serve the app
-CMD ["serve", "-s", ".", "-l", "3000"]
+# Run nginx in foreground
+CMD ["nginx", "-g", "daemon off;"]

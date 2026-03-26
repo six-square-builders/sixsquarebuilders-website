@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import { featuredProjects } from "@/lib/data";
 
@@ -15,12 +14,12 @@ export default function FeaturedProjects() {
             developments.
           </p>
         </div>
-        <Link
-          href="/projects"
+        <a
+          href="/projects.html"
           className="hidden rounded-md border px-4 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground md:inline-block"
         >
           View all
-        </Link>
+        </a>
       </div>
       <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
         {featuredProjects.map((p) => (
@@ -47,12 +46,12 @@ export default function FeaturedProjects() {
         ))}
       </div>
       <div className="mt-8 text-center md:hidden">
-        <Link
-          href="/projects"
+        <a
+          href="/projects.html"
           className="rounded-md border px-4 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground"
         >
           View all projects
-        </Link>
+        </a>
       </div>
     </section>
   );
