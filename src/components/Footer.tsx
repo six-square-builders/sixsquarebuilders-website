@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export const Footer = () => {
   return (
     <footer className="mt-16 border-t bg-background/50">
@@ -20,24 +22,24 @@ export const Footer = () => {
             <h4 className="text-base font-medium">Company</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
-                <a href="/about.html" className="hover:text-foreground transition-colors">
+                <Link href="/about" className="hover:text-foreground transition-colors">
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/projects.html" className="hover:text-foreground transition-colors">
+                <Link href="/projects" className="hover:text-foreground transition-colors">
                   Projects
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/flats.html" className="hover:text-foreground transition-colors">
+                <Link href="/flats" className="hover:text-foreground transition-colors">
                   Flats for Sale
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/contact.html" className="hover:text-foreground transition-colors">
+                <Link href="/contact" className="hover:text-foreground transition-colors">
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

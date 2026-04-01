@@ -1,15 +1,18 @@
 import Image from "next/image";
+import Link from "next/link";
 import { heroImages } from "@/lib/data";
 
 export default function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div
-        className="absolute inset-0 -z-10 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1600&auto=format&fit=crop')",
-        }}
+      <Image
+        src="https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1600&auto=format&fit=crop"
+        alt=""
+        aria-hidden="true"
+        fill
+        priority
+        className="-z-10 object-cover"
+        sizes="100vw"
       />
       <div className="absolute inset-0 -z-10 bg-black/40" />
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 py-28 text-primary-foreground md:grid-cols-2 md:py-36">
@@ -23,18 +26,18 @@ export default function Hero() {
             modern aesthetics.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="/flats.html"
+            <Link
+              href="/flats"
               className="rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:opacity-90"
             >
               View Flats for Sale
-            </a>
-            <a
-              href="/projects.html"
+            </Link>
+            <Link
+              href="/projects"
               className="rounded-md border px-5 py-3 text-sm font-semibold hover:bg-accent hover:text-accent-foreground"
             >
               See Our Projects
-            </a>
+            </Link>
           </div>
         </div>
         <div className="rounded-lg bg-white/10 p-4 backdrop-blur">

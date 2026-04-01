@@ -1,3 +1,5 @@
+import { withBasePath } from "@/lib/site";
+
 export const services = [
   {
     title: "Residential",
@@ -21,18 +23,18 @@ export const featuredProjects = [
   {
     title: "Ganesha Tower",
     address: "Sadasivam Nagar, Madipakkam, Chennai 600091",
-    src: "/flats/ganesha_tower.png",
+    src: withBasePath("/flats/ganesha_tower.png"),
     tag: "Ongoing",
   },
   {
     title: "Ganapathy Enclave",
     address: "Sadasivam Nagar, Madipakkam, Chennai 600091",
-    src: "/flats/ganapathi_enclave.png",
+    src: withBasePath("/flats/ganapathi_enclave.png"),
     tag: "Past",
   },
   {
     title: "Ganesh Castle",
-    src: "/flats/balaiah_garden.png",
+    src: withBasePath("/flats/balaiah_garden.png"),
     tag: "Past",
   },
 ];
