@@ -41,6 +41,9 @@ export default function FeaturedProjects() {
             </div>
             <div className="p-4">
               <h3 className="font-semibold">{p.title}</h3>
+              {("address" in p) && p.address ? (
+                <p className="mt-1 text-sm text-muted-foreground">{p.address}</p>
+              ) : null}
             </div>
           </div>
         ))}

@@ -20,16 +20,18 @@ export const services = [
 export const featuredProjects = [
   {
     title: "Ganesha Tower",
+    address: "Sadasivam Nagar, Madipakkam, Chennai 600091",
     src: "/flats/ganesha_tower.png",
     tag: "Ongoing",
   },
   {
     title: "Ganapathy Enclave",
+    address: "Sadasivam Nagar, Madipakkam, Chennai 600091",
     src: "/flats/ganapathi_enclave.png",
     tag: "Past",
   },
   {
-    title: "Balaiah Garden",
+    title: "Ganesh Castle",
     src: "/flats/balaiah_garden.png",
     tag: "Past",
   },

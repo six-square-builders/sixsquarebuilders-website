@@ -9,7 +9,7 @@ import { toast } from "sonner";
 type Flat = {
   id: string;
   title: string;
-  price: string;
+  address?: string;
   beds: number;
   baths: number;
   area: string;
@@ -21,29 +21,11 @@ const FLATS: Flat[] = [
   {
     id: "ganesha-tower",
     title: "Ganesha Tower • 3 BHK",
-    price: "₹XX,XX,XXX",
+    address: "Sadasivam Nagar, Madipakkam, Chennai 600091",
     beds: 3,
     baths: 2,
-    area: "980 sq.ft",
+    area: "1336 sq.ft",
     img: "/flats/ganesha_tower.png",
-  },
-  {
-    title: "Balaian Garden",
-    id: "riverview-residency",
-    price: "₹XX,XX,XXX",
-    beds: 3,
-    baths: 2,
-    area: "980 sq.ft",
-    img: "/flats/balaiah_garden.png",
-  },
-  {
-    title: "Ganapathi Enclave",
-    id: "maple-grove-villas",
-    price: "₹XX,XX,XXX",
-    beds: 3,
-    baths: 2,
-    area: "980 sq.ft",
-    img: "/flats/ganapathi_enclave.png",
   }
 ];
 
@@ -105,8 +87,11 @@ export default function FlatsPage() {
             </div>
             <div className="p-4">
               <h3 className="font-semibold">{flat.title}</h3>
+              {flat.address ? (
+                <p className="mt-1 text-sm text-muted-foreground">{flat.address}</p>
+              ) : null}
               <div className="mt-1 text-sm text-muted-foreground">
-                <span className="font-medium text-foreground">{flat.price}</span> • {flat.beds} Beds • {flat.baths} Baths • {flat.area}
+                {flat.beds} Beds • {flat.baths} Baths • {flat.area}
               </div>
               <div className="mt-4 flex gap-2">
                 <Link
@@ -149,6 +134,8 @@ function ProjectModal({
   error: string | null;
   }) {
   const [isClosing, setIsClosing] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [showAllMedia, setShowAllMedia] = useState(false);
   const startY = useRef<number | null>(null);
   const deltaY = useRef(0);
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -200,11 +187,26 @@ function ProjectModal({
     }
   }, [data?.possessionDate]);
 
+  const previewMedia = useMemo(() => {
+    if (!data?.media?.length) return [];
+    return data.media.slice(0, Math.min(5, data.media.length));
+  }, [data?.media]);
+
+  const galleryMedia = showAllMedia ? (data?.media ?? []) : previewMedia;
+  const hiddenMediaCount = Math.max((data?.media?.length ?? 0) - previewMedia.length, 0);
+
   useEffect(() => {
     // autofocus close button when modal opens
     if (open) {
        closeBtnRef.current?.focus();
       setIsClosing(false);
+    }
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) {
+      setSelectedImage(null);
+      setShowAllMedia(false);
     }
   }, [open]);
 
@@ -234,15 +236,35 @@ function ProjectModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby="project-modal-title"
-        aria-describedby="project-modal-desc"
         tabIndex={-1}
       >
+        {selectedImage ? (
+          <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/85 p-4" onClick={() => setSelectedImage(null)}>
+            <button
+              type="button"
+              onClick={() => setSelectedImage(null)}
+              aria-label="Close image preview"
+              className="absolute right-4 top-4 rounded-md border border-white/20 bg-black/40 px-3 py-1.5 text-sm text-white hover:bg-black/60"
+            >
+              ×
+            </button>
+            <div className="relative h-full w-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
+              <Image
+                src={selectedImage}
+                alt="Project preview"
+                fill
+                className="object-contain"
+                sizes="100vw"
+                priority
+              />
+            </div>
+          </div>
+        ) : null}
         {/* Focus trap sentinels */}
         <span tabIndex={0} aria-hidden="true" />
         {/* Sticky Top Bar */}
         <div className="sticky top-0 z-20 flex items-center justify-between border-b bg-background/90 px-4 py-3 backdrop-blur">
           <div className="min-w-0">
-            <p id="project-modal-desc" className="truncate text-sm text-muted-foreground">{data?.address || (loading ? "Loading address…" : "")}</p>
             <h2 id="project-modal-title" className="truncate text-lg font-semibold">{data?.name || (loading ? "Loading project…" : error ? "Not found" : "Project Details")}</h2>
           </div>
           <button ref={closeBtnRef} onClick={handleStartClose} onAnimationEnd={handleAnimationEnd} aria-label="Close" className="rounded-md border px-3 py-1.5 text-sm hover:bg-accent">
@@ -276,18 +298,138 @@ function ProjectModal({
                 <p className="mt-1 text-muted-foreground">{data.name} • {data.address}</p>
                 <div className="mt-4 grid gap-4 md:grid-cols-2">
                   {/* Media Gallery */}
-                  <div className="grid grid-cols-2 gap-2">
-                    {data.media?.slice(0, 6).map((m, i) => (
-                      <div key={i} className={"relative aspect-video overflow-hidden rounded-lg border"}>
-                        {m.type === "image" ? (
-                          <Image loading="lazy" src={m.url} alt="project media" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
-                        ) : (
-                          <video preload="metadata" controls className="h-full w-full object-cover">
-                            <source src={m.url} />
-                          </video>
-                        )}
+                  <div>
+                    {!showAllMedia && previewMedia.length > 0 ? (
+                      <div className="grid gap-2 sm:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] sm:h-[22rem] lg:h-[24rem]">
+                        {(() => {
+                          const featured = previewMedia[0];
+                          const sideMedia = previewMedia.slice(1);
+
+                          return (
+                            <>
+                              <div className="relative min-h-[16rem] overflow-hidden rounded-lg border sm:h-full sm:min-h-0">
+                                {featured.type === "image" ? (
+                                  <button
+                                    type="button"
+                                    onClick={() => setSelectedImage(featured.url)}
+                                    className="absolute inset-0 cursor-zoom-in"
+                                    aria-label="Open featured image"
+                                  >
+                                    <Image
+                                      loading="lazy"
+                                      src={featured.url}
+                                      alt="project media"
+                                      fill
+                                      className="object-cover transition-transform hover:scale-[1.02]"
+                                      sizes="(max-width: 768px) 100vw, 50vw"
+                                    />
+                                  </button>
+                                ) : (
+                                  <button
+                                    type="button"
+                                    onClick={() => setShowAllMedia(true)}
+                                    className="absolute inset-0"
+                                    aria-label="View all project media"
+                                  >
+                                    <video preload="metadata" muted playsInline className="h-full w-full object-cover">
+                                      <source src={featured.url} />
+                                    </video>
+                                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-3 text-left text-sm font-medium text-white">
+                                      Video
+                                    </div>
+                                  </button>
+                                )}
+                              </div>
+                              {sideMedia.length > 0 ? (
+                                <div className="grid grid-cols-2 gap-2 sm:h-full sm:grid-rows-2">
+                                  {sideMedia.map((m, i) => {
+                                    const showViewAllOverlay =
+                                      hiddenMediaCount > 0 && i === sideMedia.length - 1;
+
+                                    return (
+                                      <div key={i} className="relative min-h-[7.25rem] overflow-hidden rounded-lg border sm:h-full sm:min-h-0">
+                                        {m.type === "image" ? (
+                                          <button
+                                            type="button"
+                                            onClick={() => setSelectedImage(m.url)}
+                                            className="absolute inset-0 cursor-zoom-in"
+                                            aria-label={`Open image ${i + 2}`}
+                                          >
+                                            <Image
+                                              loading="lazy"
+                                              src={m.url}
+                                              alt="project media"
+                                              fill
+                                              className="object-cover transition-transform hover:scale-[1.02]"
+                                              sizes="(max-width: 768px) 100vw, 33vw"
+                                            />
+                                          </button>
+                                        ) : (
+                                          <button
+                                            type="button"
+                                            onClick={() => setShowAllMedia(true)}
+                                            className="absolute inset-0"
+                                            aria-label="View all project media"
+                                          >
+                                            <video preload="metadata" muted playsInline className="h-full w-full object-cover">
+                                              <source src={m.url} />
+                                            </video>
+                                            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 text-left text-xs font-medium text-white">
+                                              Video
+                                            </div>
+                                          </button>
+                                        )}
+                                        {showViewAllOverlay ? (
+                                          <button
+                                            type="button"
+                                            onClick={() => setShowAllMedia(true)}
+                                            className="absolute inset-0 flex flex-col items-center justify-center bg-black/55 text-white backdrop-blur-[1px] transition hover:bg-black/65"
+                                            aria-label={`View ${hiddenMediaCount} more media items`}
+                                          >
+                                            <span className="text-3xl font-semibold leading-none">+{hiddenMediaCount}</span>
+                                            <span className="mt-2 text-sm font-medium">View all</span>
+                                          </button>
+                                        ) : null}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              ) : null}
+                            </>
+                          );
+                        })()}
                       </div>
-                    ))}
+                    ) : (
+                      <div className="grid grid-cols-2 gap-2">
+                        {galleryMedia.map((m, i) => (
+                          <div key={i} className="relative aspect-video overflow-hidden rounded-lg border">
+                            {m.type === "image" ? (
+                              <button
+                                type="button"
+                                onClick={() => setSelectedImage(m.url)}
+                                className="absolute inset-0 cursor-zoom-in"
+                                aria-label={`Open image ${i + 1}`}
+                              >
+                                <Image loading="lazy" src={m.url} alt="project media" fill className="object-cover transition-transform hover:scale-[1.02]" sizes="(max-width: 768px) 100vw, 50vw" />
+                              </button>
+                            ) : (
+                              <video preload="metadata" controls className="h-full w-full object-cover">
+                                <source src={m.url} />
+                              </video>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {showAllMedia && hiddenMediaCount > 0 ? (
+                      <button
+                        type="button"
+                        onClick={() => setShowAllMedia(false)}
+                        className="mt-3 inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
+                      >
+                        Show less
+                      </button>
+                    ) : null}
                   </div>
 
                   {/* Map + Landmarks */}
@@ -349,12 +491,15 @@ function ProjectModal({
                       <div key={idx} className="rounded-lg border p-4">
                         <div className="flex items-baseline justify-between">
                           <div className="font-medium">{f.type}</div>
-                          <div className="text-sm text-muted-foreground">Base ₹ {f.basePricePerSqft.toLocaleString()}/sqft</div>
+                          {f.unitsCount ? (
+                            <div className="text-sm text-muted-foreground">{f.unitsCount} units</div>
+                          ) : null}
                         </div>
+                        <div className="mt-1 text-sm text-muted-foreground">{f.areas.superBuiltUp} flat sqft</div>
                         <dl className="mt-2 grid grid-cols-2 gap-2 text-sm">
-                          <div><dt className="text-muted-foreground">Carpet</dt><dd className="font-medium">{f.areas.carpet} sqft</dd></div>
-                          <div><dt className="text-muted-foreground">Built-up</dt><dd className="font-medium">{f.areas.builtUp} sqft</dd></div>
-                          <div><dt className="text-muted-foreground">Super built-up</dt><dd className="font-medium">{f.areas.superBuiltUp} sqft</dd></div>
+                          <div><dt className="text-muted-foreground">Carpet Area</dt><dd className="font-medium">{f.areas.carpet} sqft</dd></div>
+                          <div><dt className="text-muted-foreground">Plinth Area</dt><dd className="font-medium">{(f.areas.plinthArea ?? f.areas.builtUp)} sqft</dd></div>
+                          <div><dt className="text-muted-foreground">Super Built-up Area</dt><dd className="font-medium">{f.areas.superBuiltUp} sqft</dd></div>
                           <div><dt className="text-muted-foreground">Floors</dt><dd className="font-medium">{f.floors}</dd></div>
                           <div><dt className="text-muted-foreground">Facing</dt><dd className="font-medium">{f.facing.join(", ")}</dd></div>
                           <div><dt className="text-muted-foreground">Balcony/View</dt><dd className="font-medium">{f.balcony.join(", ")}</dd></div>
@@ -386,29 +531,48 @@ function ProjectModal({
                         <>
                           <li className="flex justify-between"><span>Maintenance</span><span>₹ {data.pricing.allInclusiveExample.maintenance.toLocaleString()}</span></li>
                           <li className="flex justify-between"><span>Parking</span><span>{data.pricing.allInclusiveExample.parking > 0 ? `₹ ${data.pricing.allInclusiveExample.parking.toLocaleString()}` : "Available"}</span></li>
-                          <li className="flex justify-between"><span>Club Membership</span><span>₹ {data.pricing.allInclusiveExample.club.toLocaleString()}</span></li>
+                          <li className="flex justify-between"><span>Membership Charges</span><span>₹ {data.pricing.allInclusiveExample.club.toLocaleString()}</span></li>
                           <li className="flex justify-between"><span>GST</span><span>{data.pricing.allInclusiveExample.gstPercent}%</span></li>
                           <li className="flex justify-between"><span>Registration</span><span>{data.pricing.allInclusiveExample.registrationPercent}%</span></li>
                         </>
                       )}
                     </ul>
-                    {!!data.pricing?.paymentSchedule?.length && (
-                      <div className="mt-3">
-                        <div className="text-sm text-muted-foreground">Payment schedule</div>
-                        <ul className="mt-1 space-y-1 text-sm">
-                          {data.pricing.paymentSchedule.map((s, i) => (
-                            <li key={i} className="flex justify-between"><span>{s.milestone}</span><span>{s.percent}%</span></li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
                     {!!data.pricing?.banks?.length && (
                       <div className="mt-3 text-sm text-muted-foreground">Bank-approved: {data.pricing.banks.join(", ")}</div>
                     )}
                   </div>
-
-                  {/* Simple EMI calculator */}
-                  <EMICalculator />
+                  {!!data.pricing?.paymentSchedule?.length && (
+                    <div className="rounded-lg border p-4">
+                      <div className="text-sm text-muted-foreground">Payment schedule</div>
+                      <div className="mt-3 overflow-x-auto rounded-md border">
+                        <table className="min-w-full border-collapse text-sm">
+                          <thead className="bg-muted/60">
+                            <tr>
+                              <th className="border-b px-3 py-2 text-left font-medium">No.</th>
+                              <th className="border-b px-3 py-2 text-left font-medium">Particular</th>
+                              <th className="border-b px-3 py-2 text-right font-medium">Percentage to Payment</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {data.pricing.paymentSchedule.map((item, index) => (
+                              <tr key={`${item.milestone}-${index}`} className="border-b last:border-b-0">
+                                <td className="px-3 py-2 align-top text-muted-foreground">{index + 1}</td>
+                                <td className="px-3 py-2">{item.milestone}</td>
+                                <td className="px-3 py-2 text-right font-medium">{item.percent}%</td>
+                              </tr>
+                            ))}
+                            <tr className="bg-muted/40 font-semibold">
+                              <td className="px-3 py-2" />
+                              <td className="px-3 py-2">Total</td>
+                              <td className="px-3 py-2 text-right">
+                                {data.pricing.paymentSchedule.reduce((sum, item) => sum + item.percent, 0)}%
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </section>
 
@@ -449,8 +613,12 @@ function ProjectModal({
                     <div className="text-sm text-muted-foreground">{data.developer?.trackRecord}</div>
                   </div>
                   <div className="rounded-lg border p-4">
-                    <div className="text-sm text-muted-foreground">RERA</div>
-                    <div className="mt-1 font-medium">{data.legal?.rera || "—"}</div>
+                    {data.legal?.rera ? (
+                      <>
+                        <div className="text-sm text-muted-foreground">RERA</div>
+                        <div className="mt-1 font-medium">{data.legal.rera}</div>
+                      </>
+                    ) : null}
                     <div className="mt-2 text-sm text-muted-foreground">{data.legal?.approvals}</div>
                     {!!data.legal?.documents?.length && (
                       <div className="mt-3 flex flex-wrap gap-2">

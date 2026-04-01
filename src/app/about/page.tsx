@@ -27,7 +27,7 @@ export default function AboutPage() {
             </h2>
             <div className="mt-6 space-y-6 text-gray-600 leading-relaxed">
               <p>
-                Since our inception, Skyline Constructions has delivered projects
+                Since our inception, Six Square Builders has delivered projects
                 distinguished by quality, innovation, and integrity. What started
                 as a small team of passionate builders has grown into a
                 multidisciplinary force in the industry.
@@ -100,61 +100,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900">
-            Meet Our Team
-          </h2>
-          <p className="mt-4 max-w-2xl text-gray-600">
-            The experts behind our success, dedicated to bringing your vision to
-            life.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            {
-              name: "Ava Shah",
-              role: "CEO & Founder",
-              src: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=800&auto=format&fit=crop",
-            },
-            {
-              name: "Daniel Kim",
-              role: "Head of Projects",
-              src: "https://images.unsplash.com/photo-1573496529574-be85d6a60704?q=80&w=800&auto=format&fit=crop",
-            },
-            {
-              name: "Priya Nair",
-              role: "Lead Architect",
-              src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop",
-            },
-          ].map((member) => (
-            <div
-              key={member.name}
-              className="group overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-sm"
-            >
-              <div className="relative h-72 w-full overflow-hidden bg-gray-200">
-                <Image
-                  src={member.src}
-                  alt={member.name}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {member.name}
-                </h3>
-                <p className="text-sm font-medium text-gray-500">
-                  {member.role}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
     </main>
   );
 }

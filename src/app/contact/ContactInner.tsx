@@ -243,8 +243,7 @@ export default function ContactPage() {
             <h2 className="text-base font-semibold">Office</h2>
             <p className="mt-1 text-sm text-muted-foreground">
             Six Square Builders
-<br /> No. 270, 6th Main Rd
-<br /> Sadasiva Nagar, Madipakkam
+<br /> Sadasivam Nagar, Madipakkam
 <br /> Chennai 600091
 
             </p>
@@ -259,7 +258,7 @@ export default function ContactPage() {
           <div className="overflow-hidden rounded-lg border">
   <div className="overflow-hidden rounded-lg border h-60">
   <iframe
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.127328742881!2d80.19966677591667!3d12.963703215049751!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525dc23831940b%3A0xf034eaacb06463d3!2s270%2C%206th%20Main%20Rd%2C%20Meenatchi%20Sundareswarar%20Koil%2C%20Sadasiva%20Nagar%2C%20Madipakkam%2C%20Chennai%2C%20Tamil%20Nadu%20600091!5e0!3m2!1sen!2sin!4v1760477487253!5m2!1sen!2sin"
+    src="https://www.google.com/maps?q=12.963875716446076,80.2022417016096&hl=en&z=14&output=embed"
     className="w-full h-full"
     style={{ border: 0 }}
     allowFullScreen

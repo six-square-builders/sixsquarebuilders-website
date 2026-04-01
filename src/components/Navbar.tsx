@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Building2, Menu, X } from "lucide-react";
 
 
@@ -18,14 +19,14 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:py-4">
-        <a href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
   {/* Replace Lucide icon + text with your logo */}
   <img
     src="/icon.png"       // your PNG file name
-    alt="Skyline Constructions Logo"
+    alt="Six Square Builders Logo"
     className="h-10 w-auto" // adjust size as needed
   />
-</a>
+</Link>
 
 
         <nav className="hidden items-center gap-6 md:flex">

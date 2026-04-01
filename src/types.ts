@@ -8,12 +8,13 @@ export interface ProjectDetail {
   media?: { type: "image" | "video"; url: string }[];
   flats?: {
     type:string;
-    areas: { carpet: number; builtUp: number; superBuiltUp: number };
+    unitsCount?: number;
+    areas: { carpet: number; builtUp: number; superBuiltUp: number; plinthArea?: number };
     floors: string;
     facing: string[];
     balcony: string[];
     floorPlans: { label: string; url: string }[];
-    basePricePerSqft: number;
+    basePricePerSqft?: number;
   }[];
   pricing?: {
     allInclusiveExample?: {

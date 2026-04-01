@@ -56,8 +56,8 @@ export const Footer = () => {
               </li>
               <li className="flex flex-col">
                 <span className="font-medium text-foreground">Address</span>
-                <span>No. 270, 6th Main Rd, Sadasiva Nagar, Madipakkam,
-                  <br />Chennai – 600091</span>
+                <span>Sadasivam Nagar, Madipakkam,
+                  <br />Chennai 600091</span>
               </li>
             </ul>
           </div>
@@ -78,7 +78,9 @@ export const Footer = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/sixsquare.builders?igsh=MXFpbTRkYjJpcjIyNQ=="
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-foreground transition-colors"
                 >
                   Instagram
@@ -86,7 +88,9 @@ export const Footer = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://www.facebook.com/share/1NbHqAJGGP/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-foreground transition-colors"
                 >
                   Facebook
@@ -100,7 +104,7 @@ export const Footer = () => {
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row">
           <div className="text-center md:text-left">
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Skyline Constructions. All rights reserved.
+              © {new Date().getFullYear()} Six Square Builders. All rights reserved.
             </p>
           </div>
           <div className="flex space-x-6">
