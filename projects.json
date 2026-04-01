@@ -2,58 +2,69 @@
   {
     "id": "ganesha-tower",
     "name": "Ganesha Tower",
-    "address": "270, 6th Main Rd, Sadasiva Nagar, Madipakkam, Chennai – 600091",
+    "address": "Sadasivam Nagar, Madipakkam, Chennai 600091",
     "coords": { "lat": 12.963875716446076, "lng": 80.2022417016096 },
     "status": { "stage": "5th floor – 80% progress", "progress": 80 },
     "possessionDate": "2026-10-30",
     "media": [
-      { "type": "image", "url": "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop" },
-      { "type": "image", "url": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop" },
-      { "type": "video", "url": "https://www.w3schools.com/html/mov_bbb.mp4" },
-      { "type": "image", "url": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=1200&auto=format&fit=crop" }
+      { "type": "image", "url": "/ganesha_tower/ganesha-tower-01.jpeg" },
+      { "type": "image", "url": "/ganesha_tower/ganesha-tower-02.jpeg" },
+      { "type": "image", "url": "/ganesha_tower/ganesha-tower-03.jpeg" },
+      { "type": "image", "url": "/ganesha_tower/ganesha-tower-04.jpeg" },
+      { "type": "image", "url": "/ganesha_tower/ganesha-tower-05.jpeg" },
+      { "type": "image", "url": "/ganesha_tower/ganesha-tower-06.jpeg" },
+      { "type": "video", "url": "/ganesha_tower/ganesha-tower-07.mp4" },
+      { "type": "video", "url": "/ganesha_tower/ganesha-tower-08.mp4" }
     ],
     "flats": [
       {
         "type": "3 BHK",
-        "areas": { "carpet": 1020, "builtUp": 1250, "superBuiltUp": 1450 },
-        "floors": "10-22",
-        "facing": ["West", "South"],
-        "balcony": ["Pool view"],
+        "unitsCount": 10,
+        "areas": { "carpet": 945, "builtUp": 1069, "superBuiltUp": 1336, "plinthArea": 1069 },
+        "floors": "Stilt + 5 floors",
+        "facing": ["North", "South"],
+        "balcony": ["Yes"],
         "floorPlans": [
           { "label": "2D Plan", "url": "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=1200&auto=format&fit=crop" }
-        ],
-        "basePricePerSqft": 8500
+        ]
       }
     ],
     "pricing": {
       "allInclusiveExample": {
-        "maintenance": 150000,
+        "maintenance": 1000,
         "parking": 0,
-        "club": 25000,
+        "club": 50000,
         "gstPercent": 5,
         "registrationPercent": 7
       },
-      "banks": ["HDFC", "ICICI", "SBI"],
+      "banks": ["State Bank of India", "HDFC Bank", "ICICI Bank"],
       "paymentSchedule": [
-        { "milestone": "Booking", "percent": 10 },
-        { "milestone": "Flooring", "percent": 10 },
-        { "milestone": "Possession", "percent": 10 }
+        { "milestone": "Booking Amount", "percent": 5 },
+        { "milestone": "After Completion of Ground Floor Roof Slab", "percent": 15 },
+        { "milestone": "After Completion of First Floor Roof Slab", "percent": 10 },
+        { "milestone": "After Completion of Second Floor Roof Slab", "percent": 10 },
+        { "milestone": "After Completion of Third Floor Roof Slab", "percent": 10 },
+        { "milestone": "After Completion of Fourth Floor Roof Slab", "percent": 10 },
+        { "milestone": "After Completion of Fifth Floor Roof Slab", "percent": 10 },
+        { "milestone": "After Completion of Brick Work", "percent": 10 },
+        { "milestone": "After Completion of Plastering Work", "percent": 5 },
+        { "milestone": "After Completion of Tiles Work & Grano Flooring", "percent": 10 },
+        { "milestone": "Completion, Testing and Handing Over", "percent": 5 }
       ]
     },
-    "amenities": ["Generator", "Solar Panel", "Lift", "Parking", "CCTV Surveillance", "Security"],
-    "specs": {"flooring": "Vitrified tiles", "fittings": "Grohe/Kohler", "kitchen": "Granite with SS sink", "smartHome": "Video door phone"},
+    "amenities": ["Generator", "Solar Panel", "Lift", "Parking", "CCTV Surveillance", "Video door lock"],
+    "specs": {"flooring": "Vitrified tiles", "fittings": "Parryware", "kitchen": "Granite with SS sink", "smartHome": "Video door phone"},
     "sustainability": ["Rainwater harvesting", "Solar panels"],
-    "developer": {"name": "Skyline Constructions", "trackRecord": "20+ projects delivered across the city"},
+    "developer": {"name": "Six Square Builders", "trackRecord": "33800+ Sq fts 21+ Happy Customers"},
     "legal": {
-      "rera": "RERA-ABC-2025-09",
-      "approvals": "Municipal approvals obtained. OC to be applied.",
+      "approvals": "Approved by CMDA - Greater Chennai Corporation",
       "documents": [
         {"label": "Brochure (PDF)", "url": "https://example.com/brochure.pdf"}
       ]
     },
     "landmarks": [
       {"type": "Bus Stand", "name": "Madipakkam", "distanceKm": 0.9},
-      {"type": "Bus Stop", "name": "Sadasiva nagar", "distanceKm": 0.3},
+      {"type": "Bus Stop", "name": "Sadasivam Nagar", "distanceKm": 0.3},
       {"type": "Schools", "name": "", "distanceKm": 0.9},
       {"type": "Metro Station", "name": "Velachery", "distanceKm":2.0}
     ]
@@ -66,8 +77,8 @@
   },
   {
     "id": "riverview-residency",
-    "name": "Balaiah Garden",
-    "address": "Balaiah Garden, Madipakkam, Chennai - 600091",
+    "name": "Ganesh Castle",
+    "address": "Ganesh Castle, Madipakkam, Chennai - 600091",
     "coords": { "lat": 12.965133656768137 , "lng": 80.19983842836386 },
     "status": { "stage": "Completed – 100%", "progress": 100 },
     "possessionDate": "2023-12-01",
@@ -76,7 +87,7 @@
       { "type": "image", "url": "https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop" }
     ],
     "amenities": ["Parking", "Security"],
-    "developer": {"name": "Skyline Constructions", "trackRecord": "Trusted developer"}
+    "developer": {"name": "Six Square Builders", "trackRecord": "Trusted developer"}
   },
   {
     "id": "tech-park-central",
