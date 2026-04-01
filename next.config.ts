@@ -1,11 +1,6 @@
 import type { NextConfig } from "next";
-import path from "node:path";
 
-const repoName =
-  process.env.GITHUB_REPOSITORY?.split("/")[1] || path.basename(process.cwd());
-const computedBasePath =
-  process.env.NEXT_PUBLIC_BASE_PATH ??
-  (process.env.GITHUB_ACTIONS === "true" ? `/${repoName}` : "");
+const computedBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const basePath =
   computedBasePath === "/" ? "" : computedBasePath.replace(/\/$/, "");
 
