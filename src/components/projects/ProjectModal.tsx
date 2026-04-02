@@ -17,6 +17,8 @@ type ProjectModalProps = {
   error: string | null;
 };
 
+const MEDIA_SWIPE_THRESHOLD = 56;
+
 export default function ProjectModal({
   open,
   onClose,
@@ -25,10 +27,11 @@ export default function ProjectModal({
   error,
 }: ProjectModalProps) {
   const [isClosing, setIsClosing] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [showAllMedia, setShowAllMedia] = useState(false);
+  const [activeMediaIndex, setActiveMediaIndex] = useState(0);
+  const [viewerIndex, setViewerIndex] = useState<number | null>(null);
   const startY = useRef<number | null>(null);
   const deltaY = useRef(0);
+  const viewerTouchStartX = useRef<number | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
 
@@ -50,11 +53,13 @@ export default function ProjectModal({
   };
 
   const onTouchStart = (e: React.TouchEvent) => {
+    if (viewerIndex !== null) return;
     startY.current = e.touches[0].clientY;
     deltaY.current = 0;
   };
 
   const onTouchMove = (e: React.TouchEvent) => {
+    if (viewerIndex !== null) return;
     if (startY.current == null) return;
     deltaY.current = e.touches[0].clientY - startY.current;
     if (deltaY.current > 0 && contentRef.current) {
@@ -63,6 +68,7 @@ export default function ProjectModal({
   };
 
   const onTouchEnd = () => {
+    if (viewerIndex !== null) return;
     if (deltaY.current > 80) {
       handleStartClose();
     }
@@ -82,13 +88,56 @@ export default function ProjectModal({
     }
   }, [data?.possessionDate]);
 
-  const previewMedia = useMemo(() => {
-    if (!data?.media?.length) return [];
-    return data.media.slice(0, Math.min(5, data.media.length));
-  }, [data?.media]);
+  const mediaItems = data?.media ?? [];
+  const normalizedActiveIndex =
+    mediaItems.length > 0
+      ? Math.min(activeMediaIndex, mediaItems.length - 1)
+      : 0;
+  const normalizedViewerIndex =
+    viewerIndex != null && mediaItems.length > 0
+      ? Math.min(viewerIndex, mediaItems.length - 1)
+      : null;
 
-  const galleryMedia = showAllMedia ? (data?.media ?? []) : previewMedia;
-  const hiddenMediaCount = Math.max((data?.media?.length ?? 0) - previewMedia.length, 0);
+  const activeMedia = mediaItems[normalizedActiveIndex] ?? null;
+  const viewerMedia =
+    normalizedViewerIndex != null ? mediaItems[normalizedViewerIndex] ?? null : null;
+
+  const getWrappedMediaIndex = (index: number) => {
+    if (mediaItems.length === 0) return 0;
+    return (index + mediaItems.length) % mediaItems.length;
+  };
+
+  const goToMedia = (index: number) => {
+    const wrappedIndex = getWrappedMediaIndex(index);
+    setActiveMediaIndex(wrappedIndex);
+    if (viewerIndex != null) {
+      setViewerIndex(wrappedIndex);
+    }
+  };
+
+  const openViewerAt = (index: number) => {
+    const wrappedIndex = getWrappedMediaIndex(index);
+    setActiveMediaIndex(wrappedIndex);
+    setViewerIndex(wrappedIndex);
+  };
+
+  const closeViewer = () => {
+    setViewerIndex(null);
+    viewerTouchStartX.current = null;
+  };
+
+  const onViewerTouchStart = (e: React.TouchEvent) => {
+    viewerTouchStartX.current = e.touches[0].clientX;
+  };
+
+  const onViewerTouchEnd = (e: React.TouchEvent) => {
+    if (viewerTouchStartX.current == null || mediaItems.length < 2) return;
+    const deltaX = e.changedTouches[0].clientX - viewerTouchStartX.current;
+    if (Math.abs(deltaX) >= MEDIA_SWIPE_THRESHOLD) {
+      goToMedia(normalizedViewerIndex == null ? normalizedActiveIndex : normalizedViewerIndex + (deltaX < 0 ? 1 : -1));
+    }
+    viewerTouchStartX.current = null;
+  };
 
   useEffect(() => {
     if (open) {
@@ -99,10 +148,46 @@ export default function ProjectModal({
 
   useEffect(() => {
     if (!open) {
-      setSelectedImage(null);
-      setShowAllMedia(false);
+      setViewerIndex(null);
+      setActiveMediaIndex(0);
     }
   }, [open]);
+
+  useEffect(() => {
+    setActiveMediaIndex(0);
+    setViewerIndex(null);
+  }, [data?.id]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const onWindowKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        if (viewerIndex != null) {
+          closeViewer();
+        } else {
+          handleStartClose();
+        }
+        return;
+      }
+
+      if (viewerIndex == null || mediaItems.length < 2) return;
+
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        goToMedia(viewerIndex + 1);
+      }
+
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        goToMedia(viewerIndex - 1);
+      }
+    };
+
+    window.addEventListener("keydown", onWindowKeyDown);
+    return () => window.removeEventListener("keydown", onWindowKeyDown);
+  }, [open, viewerIndex, mediaItems.length]);
 
   const handleStartClose = () => {
     setIsClosing(true);
@@ -135,25 +220,126 @@ export default function ProjectModal({
         aria-labelledby="project-modal-title"
         tabIndex={-1}
       >
-        {selectedImage ? (
-          <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/85 p-4" onClick={() => setSelectedImage(null)}>
-            <button
-              type="button"
-              onClick={() => setSelectedImage(null)}
-              aria-label="Close image preview"
-              className="absolute right-4 top-4 rounded-md border border-white/20 bg-black/40 px-3 py-1.5 text-sm text-white hover:bg-black/60"
-            >
-              ×
-            </button>
-            <div className="relative h-full w-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
-              <Image src={selectedImage} alt="Project preview" fill className="object-contain" sizes="100vw" priority />
+        {viewerMedia ? (
+          <div className="absolute inset-0 z-30 overflow-hidden bg-black/95 text-white">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_38%)]" />
+            <div className="relative flex h-full flex-col">
+              <div className="flex items-center justify-between gap-3 border-b border-white/10 bg-black/35 px-3 py-3 backdrop-blur md:px-5">
+                <div className="min-w-0">
+                  <div className="text-[0.7rem] uppercase tracking-[0.24em] text-white/55">Media viewer</div>
+                  <div className="truncate text-sm font-medium md:text-base">{data?.name}</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="rounded-full border border-white/15 bg-white/8 px-3 py-1 text-xs font-medium text-white/80">
+                    {(normalizedViewerIndex ?? 0) + 1} / {mediaItems.length}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={closeViewer}
+                    aria-label="Close media viewer"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition hover:bg-white/18"
+                  >
+                    <CloseIcon />
+                  </button>
+                </div>
+              </div>
+
+              <div
+                className="relative flex min-h-0 flex-1 items-center justify-center px-3 py-3 md:px-6 md:py-5"
+                onTouchStart={onViewerTouchStart}
+                onTouchEnd={onViewerTouchEnd}
+              >
+                {mediaItems.length > 1 ? (
+                  <GalleryNavButton
+                    direction="left"
+                    onClick={() => goToMedia((normalizedViewerIndex ?? 0) - 1)}
+                    className="absolute left-3 top-1/2 z-10 -translate-y-1/2 md:left-5"
+                  />
+                ) : null}
+
+                <div className="relative flex h-full w-full max-w-6xl items-center justify-center overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 shadow-2xl">
+                  {viewerMedia.type === "image" ? (
+                    <div className="relative h-full min-h-[18rem] w-full">
+                      <Image
+                        src={viewerMedia.url}
+                        alt={`${data?.name || "Project"} media ${(normalizedViewerIndex ?? 0) + 1}`}
+                        fill
+                        className="object-contain"
+                        sizes="100vw"
+                        priority
+                      />
+                    </div>
+                  ) : (
+                    <video
+                      preload="auto"
+                      controls
+                      autoPlay
+                      playsInline
+                      className="h-full max-h-full w-full rounded-[1.75rem] bg-black object-contain"
+                    >
+                      <source src={viewerMedia.url} />
+                    </video>
+                  )}
+                </div>
+
+                {mediaItems.length > 1 ? (
+                  <GalleryNavButton
+                    direction="right"
+                    onClick={() => goToMedia((normalizedViewerIndex ?? 0) + 1)}
+                    className="absolute right-3 top-1/2 z-10 -translate-y-1/2 md:right-5"
+                  />
+                ) : null}
+              </div>
+
+              {mediaItems.length > 1 ? (
+                <div className="border-t border-white/10 bg-black/35 px-3 py-3 backdrop-blur md:px-5">
+                  <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto pb-1">
+                    {mediaItems.map((media, index) => {
+                      const isActive = index === normalizedViewerIndex;
+
+                      return (
+                        <button
+                          key={`${media.url}-${index}`}
+                          type="button"
+                          onClick={() => goToMedia(index)}
+                          className={`group relative h-16 w-24 shrink-0 overflow-hidden rounded-2xl border transition ${
+                            isActive
+                              ? "border-white/70 ring-2 ring-white/35"
+                              : "border-white/10 hover:border-white/35"
+                          }`}
+                          aria-label={`Open media ${index + 1}`}
+                        >
+                          {media.type === "image" ? (
+                            <Image
+                              src={media.url}
+                              alt={`${data?.name || "Project"} thumbnail ${index + 1}`}
+                              fill
+                              className="object-cover transition duration-300 group-hover:scale-105"
+                              sizes="96px"
+                            />
+                          ) : (
+                            <>
+                              <video preload="metadata" muted playsInline className="h-full w-full object-cover">
+                                <source src={media.url} />
+                              </video>
+                              <div className="absolute inset-0 flex items-center justify-center bg-black/35">
+                                <PlayIcon />
+                              </div>
+                            </>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
         ) : null}
 
         <span tabIndex={0} aria-hidden="true" />
 
-        <div className="sticky top-0 z-20 flex items-center justify-between border-b bg-background/90 px-4 py-3 backdrop-blur">
+        <div className="sticky top-0 z-20 flex items-center justify-between gap-3 border-b bg-background/90 px-4 py-3 backdrop-blur md:px-5">
           <div className="min-w-0">
             <h2 id="project-modal-title" className="truncate text-lg font-semibold">
               {data?.name || (loading ? "Loading project…" : error ? "Not found" : "Project Details")}
@@ -164,9 +350,9 @@ export default function ProjectModal({
             onClick={handleStartClose}
             onAnimationEnd={handleAnimationEnd}
             aria-label="Close"
-            className="rounded-md border px-3 py-1.5 text-sm hover:bg-accent"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border bg-background shadow-sm transition hover:bg-accent"
           >
-            ×
+            <CloseIcon />
           </button>
         </div>
 
@@ -188,155 +374,159 @@ export default function ProjectModal({
           {!loading && data && (
             <div className="space-y-10 p-4 md:p-6">
               <section>
-                <h3 className="text-xl font-semibold">Project Overview</h3>
-                <p className="mt-1 text-muted-foreground">{data.name} • {data.address}</p>
-                <div className="mt-4 grid gap-4 md:grid-cols-2">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                   <div>
-                    {!showAllMedia && previewMedia.length > 0 ? (
-                      <div className="grid gap-2 sm:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] sm:h-[22rem] lg:h-[24rem]">
-                        {(() => {
-                          const featured = previewMedia[0];
-                          const sideMedia = previewMedia.slice(1);
-
-                          return (
-                            <>
-                              <div className="relative min-h-[16rem] overflow-hidden rounded-lg border sm:h-full sm:min-h-0">
-                                {featured.type === "image" ? (
-                                  <button
-                                    type="button"
-                                    onClick={() => setSelectedImage(featured.url)}
-                                    className="absolute inset-0 cursor-zoom-in"
-                                    aria-label="Open featured image"
-                                  >
-                                    <Image
-                                      loading="lazy"
-                                      src={featured.url}
-                                      alt="project media"
-                                      fill
-                                      className="object-cover transition-transform hover:scale-[1.02]"
-                                      sizes="(max-width: 768px) 100vw, 50vw"
-                                    />
-                                  </button>
-                                ) : (
-                                  <button
-                                    type="button"
-                                    onClick={() => setShowAllMedia(true)}
-                                    className="absolute inset-0"
-                                    aria-label="View all project media"
-                                  >
-                                    <video preload="metadata" muted playsInline className="h-full w-full object-cover">
-                                      <source src={featured.url} />
-                                    </video>
-                                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-3 text-left text-sm font-medium text-white">
-                                      Video
-                                    </div>
-                                  </button>
-                                )}
-                              </div>
-                              {sideMedia.length > 0 ? (
-                                <div className="grid grid-cols-2 gap-2 sm:h-full sm:grid-rows-2">
-                                  {sideMedia.map((m, i) => {
-                                    const showViewAllOverlay =
-                                      hiddenMediaCount > 0 && i === sideMedia.length - 1;
-
-                                    return (
-                                      <div key={i} className="relative min-h-[7.25rem] overflow-hidden rounded-lg border sm:h-full sm:min-h-0">
-                                        {m.type === "image" ? (
-                                          <button
-                                            type="button"
-                                            onClick={() => setSelectedImage(m.url)}
-                                            className="absolute inset-0 cursor-zoom-in"
-                                            aria-label={`Open image ${i + 2}`}
-                                          >
-                                            <Image
-                                              loading="lazy"
-                                              src={m.url}
-                                              alt="project media"
-                                              fill
-                                              className="object-cover transition-transform hover:scale-[1.02]"
-                                              sizes="(max-width: 768px) 100vw, 33vw"
-                                            />
-                                          </button>
-                                        ) : (
-                                          <button
-                                            type="button"
-                                            onClick={() => setShowAllMedia(true)}
-                                            className="absolute inset-0"
-                                            aria-label="View all project media"
-                                          >
-                                            <video preload="metadata" muted playsInline className="h-full w-full object-cover">
-                                              <source src={m.url} />
-                                            </video>
-                                            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 text-left text-xs font-medium text-white">
-                                              Video
-                                            </div>
-                                          </button>
-                                        )}
-                                        {showViewAllOverlay ? (
-                                          <button
-                                            type="button"
-                                            onClick={() => setShowAllMedia(true)}
-                                            className="absolute inset-0 flex flex-col items-center justify-center bg-black/55 text-white backdrop-blur-[1px] transition hover:bg-black/65"
-                                            aria-label={`View ${hiddenMediaCount} more media items`}
-                                          >
-                                            <span className="text-3xl font-semibold leading-none">+{hiddenMediaCount}</span>
-                                            <span className="mt-2 text-sm font-medium">View all</span>
-                                          </button>
-                                        ) : null}
-                                      </div>
-                                    );
-                                  })}
-                                </div>
-                              ) : null}
-                            </>
-                          );
-                        })()}
-                      </div>
-                    ) : (
-                      <div className="grid grid-cols-2 gap-2">
-                        {galleryMedia.map((m, i) => (
-                          <div key={i} className="relative aspect-video overflow-hidden rounded-lg border">
-                            {m.type === "image" ? (
-                              <button
-                                type="button"
-                                onClick={() => setSelectedImage(m.url)}
-                                className="absolute inset-0 cursor-zoom-in"
-                                aria-label={`Open image ${i + 1}`}
-                              >
+                    <h3 className="text-xl font-semibold">Project Overview</h3>
+                    <p className="mt-1 text-muted-foreground">{data.name} • {data.address}</p>
+                  </div>
+                </div>
+                <div className="mt-4 grid items-stretch gap-4 md:grid-cols-2">
+                  <div className="flex h-full flex-col md:min-h-[42rem] lg:min-h-[46rem]">
+                    {activeMedia ? (
+                      <>
+                        <div className="flex-1 overflow-hidden rounded-[1.5rem] border bg-zinc-950 text-white shadow-lg">
+                          <div className="group relative h-full min-h-[20rem] sm:min-h-[24rem] md:min-h-[33rem] lg:min-h-[37rem]">
+                            {activeMedia.type === "image" ? (
+                              <>
                                 <Image
                                   loading="lazy"
-                                  src={m.url}
-                                  alt="project media"
+                                  src={activeMedia.url}
+                                  alt={`${data.name} media ${normalizedActiveIndex + 1}`}
                                   fill
-                                  className="object-cover transition-transform hover:scale-[1.02]"
+                                  className="object-cover transition duration-500 group-hover:scale-[1.03]"
                                   sizes="(max-width: 768px) 100vw, 50vw"
                                 />
-                              </button>
+                                <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-3 bg-gradient-to-b from-black/60 via-black/15 to-transparent px-4 py-4">
+                                  <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-medium text-white/85">
+                                    {normalizedActiveIndex + 1} / {mediaItems.length}
+                                  </span>
+                                  <button
+                                    type="button"
+                                    onClick={() => openViewerAt(normalizedActiveIndex)}
+                                    aria-label={`Open media ${normalizedActiveIndex + 1} in fullscreen viewer`}
+                                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white transition hover:bg-black/65"
+                                  >
+                                    <FullscreenIcon />
+                                  </button>
+                                </div>
+                                <div className="absolute inset-x-0 bottom-0 flex justify-end bg-gradient-to-t from-black/70 via-black/15 to-transparent px-4 py-4">
+                                  <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-medium text-white/85">
+                                    Photo
+                                  </span>
+                                </div>
+                              </>
                             ) : (
-                              <video preload="metadata" controls className="h-full w-full object-cover">
-                                <source src={m.url} />
-                              </video>
+                              <>
+                                <video preload="metadata" controls playsInline className="h-full w-full object-cover bg-black">
+                                  <source src={activeMedia.url} />
+                                </video>
+                                <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-3 bg-gradient-to-b from-black/60 via-black/15 to-transparent px-4 py-4">
+                                  <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-medium text-white/85">
+                                    {normalizedActiveIndex + 1} / {mediaItems.length}
+                                  </span>
+                                  <button
+                                    type="button"
+                                    onClick={() => openViewerAt(normalizedActiveIndex)}
+                                    aria-label={`Open media ${normalizedActiveIndex + 1} in fullscreen viewer`}
+                                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white transition hover:bg-black/65"
+                                  >
+                                    <FullscreenIcon />
+                                  </button>
+                                </div>
+                                <div className="absolute inset-x-0 bottom-0 flex justify-end bg-gradient-to-t from-black/70 via-black/15 to-transparent px-4 py-4">
+                                  <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-medium text-white/85">
+                                    Video
+                                  </span>
+                                </div>
+                              </>
                             )}
+
+                            {mediaItems.length > 1 ? (
+                              <>
+                                <GalleryNavButton
+                                  direction="left"
+                                  onClick={() => goToMedia(normalizedActiveIndex - 1)}
+                                  className="absolute left-3 top-1/2 z-10 -translate-y-1/2 opacity-100 transition md:left-4 md:opacity-0 md:group-hover:opacity-100"
+                                />
+                                <GalleryNavButton
+                                  direction="right"
+                                  onClick={() => goToMedia(normalizedActiveIndex + 1)}
+                                  className="absolute right-3 top-1/2 z-10 -translate-y-1/2 opacity-100 transition md:right-4 md:opacity-0 md:group-hover:opacity-100"
+                                />
+                              </>
+                            ) : null}
                           </div>
-                        ))}
+                        </div>
+
+                        <div className="mt-3">
+                          <div className="flex items-center justify-between gap-3">
+                            <div className="text-sm text-muted-foreground">
+                              {mediaItems.length} media item{mediaItems.length === 1 ? "" : "s"} available
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => openViewerAt(normalizedActiveIndex)}
+                              className="inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition hover:bg-accent hover:text-accent-foreground"
+                            >
+                              View all media
+                            </button>
+                          </div>
+
+                          {mediaItems.length > 1 ? (
+                            <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+                              {mediaItems.map((media, index) => {
+                                const isActive = index === normalizedActiveIndex;
+
+                                return (
+                                  <button
+                                    key={`${media.url}-${index}`}
+                                    type="button"
+                                    onClick={() => setActiveMediaIndex(index)}
+                                    className={`group relative h-20 w-28 shrink-0 overflow-hidden rounded-2xl border transition ${
+                                      isActive
+                                        ? "border-primary ring-2 ring-primary/20"
+                                        : "border-border hover:border-foreground/20"
+                                    }`}
+                                    aria-label={`Preview media ${index + 1}`}
+                                  >
+                                    {media.type === "image" ? (
+                                      <Image
+                                        loading="lazy"
+                                        src={media.url}
+                                        alt={`${data.name} thumbnail ${index + 1}`}
+                                        fill
+                                        className="object-cover transition duration-300 group-hover:scale-105"
+                                        sizes="112px"
+                                      />
+                                    ) : (
+                                      <>
+                                        <video preload="metadata" muted playsInline className="h-full w-full object-cover">
+                                          <source src={media.url} />
+                                        </video>
+                                        <div className="absolute inset-0 flex items-center justify-center bg-black/30 text-white">
+                                          <PlayIcon />
+                                        </div>
+                                      </>
+                                    )}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          ) : null}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex h-64 items-center justify-center rounded-[1.5rem] border border-dashed text-sm text-muted-foreground">
+                        Project media will appear here.
                       </div>
                     )}
-                    {showAllMedia && hiddenMediaCount > 0 ? (
-                      <button
-                        type="button"
-                        onClick={() => setShowAllMedia(false)}
-                        className="mt-3 inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
-                      >
-                        Show less
-                      </button>
-                    ) : null}
                   </div>
 
-                  <div>
+                  <div className="flex h-full flex-col md:min-h-[42rem] lg:min-h-[46rem]">
                     {data.coords ? (
                       <iframe
                         title="Google Map"
-                        className="h-64 w-full rounded-lg border md:h-full"
+                        className="h-72 w-full rounded-lg border sm:h-80 md:min-h-0 md:flex-1"
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
                         src={`https://www.google.com/maps?q=${data.coords.lat},${data.coords.lng}&hl=en&z=14&output=embed`}
@@ -701,5 +891,104 @@ function ShareButtons({ title, url }: { title: string; url: string }) {
       <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="rounded border px-3 py-1.5 text-sm">WhatsApp</a>
       <a href={mailto} className="rounded border px-3 py-1.5 text-sm">Email</a>
     </div>
+  );
+}
+
+function GalleryNavButton({
+  direction,
+  onClick,
+  className = "",
+}: {
+  direction: "left" | "right";
+  onClick: () => void;
+  className?: string;
+}) {
+  const label = direction === "left" ? "Previous media" : "Next media";
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-lg backdrop-blur transition hover:bg-black/70 ${className}`}
+    >
+      <ChevronIcon direction={direction} />
+    </button>
+  );
+}
+
+function ChevronIcon({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {direction === "left" ? (
+        <path d="M15 18l-6-6 6-6" />
+      ) : (
+        <path d="M9 18l6-6-6-6" />
+      )}
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M18 6L6 18" />
+      <path d="M6 6l12 12" />
+    </svg>
+  );
+}
+
+function PlayIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-4 w-4"
+      fill="currentColor"
+    >
+      <path d="M8 6.5a1 1 0 011.53-.848l8 5a1 1 0 010 1.696l-8 5A1 1 0 018 16.5v-10z" />
+    </svg>
+  );
+}
+
+function FullscreenIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-4 w-4"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M8 3H3v5" />
+      <path d="M16 3h5v5" />
+      <path d="M21 16v5h-5" />
+      <path d="M3 16v5h5" />
+      <path d="M8 8L3 3" />
+      <path d="M16 8l5-5" />
+      <path d="M16 16l5 5" />
+      <path d="M8 16l-5 5" />
+    </svg>
   );
 }
