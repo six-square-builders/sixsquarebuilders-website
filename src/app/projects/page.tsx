@@ -38,6 +38,7 @@ const GALLERIES: Record<TabKey, { id: string; title: string; src: string; badge?
       title: "Ganesh Castle",
       id: slugify("Riverview Residency"),
       src: withBasePath("/flats/balaiah_garden.png"),
+      address: "Balaiah Garden, Madipakkam, Chennai 600091.",
     },
     {
       title: "Ganapathi Enclave",

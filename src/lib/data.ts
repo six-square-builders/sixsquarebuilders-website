@@ -34,6 +34,7 @@ export const featuredProjects = [
   },
   {
     title: "Ganesh Castle",
+    address: "Balaiah Garden, Madipakkam, Chennai 600091.",
     src: withBasePath("/flats/balaiah_garden.png"),
     tag: "Past",
   },

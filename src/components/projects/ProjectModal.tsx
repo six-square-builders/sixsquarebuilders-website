@@ -392,7 +392,7 @@ export default function ProjectModal({
                           <div className="font-medium">{f.type}</div>
                           {f.unitsCount ? <div className="text-sm text-muted-foreground">{f.unitsCount} units</div> : null}
                         </div>
-                        <div className="mt-1 text-sm text-muted-foreground">{f.areas.superBuiltUp} flat sqft</div>
+                        <div className="mt-1 text-sm text-muted-foreground">{f.areas.superBuiltUp} sqft</div>
                         <dl className="mt-2 grid grid-cols-2 gap-2 text-sm">
                           <div><dt className="text-muted-foreground">Carpet Area</dt><dd className="font-medium">{f.areas.carpet} sqft</dd></div>
                           <div><dt className="text-muted-foreground">Plinth Area</dt><dd className="font-medium">{(f.areas.plinthArea ?? f.areas.builtUp)} sqft</dd></div>
