@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{}";
+self.__REACT_LOADABLE_MANIFEST='{"app/flats/page.tsx -> @/components/projects/ProjectModal":{"id":9075,"files":["static/chunks/671-166ee2ab85edcc78.js","static/chunks/75.585f6ed62438ee4f.js"]},"app/projects/page.tsx -> @/components/projects/ProjectModal":{"id":9075,"files":["static/chunks/671-166ee2ab85edcc78.js","static/chunks/874-1cae573d9abb854d.js","static/chunks/75.585f6ed62438ee4f.js"]}}';
