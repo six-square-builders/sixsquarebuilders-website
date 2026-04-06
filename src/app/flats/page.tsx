@@ -95,16 +95,16 @@ export default function FlatsPage() {
               <div className="mt-1 text-sm text-muted-foreground">
                 {flat.beds} Beds • {flat.baths} Baths • {flat.area}
               </div>
-              <div className="mt-4 flex gap-2">
+              <div className="mt-4 flex flex-col sm:flex-row gap-2">
                 <Link
                   href={`/contact?interest=${encodeURIComponent(flat.id)}`}
-                  className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+                  className="w-full sm:w-auto text-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity"
                 >
                   Enquire
                 </Link>
                 <button
                   onClick={() => openProject(flat.id)}
-                  className="rounded-md border px-4 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground cursor-pointer"
+                  className="w-full sm:w-auto text-center rounded-md border px-4 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground cursor-pointer transition-colors"
                 >
                   View Project
                 </button>

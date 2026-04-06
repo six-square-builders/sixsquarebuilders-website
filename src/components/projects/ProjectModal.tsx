@@ -393,7 +393,7 @@ export default function ProjectModal({
                                   src={activeMedia.url}
                                   alt={`${data.name} media ${normalizedActiveIndex + 1}`}
                                   fill
-                                  className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                                  className="object-contain bg-zinc-950 transition duration-500 group-hover:scale-[1.03]"
                                   sizes="(max-width: 768px) 100vw, 50vw"
                                 />
                                 <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-3 bg-gradient-to-b from-black/60 via-black/15 to-transparent px-4 py-4">
@@ -417,7 +417,7 @@ export default function ProjectModal({
                               </>
                             ) : (
                               <>
-                                <video preload="metadata" controls playsInline className="h-full w-full object-cover bg-black">
+                                <video preload="metadata" controls playsInline className="h-full w-full object-contain bg-black">
                                   <source src={activeMedia.url} />
                                 </video>
                                 <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-3 bg-gradient-to-b from-black/60 via-black/15 to-transparent px-4 py-4">
@@ -594,9 +594,9 @@ export default function ProjectModal({
                         {f.floorPlans?.length ? (
                           <div className="mt-3 grid grid-cols-2 gap-2">
                             {f.floorPlans.map((p, i) => (
-                              <figure key={i} className="overflow-hidden rounded border relative">
-                                <Image loading="lazy" src={p.url} alt={p.label} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
-                                <figcaption className="px-2 py-1 text-xs text-muted-foreground">{p.label}</figcaption>
+                              <figure key={i} className="overflow-hidden rounded border relative aspect-[4/3] bg-white group/fp">
+                                <Image loading="lazy" src={p.url} alt={p.label} fill className="object-contain p-2" sizes="(max-width: 768px) 100vw, 50vw" />
+                                <figcaption className="absolute bottom-0 inset-x-0 bg-background/90 px-2 py-1 text-xs text-foreground font-medium border-t">{p.label}</figcaption>
                               </figure>
                             ))}
                           </div>
@@ -719,9 +719,9 @@ export default function ProjectModal({
 
               <section>
                 <h3 className="text-xl font-semibold">Get in touch</h3>
-                <div className="mt-3 flex flex-wrap gap-3">
-                  <Link href={`/contact?interest=${encodeURIComponent(data.name)}`} className="rounded-md bg-primary px-4 py-2 text-primary-foreground">Book a Site Visit</Link>
-                  <Link href={`/contact?interest=${encodeURIComponent(data.name)}&type=callback`} className="rounded-md border px-4 py-2">Request Call Back</Link>
+                <div className="mt-3 flex flex-col sm:flex-row gap-3">
+                  <Link href={`/contact?interest=${encodeURIComponent(data.name)}`} className="w-full sm:w-auto text-center rounded-md bg-primary px-4 py-2 text-primary-foreground">Book a Site Visit</Link>
+                  <Link href={`/contact?interest=${encodeURIComponent(data.name)}&type=callback`} className="w-full sm:w-auto text-center rounded-md border px-4 py-2">Request Call Back</Link>
                   <ShareButtons title={data.name} url={typeof window !== "undefined" ? window.location.href : ""} />
                 </div>
                 <QuickInquiry defaultInterest={data.name} />
@@ -863,8 +863,8 @@ function QuickInquiry({ defaultInterest }: { defaultInterest?: string }) {
         <input aria-label="Phone" required placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} className="rounded border px-3 py-2 md:col-span-2" />
         <textarea aria-label="Message" placeholder="Message" value={message} onChange={(e) => setMessage(e.target.value)} rows={3} className="rounded border px-3 py-2 md:col-span-2" />
       </div>
-      <div className="flex flex-wrap items-center gap-3">
-        <button disabled={submitting} className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-primary-foreground disabled:opacity-50">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-3">
+        <button disabled={submitting} className="w-full sm:w-auto justify-center inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-primary-foreground disabled:opacity-50">
           {submitting && <span className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground/60 border-t-transparent" aria-hidden />}
           {submitting ? "Sending…" : "Send Inquiry"}
         </button>
@@ -886,10 +886,12 @@ function ShareButtons({ title, url }: { title: string; url: string }) {
   const mailto = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(url)}`;
 
   return (
-    <div className="flex flex-wrap gap-2">
-      <button onClick={() => void share()} className="rounded border px-3 py-1.5 text-sm">Share</button>
-      <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="rounded border px-3 py-1.5 text-sm">WhatsApp</a>
-      <a href={mailto} className="rounded border px-3 py-1.5 text-sm">Email</a>
+    <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 w-full sm:w-auto">
+      <div className="grid grid-cols-3 sm:flex gap-2 w-full sm:w-auto">
+        <button onClick={() => void share()} className="w-full text-center rounded border px-3 py-1.5 text-sm">Share</button>
+        <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="w-full text-center rounded border px-3 py-1.5 text-sm">WhatsApp</a>
+        <a href={mailto} className="w-full text-center rounded border px-3 py-1.5 text-sm">Email</a>
+      </div>
     </div>
   );
 }

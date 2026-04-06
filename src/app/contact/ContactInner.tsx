@@ -200,7 +200,7 @@ export default function ContactPage() {
                     id="interest"
                     name="interest"
                     defaultValue={interest}
-                    placeholder="e.g., skyline-2bhk-a1"
+                    placeholder="e.g., ganesha-tower-3bhk"
                     className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                   />
                 </div>
@@ -256,18 +256,17 @@ export default function ContactPage() {
             </p>
           </div>
           <div className="overflow-hidden rounded-lg border">
-  <div className="overflow-hidden rounded-lg border h-60">
-  <iframe
-    src="https://www.google.com/maps?q=12.963875716446076,80.2022417016096&hl=en&z=14&output=embed"
-    className="w-full h-full"
-    style={{ border: 0 }}
-    allowFullScreen
-    loading="lazy"
-    referrerPolicy="no-referrer-when-downgrade"
-  ></iframe>
-</div>
-
-</div>
+            <div className="h-60">
+              <iframe
+                src="https://www.google.com/maps?q=12.963875716446076,80.2022417016096&hl=en&z=14&output=embed"
+                className="h-full w-full"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </div>
 
         </aside>
       </section>
