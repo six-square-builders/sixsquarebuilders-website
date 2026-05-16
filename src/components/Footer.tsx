@@ -4,10 +4,10 @@ import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <footer className="mt-16 border-t bg-background/50">
-      <div className="mx-auto max-w-7xl py-12 px-4">
+    <footer className="mt-12 border-t bg-background/50 md:mt-16">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-12 lg:px-8">
         {/* Main footer content */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           {/* Company Description */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Six Square Builders</h3>
@@ -18,26 +18,26 @@ export const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-4 pl-40">
+          <div className="space-y-4">
             <h4 className="text-base font-medium">Company</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
-                <Link href="/about" className="hover:text-foreground transition-colors">
+                <Link href="/about" className="inline-flex min-h-10 items-center hover:text-foreground transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/projects" className="hover:text-foreground transition-colors">
+                <Link href="/projects" className="inline-flex min-h-10 items-center hover:text-foreground transition-colors">
                   Projects
                 </Link>
               </li>
               <li>
-                <Link href="/flats" className="hover:text-foreground transition-colors">
+                <Link href="/flats" className="inline-flex min-h-10 items-center hover:text-foreground transition-colors">
                   Flats for Sale
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-foreground transition-colors">
+                <Link href="/contact" className="inline-flex min-h-10 items-center hover:text-foreground transition-colors">
                   Contact
                 </Link>
               </li>
@@ -45,7 +45,7 @@ export const Footer = () => {
           </div>
 
           {/* Contact Information */}
-          <div className="space-y-4 pl-40">
+          <div className="space-y-4">
             <h4 className="text-base font-medium">Contact</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex flex-col">
@@ -65,7 +65,7 @@ export const Footer = () => {
           </div>
 
           {/* Social Links */}
-          <div className="space-y-4 pl-40">
+          <div className="space-y-4">
             <h4 className="text-base font-medium">Follow Us</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
@@ -73,7 +73,7 @@ export const Footer = () => {
                   href="https://www.linkedin.com/company/six-square-builders"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-foreground transition-colors"
+                  className="inline-flex min-h-10 items-center hover:text-foreground transition-colors"
                 >
                   LinkedIn
                 </a>
@@ -83,7 +83,7 @@ export const Footer = () => {
                   href="https://www.instagram.com/sixsquare.builders?igsh=MXFpbTRkYjJpcjIyNQ=="
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-foreground transition-colors"
+                  className="inline-flex min-h-10 items-center hover:text-foreground transition-colors"
                 >
                   Instagram
                 </a>
@@ -93,7 +93,7 @@ export const Footer = () => {
                   href="https://www.facebook.com/share/1NbHqAJGGP/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-foreground transition-colors"
+                  className="inline-flex min-h-10 items-center hover:text-foreground transition-colors"
                 >
                   Facebook
                 </a>
@@ -103,22 +103,22 @@ export const Footer = () => {
         </div>
 
         {/* Bottom section */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row">
+        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t pt-6 sm:items-center md:flex-row md:pt-8">
           <div className="text-center md:text-left">
             <p className="text-sm text-muted-foreground">
               © {new Date().getFullYear()} Six Square Builders. All rights reserved.
             </p>
           </div>
-          <div className="flex space-x-6">
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
             <a
               href="#"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-flex min-h-10 items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               Privacy Policy
             </a>
             <a
               href="#"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-flex min-h-10 items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               Terms of Service
             </a>

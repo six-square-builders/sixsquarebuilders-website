@@ -116,11 +116,37 @@
 }
 
 @layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
   * {
     @apply border-border outline-ring/50;
   }
+
+  *, ::before, ::after {
+    box-sizing: border-box;
+  }
+
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+
+  img, video, canvas, svg, iframe {
+    max-width: 100%;
+  }
+
+  button, a, input, textarea, select {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (max-width: 767px) {
+    input, textarea, select {
+      font-size: 16px;
+    }
   }
 }
 

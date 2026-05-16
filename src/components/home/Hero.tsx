@@ -15,33 +15,33 @@ export default function Hero() {
         sizes="100vw"
       />
       <div className="absolute inset-0 -z-10 bg-black/40" />
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 py-28 text-primary-foreground md:grid-cols-2 md:py-36">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 py-16 text-primary-foreground sm:px-6 sm:py-20 md:grid-cols-2 md:py-36 lg:px-8">
         <div>
-          <h1 className="text-balance text-4xl font-bold leading-tight md:text-5xl">
+          <h1 className="text-balance text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
             Designing Dreams, Building Realities
           </h1>
-          <p className="mt-4 max-w-prose text-lg text-white/90">
+          <p className="mt-4 max-w-prose text-base leading-7 text-white/90 sm:text-lg">
             Six Square Builders transforms visions into luxurious living and
             working spaces, with attention to detail, quality craftsmanship, and
             modern aesthetics.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
             <Link
               href="/flats"
-              className="rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:opacity-90"
+              className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:opacity-90"
             >
               View Flats for Sale
             </Link>
             <Link
               href="/projects"
-              className="rounded-md border px-5 py-3 text-sm font-semibold hover:bg-accent hover:text-accent-foreground"
+              className="inline-flex min-h-11 items-center justify-center rounded-md border px-5 py-3 text-sm font-semibold hover:bg-accent hover:text-accent-foreground"
             >
               See Our Projects
             </Link>
           </div>
         </div>
-        <div className="rounded-lg bg-white/10 p-4 backdrop-blur">
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+        <div className="rounded-lg bg-white/10 p-2 backdrop-blur sm:p-4">
+          <div className="grid grid-cols-2 gap-2 sm:gap-4 md:grid-cols-3">
             {heroImages.map((src, i) => (
               <div
                 key={i}
@@ -52,7 +52,7 @@ export default function Hero() {
                   alt="Project"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes="(max-width: 640px) 45vw, (max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </div>
             ))}
