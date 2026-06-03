@@ -4,25 +4,25 @@ import { featuredProjects } from "@/lib/data";
 
 export default function FeaturedProjects() {
   return (
-    <section className="mx-auto max-w-7xl px-4 pb-20">
+    <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 md:pb-20 lg:px-8">
       <div className="flex items-end justify-between gap-4">
         <div>
           <h2 className="text-2xl font-bold md:text-3xl">
             Featured Projects
           </h2>
-          <p className="mt-2 max-w-prose text-muted-foreground">
+          <p className="mt-2 max-w-prose text-base leading-7 text-muted-foreground">
             A glimpse of our craftsmanship across residential and commercial
             developments.
           </p>
         </div>
         <Link
           href="/projects"
-          className="hidden rounded-md border px-4 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground md:inline-block"
+          className="hidden min-h-10 rounded-md border px-4 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground md:inline-flex md:items-center"
         >
           View all
         </Link>
       </div>
-      <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
         {featuredProjects.map((p) => (
           <div
             key={p.title}
@@ -43,7 +43,7 @@ export default function FeaturedProjects() {
             <div className="p-4">
               <h3 className="font-semibold">{p.title}</h3>
               {("address" in p) && p.address ? (
-                <p className="mt-1 text-sm text-muted-foreground">{p.address}</p>
+                <p className="mt-1 text-sm leading-6 text-muted-foreground">{p.address}</p>
               ) : null}
             </div>
           </div>
@@ -52,7 +52,7 @@ export default function FeaturedProjects() {
       <div className="mt-8 text-center md:hidden">
         <Link
           href="/projects"
-          className="rounded-md border px-4 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground"
+          className="inline-flex min-h-11 w-full items-center justify-center rounded-md border px-4 py-2 text-sm font-semibold hover:bg-accent hover:text-accent-foreground sm:w-auto"
         >
           View all projects
         </Link>

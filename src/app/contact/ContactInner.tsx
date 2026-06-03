@@ -131,15 +131,15 @@ export default function ContactPage() {
   }
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-12">
+    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold">Contact Us</h1>
-        <p className="mt-2 max-w-prose text-muted-foreground">
+        <h1 className="text-2xl font-bold sm:text-3xl">Contact Us</h1>
+        <p className="mt-2 max-w-prose text-base leading-7 text-muted-foreground">
           Get in touch for sales enquiries, project details, or partnerships. Our team will respond within one business day.
         </p>
       </header>
 
-      <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
+      <section className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
         {/* Form */}
         <div className="md:col-span-2">
           <div className="overflow-hidden rounded-lg border">
@@ -151,7 +151,7 @@ export default function ContactPage() {
               }}
               aria-hidden
             />
-            <form onSubmit={handleSubmit} className="space-y-4 p-6" aria-label="Contact form">
+            <form onSubmit={handleSubmit} className="space-y-5 p-4 sm:p-6" aria-label="Contact form">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium">
@@ -163,7 +163,7 @@ export default function ContactPage() {
                     required
                     type="text"
                     placeholder="Your name"
-                    className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                    className="mt-1 min-h-12 w-full rounded-md border bg-background px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-ring sm:text-sm"
                   />
                 </div>
                 <div>
@@ -176,7 +176,7 @@ export default function ContactPage() {
                     required
                     type="email"
                     placeholder="you@example.com"
-                    className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                    className="mt-1 min-h-12 w-full rounded-md border bg-background px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-ring sm:text-sm"
                   />
                 </div>
                 <div>
@@ -189,7 +189,7 @@ export default function ContactPage() {
                     required
                     type="tel"
                     placeholder="(+1) 555-123-4567"
-                    className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                    className="mt-1 min-h-12 w-full rounded-md border bg-background px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-ring sm:text-sm"
                   />
                 </div>
                 <div>
@@ -201,7 +201,7 @@ export default function ContactPage() {
                     name="interest"
                     defaultValue={interest}
                     placeholder="e.g., ganesha-tower-3bhk"
-                    className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                    className="mt-1 min-h-12 w-full rounded-md border bg-background px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-ring sm:text-sm"
                   />
                 </div>
               </div>
@@ -216,18 +216,18 @@ export default function ContactPage() {
                   required
                   rows={5}
                   placeholder="Tell us more about your requirements..."
-                  className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                  className="mt-1 w-full rounded-md border bg-background px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-ring sm:text-sm"
                 />
               </div>
 
-              <div className="flex items-center justify-between gap-4">
-                <p className="text-xs text-muted-foreground">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-xs leading-5 text-muted-foreground">
                   By submitting, you agree to our terms and consent to be contacted.
                 </p>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity disabled:cursor-not-allowed disabled:opacity-60 hover:opacity-90"
+                  className="inline-flex min-h-11 w-full items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity disabled:cursor-not-allowed disabled:opacity-60 hover:opacity-90 sm:w-auto"
                   aria-busy={isSubmitting}
                 >
                   {isSubmitting ? "Sending..." : "Send Enquiry"}
@@ -241,7 +241,7 @@ export default function ContactPage() {
         <aside className="space-y-4">
           <div className="rounded-lg border p-4">
             <h2 className="text-base font-semibold">Office</h2>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="mt-1 text-sm leading-6 text-muted-foreground">
             Six Square Builders
 <br /> Sadasivam Nagar, Madipakkam
 <br /> Chennai 600091
@@ -250,13 +250,13 @@ export default function ContactPage() {
           </div>
           <div className="rounded-lg border p-4">
             <h2 className="text-base font-semibold">Contact</h2>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="mt-1 text-sm leading-6 text-muted-foreground">
               Phone: (+91) 8015407730
               <br /> Email: ssbuilders2012@yahoo.com
             </p>
           </div>
           <div className="overflow-hidden rounded-lg border">
-            <div className="h-60">
+            <div className="h-64 md:h-60">
               <iframe
                 src="https://www.google.com/maps?q=12.963875716446076,80.2022417016096&hl=en&z=14&output=embed"
                 className="h-full w-full"

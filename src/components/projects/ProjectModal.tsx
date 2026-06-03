@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { toast } from "sonner";
@@ -18,6 +18,8 @@ type ProjectModalProps = {
 };
 
 const MEDIA_SWIPE_THRESHOLD = 56;
+const CLOSE_FALLBACK_MS = 260;
+const DISMISS_DRAG_THRESHOLD = 96;
 
 export default function ProjectModal({
   open,
@@ -30,7 +32,11 @@ export default function ProjectModal({
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
   const startY = useRef<number | null>(null);
+  const startX = useRef<number | null>(null);
   const deltaY = useRef(0);
+  const isDismissGesture = useRef(false);
+  const closeTimerRef = useRef<number | null>(null);
+  const hasFinishedClose = useRef(false);
   const viewerTouchStartX = useRef<number | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
@@ -52,31 +58,60 @@ export default function ProjectModal({
     }
   };
 
-  const onTouchStart = (e: React.TouchEvent) => {
+  const finishClose = useCallback(() => {
+    if (hasFinishedClose.current) return;
+    hasFinishedClose.current = true;
+    if (closeTimerRef.current != null) {
+      window.clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    if (contentRef.current) {
+      contentRef.current.style.transform = "";
+    }
+    onClose();
+  }, [onClose]);
+
+  const handleStartClose = useCallback(() => {
+    if (isClosing || closeTimerRef.current != null) return;
+    setIsClosing(true);
+    closeTimerRef.current = window.setTimeout(finishClose, CLOSE_FALLBACK_MS);
+  }, [finishClose, isClosing]);
+
+  const onDismissTouchStart = (e: React.TouchEvent) => {
     if (viewerIndex !== null) return;
+    const target = e.target as HTMLElement;
+    if (target.closest("button, a, input, textarea, select, iframe, video")) return;
+    startX.current = e.touches[0].clientX;
     startY.current = e.touches[0].clientY;
     deltaY.current = 0;
+    isDismissGesture.current = false;
   };
 
-  const onTouchMove = (e: React.TouchEvent) => {
+  const onDismissTouchMove = (e: React.TouchEvent) => {
     if (viewerIndex !== null) return;
-    if (startY.current == null) return;
+    if (startY.current == null || startX.current == null) return;
+    const deltaX = e.touches[0].clientX - startX.current;
     deltaY.current = e.touches[0].clientY - startY.current;
-    if (deltaY.current > 0 && contentRef.current) {
+    if (deltaY.current > 12 && Math.abs(deltaX) < 36) {
+      isDismissGesture.current = true;
+    }
+    if (isDismissGesture.current && deltaY.current > 0 && contentRef.current) {
       contentRef.current.style.transform = `translateY(${Math.min(deltaY.current, 120)}px)`;
     }
   };
 
-  const onTouchEnd = () => {
+  const onDismissTouchEnd = () => {
     if (viewerIndex !== null) return;
-    if (deltaY.current > 80) {
+    if (isDismissGesture.current && deltaY.current > DISMISS_DRAG_THRESHOLD) {
       handleStartClose();
     }
     if (contentRef.current) {
       contentRef.current.style.transform = "";
     }
+    startX.current = null;
     startY.current = null;
     deltaY.current = 0;
+    isDismissGesture.current = false;
   };
 
   const possession = useMemo(() => {
@@ -141,10 +176,19 @@ export default function ProjectModal({
 
   useEffect(() => {
     if (open) {
+      hasFinishedClose.current = false;
       closeBtnRef.current?.focus();
       setIsClosing(false);
     }
   }, [open]);
+
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current != null) {
+        window.clearTimeout(closeTimerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (!open) {
@@ -189,20 +233,16 @@ export default function ProjectModal({
     return () => window.removeEventListener("keydown", onWindowKeyDown);
   }, [open, viewerIndex, mediaItems.length]);
 
-  const handleStartClose = () => {
-    setIsClosing(true);
-  };
-
   const handleAnimationEnd = () => {
     if (isClosing) {
-      onClose();
+      finishClose();
     }
   };
 
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex w-full items-stretch justify-center">
+    <div className="fixed inset-0 z-50 flex w-full items-stretch justify-center lg:p-6">
       <div
         className={`${isClosing ? "animate-fadeOut" : "animate-fadeIn"} absolute inset-0 bg-black/60`}
         onClick={handleStartClose}
@@ -210,10 +250,8 @@ export default function ProjectModal({
       />
       <div
         ref={contentRef}
-        className={`${isClosing ? "animate-scaleOut" : "animate-scaleIn"} relative z-10 flex h-full w-full flex-col overflow-hidden bg-background md:rounded-none lg:max-w-6xl lg:rounded-xl lg:shadow-2xl`}
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
+        className={`${isClosing ? "animate-scaleOut" : "animate-scaleIn"} relative z-10 flex h-dvh w-full flex-col overflow-hidden bg-background lg:h-full lg:max-w-6xl lg:rounded-xl lg:shadow-2xl`}
+        onAnimationEnd={handleAnimationEnd}
         onKeyDown={handleKeyDown}
         role="dialog"
         aria-modal="true"
@@ -257,7 +295,7 @@ export default function ProjectModal({
                   />
                 ) : null}
 
-                <div className="relative flex h-full w-full max-w-6xl items-center justify-center overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 shadow-2xl">
+                <div className="relative flex h-full w-full max-w-6xl items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-white/5 shadow-2xl md:rounded-[1.75rem]">
                   {viewerMedia.type === "image" ? (
                     <div className="relative h-full min-h-[18rem] w-full">
                       <Image
@@ -275,7 +313,7 @@ export default function ProjectModal({
                       controls
                       autoPlay
                       playsInline
-                      className="h-full max-h-full w-full rounded-[1.75rem] bg-black object-contain"
+                      className="h-full max-h-full w-full rounded-lg bg-black object-contain md:rounded-[1.75rem]"
                     >
                       <source src={viewerMedia.url} />
                     </video>
@@ -302,7 +340,7 @@ export default function ProjectModal({
                           key={`${media.url}-${index}`}
                           type="button"
                           onClick={() => goToMedia(index)}
-                          className={`group relative h-16 w-24 shrink-0 overflow-hidden rounded-2xl border transition ${
+                          className={`group relative h-16 w-24 shrink-0 overflow-hidden rounded-lg border transition ${
                             isActive
                               ? "border-white/70 ring-2 ring-white/35"
                               : "border-white/10 hover:border-white/35"
@@ -339,7 +377,12 @@ export default function ProjectModal({
 
         <span tabIndex={0} aria-hidden="true" />
 
-        <div className="sticky top-0 z-20 flex items-center justify-between gap-3 border-b bg-background/90 px-4 py-3 backdrop-blur md:px-5">
+        <div
+          className="sticky top-0 z-20 flex touch-pan-y items-center justify-between gap-3 border-b bg-background/90 px-4 py-3 backdrop-blur md:px-5"
+          onTouchStart={onDismissTouchStart}
+          onTouchMove={onDismissTouchMove}
+          onTouchEnd={onDismissTouchEnd}
+        >
           <div className="min-w-0">
             <h2 id="project-modal-title" className="truncate text-lg font-semibold">
               {data?.name || (loading ? "Loading project…" : error ? "Not found" : "Project Details")}
@@ -348,8 +391,8 @@ export default function ProjectModal({
           <button
             ref={closeBtnRef}
             onClick={handleStartClose}
-            onAnimationEnd={handleAnimationEnd}
-            aria-label="Close"
+            aria-label="Close project details"
+            type="button"
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border bg-background shadow-sm transition hover:bg-accent"
           >
             <CloseIcon />
@@ -372,20 +415,20 @@ export default function ProjectModal({
           )}
           {error && !loading && <div className="p-6 text-destructive">{error}</div>}
           {!loading && data && (
-            <div className="space-y-10 p-4 md:p-6">
+            <div className="space-y-8 p-4 md:space-y-10 md:p-6">
               <section>
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                   <div>
                     <h3 className="text-xl font-semibold">Project Overview</h3>
-                    <p className="mt-1 text-muted-foreground">{data.name} • {data.address}</p>
+                    <p className="mt-1 text-sm leading-6 text-muted-foreground sm:text-base">{data.name} • {data.address}</p>
                   </div>
                 </div>
-                <div className="mt-4 grid items-stretch gap-4 md:grid-cols-2">
-                  <div className="flex h-full flex-col md:min-h-[42rem] lg:min-h-[46rem]">
+                <div className="mt-4 grid min-w-0 items-stretch gap-4 md:grid-cols-2">
+                  <div className="flex h-full min-w-0 flex-col md:min-h-[42rem] lg:min-h-[46rem]">
                     {activeMedia ? (
                       <>
-                        <div className="flex-1 overflow-hidden rounded-[1.5rem] border bg-zinc-950 text-white shadow-lg">
-                          <div className="group relative h-full min-h-[20rem] sm:min-h-[24rem] md:min-h-[33rem] lg:min-h-[37rem]">
+                        <div className="min-w-0 flex-1 overflow-hidden rounded-lg border bg-zinc-950 text-white shadow-lg md:rounded-[1.5rem]">
+                          <div className="group relative h-full min-h-[18rem] sm:min-h-[24rem] md:min-h-[33rem] lg:min-h-[37rem]">
                             {activeMedia.type === "image" ? (
                               <>
                                 <Image
@@ -393,7 +436,7 @@ export default function ProjectModal({
                                   src={activeMedia.url}
                                   alt={`${data.name} media ${normalizedActiveIndex + 1}`}
                                   fill
-                                  className="object-contain bg-zinc-950 transition duration-500 group-hover:scale-[1.03]"
+                                  className="object-cover bg-zinc-950 transition duration-500 group-hover:scale-[1.03] md:object-contain"
                                   sizes="(max-width: 768px) 100vw, 50vw"
                                 />
                                 <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-3 bg-gradient-to-b from-black/60 via-black/15 to-transparent px-4 py-4">
@@ -466,7 +509,7 @@ export default function ProjectModal({
                             <button
                               type="button"
                               onClick={() => openViewerAt(normalizedActiveIndex)}
-                              className="inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition hover:bg-accent hover:text-accent-foreground"
+                              className="inline-flex min-h-10 items-center rounded-full border px-4 py-2 text-sm font-medium transition hover:bg-accent hover:text-accent-foreground"
                             >
                               View all media
                             </button>
@@ -482,7 +525,7 @@ export default function ProjectModal({
                                     key={`${media.url}-${index}`}
                                     type="button"
                                     onClick={() => setActiveMediaIndex(index)}
-                                    className={`group relative h-20 w-28 shrink-0 overflow-hidden rounded-2xl border transition ${
+                                    className={`group relative h-20 w-28 shrink-0 overflow-hidden rounded-lg border transition ${
                                       isActive
                                         ? "border-primary ring-2 ring-primary/20"
                                         : "border-border hover:border-foreground/20"
@@ -516,13 +559,13 @@ export default function ProjectModal({
                         </div>
                       </>
                     ) : (
-                      <div className="flex h-64 items-center justify-center rounded-[1.5rem] border border-dashed text-sm text-muted-foreground">
+                      <div className="flex h-64 items-center justify-center rounded-lg border border-dashed text-sm text-muted-foreground">
                         Project media will appear here.
                       </div>
                     )}
                   </div>
 
-                  <div className="flex h-full flex-col md:min-h-[42rem] lg:min-h-[46rem]">
+                  <div className="flex h-full min-w-0 flex-col md:min-h-[42rem] lg:min-h-[46rem]">
                     {data.coords ? (
                       <iframe
                         title="Google Map"
@@ -535,9 +578,9 @@ export default function ProjectModal({
                       <div className="flex h-full items-center justify-center rounded-lg border text-sm text-muted-foreground">Map not available</div>
                     )}
                     {!!data.landmarks?.length && (
-                      <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                      <ul className="mt-3 grid grid-cols-1 gap-x-4 gap-y-1 text-sm sm:grid-cols-2">
                         {data.landmarks.map((l, idx) => (
-                          <li key={idx} className="flex items-center justify-between border-b py-1 text-muted-foreground">
+                          <li key={idx} className="flex min-h-10 items-center justify-between gap-3 border-b py-1 text-muted-foreground">
                             <span className="mr-3 truncate">
                               {l.type}: {l.name}
                             </span>
@@ -552,10 +595,10 @@ export default function ProjectModal({
 
               <section>
                 <h3 className="text-xl font-semibold pt-10">Construction Status</h3>
-                <div className="mt-2 grid gap-4 md:grid-cols-3">
+                <div className="mt-3 grid gap-4 md:grid-cols-3">
                   <div className="rounded-lg border p-4">
                     <div className="text-sm text-muted-foreground">Current Stage</div>
-                    <div className="mt-1 font-medium">{data.status?.stage || "—"}</div>
+                    <div className="mt-1 font-medium">{data.status?.stage || "TBA"}</div>
                     <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-muted">
                       <div className="h-2 bg-primary" style={{ width: `${data.status?.progress ?? 0}%` }} />
                     </div>
@@ -578,12 +621,12 @@ export default function ProjectModal({
                   <div className="mt-3 grid gap-4 md:grid-cols-2">
                     {data.flats.map((f, idx) => (
                       <div key={idx} className="rounded-lg border p-4">
-                        <div className="flex items-baseline justify-between">
+                        <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
                           <div className="font-medium">{f.type}</div>
                           {f.unitsCount ? <div className="text-sm text-muted-foreground">{f.unitsCount} units</div> : null}
                         </div>
                         <div className="mt-1 text-sm text-muted-foreground">{f.areas.superBuiltUp} sqft</div>
-                        <dl className="mt-2 grid grid-cols-2 gap-2 text-sm">
+                        <dl className="mt-3 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
                           <div><dt className="text-muted-foreground">Carpet Area</dt><dd className="font-medium">{f.areas.carpet} sqft</dd></div>
                           <div><dt className="text-muted-foreground">Plinth Area</dt><dd className="font-medium">{(f.areas.plinthArea ?? f.areas.builtUp)} sqft</dd></div>
                           <div><dt className="text-muted-foreground">Super Built-up Area</dt><dd className="font-medium">{f.areas.superBuiltUp} sqft</dd></div>
@@ -592,7 +635,7 @@ export default function ProjectModal({
                           <div><dt className="text-muted-foreground">Balcony/View</dt><dd className="font-medium">{f.balcony.join(", ")}</dd></div>
                         </dl>
                         {f.floorPlans?.length ? (
-                          <div className="mt-3 grid grid-cols-2 gap-2">
+                          <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
                             {f.floorPlans.map((p, i) => (
                               <figure key={i} className="overflow-hidden rounded border relative aspect-[4/3] bg-white group/fp">
                                 <Image loading="lazy" src={p.url} alt={p.label} fill className="object-contain p-2" sizes="(max-width: 768px) 100vw, 50vw" />
@@ -615,11 +658,11 @@ export default function ProjectModal({
                     <ul className="mt-2 space-y-1 text-sm">
                       {data.pricing?.allInclusiveExample && (
                         <>
-                          <li className="flex justify-between"><span>Maintenance</span><span>₹ {data.pricing.allInclusiveExample.maintenance.toLocaleString()}</span></li>
-                          <li className="flex justify-between"><span>Parking</span><span>{data.pricing.allInclusiveExample.parking > 0 ? `₹ ${data.pricing.allInclusiveExample.parking.toLocaleString()}` : "Available"}</span></li>
-                          <li className="flex justify-between"><span>Membership Charges</span><span>₹ {data.pricing.allInclusiveExample.club.toLocaleString()}</span></li>
-                          <li className="flex justify-between"><span>GST</span><span>{data.pricing.allInclusiveExample.gstPercent}%</span></li>
-                          <li className="flex justify-between"><span>Registration</span><span>{data.pricing.allInclusiveExample.registrationPercent}%</span></li>
+                          <li className="flex justify-between gap-4"><span>Maintenance</span><span className="text-right">₹ {data.pricing.allInclusiveExample.maintenance.toLocaleString()}</span></li>
+                          <li className="flex justify-between gap-4"><span>Parking</span><span className="text-right">{data.pricing.allInclusiveExample.parking > 0 ? `₹ ${data.pricing.allInclusiveExample.parking.toLocaleString()}` : "Available"}</span></li>
+                          <li className="flex justify-between gap-4"><span>Membership Charges</span><span className="text-right">₹ {data.pricing.allInclusiveExample.club.toLocaleString()}</span></li>
+                          <li className="flex justify-between gap-4"><span>GST</span><span className="text-right">{data.pricing.allInclusiveExample.gstPercent}%</span></li>
+                          <li className="flex justify-between gap-4"><span>Registration</span><span className="text-right">{data.pricing.allInclusiveExample.registrationPercent}%</span></li>
                         </>
                       )}
                     </ul>
@@ -631,7 +674,7 @@ export default function ProjectModal({
                     <div className="rounded-lg border p-4">
                       <div className="text-sm text-muted-foreground">Payment schedule</div>
                       <div className="mt-3 overflow-x-auto rounded-md border">
-                        <table className="min-w-full border-collapse text-sm">
+                        <table className="min-w-[34rem] border-collapse text-sm">
                           <thead className="bg-muted/60">
                             <tr>
                               <th className="border-b px-3 py-2 text-left font-medium">No.</th>
@@ -667,9 +710,9 @@ export default function ProjectModal({
                 <div className="mt-3 grid gap-4 md:grid-cols-2">
                   <div className="rounded-lg border p-4">
                     <div className="text-sm text-muted-foreground">Building amenities</div>
-                    <ul className="mt-2 grid grid-cols-2 gap-2 text-sm">
+                    <ul className="mt-2 grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
                       {data.amenities?.map((a, i) => (
-                        <li key={i} className="rounded border px-2 py-1">{a}</li>
+                        <li key={i} className="min-h-10 rounded border px-3 py-2">{a}</li>
                       ))}
                     </ul>
                   </div>
@@ -707,7 +750,7 @@ export default function ProjectModal({
                     {!!data.legal?.documents?.length && (
                       <div className="mt-3 flex flex-wrap gap-2">
                         {data.legal.documents.map((d, i) => (
-                          <a key={i} href={d.url} target="_blank" rel="noopener noreferrer" className="rounded border px-3 py-1.5 text-sm hover:bg-accent">
+                          <a key={i} href={d.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-10 items-center rounded border px-3 py-1.5 text-sm hover:bg-accent">
                             {d.label}
                           </a>
                         ))}
@@ -720,8 +763,8 @@ export default function ProjectModal({
               <section>
                 <h3 className="text-xl font-semibold">Get in touch</h3>
                 <div className="mt-3 flex flex-col sm:flex-row gap-3">
-                  <Link href={`/contact?interest=${encodeURIComponent(data.name)}`} className="w-full sm:w-auto text-center rounded-md bg-primary px-4 py-2 text-primary-foreground">Book a Site Visit</Link>
-                  <Link href={`/contact?interest=${encodeURIComponent(data.name)}&type=callback`} className="w-full sm:w-auto text-center rounded-md border px-4 py-2">Request Call Back</Link>
+                  <Link href={`/contact?interest=${encodeURIComponent(data.name)}`} className="inline-flex min-h-11 w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-center text-primary-foreground sm:w-auto">Book a Site Visit</Link>
+                  <Link href={`/contact?interest=${encodeURIComponent(data.name)}&type=callback`} className="inline-flex min-h-11 w-full items-center justify-center rounded-md border px-4 py-2 text-center sm:w-auto">Request Call Back</Link>
                   <ShareButtons title={data.name} url={typeof window !== "undefined" ? window.location.href : ""} />
                 </div>
                 <QuickInquiry defaultInterest={data.name} />
@@ -858,13 +901,13 @@ function QuickInquiry({ defaultInterest }: { defaultInterest?: string }) {
   return (
     <form onSubmit={onSubmit} className="mt-4 grid gap-3 rounded-lg border p-4" aria-label="Quick inquiry form">
       <div className="grid gap-3 md:grid-cols-2">
-        <input aria-label="Name" required placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} className="rounded border px-3 py-2" />
-        <input aria-label="Email" required type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="rounded border px-3 py-2" />
-        <input aria-label="Phone" required placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} className="rounded border px-3 py-2 md:col-span-2" />
-        <textarea aria-label="Message" placeholder="Message" value={message} onChange={(e) => setMessage(e.target.value)} rows={3} className="rounded border px-3 py-2 md:col-span-2" />
+        <input aria-label="Name" required placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} className="min-h-12 rounded border px-3 py-2 text-base sm:text-sm" />
+        <input aria-label="Email" required type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="min-h-12 rounded border px-3 py-2 text-base sm:text-sm" />
+        <input aria-label="Phone" required type="tel" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} className="min-h-12 rounded border px-3 py-2 text-base sm:text-sm md:col-span-2" />
+        <textarea aria-label="Message" placeholder="Message" value={message} onChange={(e) => setMessage(e.target.value)} rows={3} className="rounded border px-3 py-2 text-base sm:text-sm md:col-span-2" />
       </div>
       <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-3">
-        <button disabled={submitting} className="w-full sm:w-auto justify-center inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-primary-foreground disabled:opacity-50">
+        <button type="submit" disabled={submitting} className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-primary-foreground disabled:opacity-50 sm:w-auto">
           {submitting && <span className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground/60 border-t-transparent" aria-hidden />}
           {submitting ? "Sending…" : "Send Inquiry"}
         </button>
@@ -888,9 +931,9 @@ function ShareButtons({ title, url }: { title: string; url: string }) {
   return (
     <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 w-full sm:w-auto">
       <div className="grid grid-cols-3 sm:flex gap-2 w-full sm:w-auto">
-        <button onClick={() => void share()} className="w-full text-center rounded border px-3 py-1.5 text-sm">Share</button>
-        <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="w-full text-center rounded border px-3 py-1.5 text-sm">WhatsApp</a>
-        <a href={mailto} className="w-full text-center rounded border px-3 py-1.5 text-sm">Email</a>
+        <button type="button" onClick={() => void share()} className="inline-flex min-h-11 w-full items-center justify-center rounded border px-3 py-1.5 text-sm">Share</button>
+        <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 w-full items-center justify-center rounded border px-3 py-1.5 text-sm">WhatsApp</a>
+        <a href={mailto} className="inline-flex min-h-11 w-full items-center justify-center rounded border px-3 py-1.5 text-sm">Email</a>
       </div>
     </div>
   );
@@ -911,6 +954,8 @@ function GalleryNavButton({
     <button
       type="button"
       onClick={onClick}
+      onTouchStart={(event) => event.stopPropagation()}
+      onTouchEnd={(event) => event.stopPropagation()}
       aria-label={label}
       className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-lg backdrop-blur transition hover:bg-black/70 ${className}`}
     >
